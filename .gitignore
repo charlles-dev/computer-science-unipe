@@ -1,0 +1,47 @@
+# ==========================================
+# Períodos Futuros (descomente conforme for avançando no curso)
+# ==========================================
+/periodo-2/
+/periodo-3/
+/periodo-4/
+/periodo-5/
+/periodo-6/
+/periodo-7/
+/periodo-8/
+
+# ==========================================
+# Ambientes e Dependências
+# ==========================================
+node_modules/
+.env
+.env*.local
+__pycache__/
+*.pyc
+.venv/
+env/
+venv/
+
+# ==========================================
+# Compilados e Binários
+# ==========================================
+*.exe
+*.o
+*.out
+*.obj
+*.class
+*.jar
+*.bin
+build/
+dist/
+bin/
+obj/
+
+# ==========================================
+# IDEs e Sistema Operacional
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

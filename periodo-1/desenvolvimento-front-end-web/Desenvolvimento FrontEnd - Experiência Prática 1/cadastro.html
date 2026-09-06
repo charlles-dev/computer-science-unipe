@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Inscrição de novos voluntários da ONG Esperança Viva com validações de dados no padrão brasileiro.">
+  <title>ONG Esperança Viva | Seja Voluntário</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header-principal">
+    <div class="header-container">
+      <a href="index.html" class="logo-link">
+        <img src="assets/img/logo.svg" alt="Logotipo da ONG Esperança Viva" width="340" height="70">
+      </a>
+      <nav class="nav-principal" aria-label="Navegação Principal">
+        <ul>
+          <li><a href="index.html" class="nav-link">Início</a></li>
+          <li><a href="projetos.html" class="nav-link">Projetos e Ações</a></li>
+          <li><a href="cadastro.html" class="nav-link nav-btn-cta" aria-current="page">Seja Voluntário</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="secao-bloco" id="cadastro-voluntario" aria-labelledby="titulo-cadastro">
+      <span class="badge-tag">Junte-se a Nós</span>
+      <h1 id="titulo-cadastro">Ficha de Inscrição de Novos Voluntários</h1>
+      <p class="lead">Doe seu tempo e carinho. Preencha seus dados para participar dos nossos mutirões e ações de acolhimento.</p>
+
+      <form action="/processar-cadastro" method="POST">
+        <!-- Grupo 1: Identificação -->
+        <fieldset>
+          <legend>1. Dados Pessoais</legend>
+          <div class="form-grid">
+            <div class="form-grupo campo-full">
+              <label for="nome">Nome Completo:</label>
+              <input type="text" id="nome" name="nome" required minlength="3" autocomplete="name" placeholder="Ex: Maria Pereira da Silva">
+            </div>
+
+            <div class="form-grupo">
+              <label for="nascimento">Data de Nascimento:</label>
+              <input type="date" id="nascimento" name="nascimento" required>
+            </div>
+
+            <div class="form-grupo">
+              <label for="cpf">CPF (apenas dígitos ou pontuado):</label>
+              <input type="text" id="cpf" name="cpf" required inputmode="numeric" placeholder="000.000.000-00" pattern="^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$" title="Digite um CPF válido com 11 dígitos, ex: 123.456.789-00 ou apenas números." autocomplete="off">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Grupo 2: Contatos -->
+        <fieldset>
+          <legend>2. Informações de Contato</legend>
+          <div class="form-grid">
+            <div class="form-grupo">
+              <label for="email">E-mail Principal:</label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="seuemail@exemplo.com">
+            </div>
+
+            <div class="form-grupo">
+              <label for="telefone">Telefone / WhatsApp (com DDD):</label>
+              <input type="tel" id="telefone" name="telefone" required inputmode="tel" placeholder="(83) 99999-9999" pattern="^\(?\d{2}\)?\s?(?:9\d{4}|\d{4})-?\d{4}$" title="Informe seu telefone com DDD, ex: (83) 98888-7777 ou 83988887777." autocomplete="tel">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Grupo 3: Endereço -->
+        <fieldset>
+          <legend>3. Endereço Residencial</legend>
+          <div class="form-grid">
+            <div class="form-grupo">
+              <label for="cep">CEP:</label>
+              <input type="text" id="cep" name="cep" required inputmode="numeric" placeholder="58000-000" maxlength="9" pattern="^\d{5}-?\d{3}$" title="Digite um CEP válido com 8 dígitos, ex: 58000-000." autocomplete="postal-code">
+            </div>
+
+            <div class="form-grupo campo-full">
+              <label for="logradouro">Logradouro / Rua:</label>
+              <input type="text" id="logradouro" name="logradouro" required autocomplete="address-line1" placeholder="Ex: Rua das Palmeiras">
+            </div>
+
+            <div class="form-grupo">
+              <label for="numero">Número:</label>
+              <input type="number" id="numero" name="numero" min="1" required placeholder="120">
+            </div>
+
+            <div class="form-grupo">
+              <label for="estado">Estado (UF):</label>
+              <select id="estado" name="estado" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="Outro">Outro Estado</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Grupo 4: Declarações -->
+        <fieldset>
+          <legend>4. Termos e Autorizações</legend>
+          <div class="checkbox-grupo">
+            <input type="checkbox" id="termos" name="termos" required>
+            <label for="termos">Declaro ter lido e concordo com os termos da Lei Geral de Proteção de Dados (LGPD) e diretrizes de voluntariado da ONG.</label>
+          </div>
+        </fieldset>
+
+        <div class="btn-acoes">
+          <button type="submit">Concluir Envio da Inscrição</button>
+          <button type="reset">Limpar Dados</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ONG Esperança Viva. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
