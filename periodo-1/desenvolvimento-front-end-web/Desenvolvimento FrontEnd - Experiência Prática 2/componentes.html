@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONG Esperança Viva | Componentes de Feedback</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .demo-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .demo-bloco {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header-principal">
+    <div class="header-container">
+      <a href="index.html" class="logo-link">
+        <img src="assets/img/logo.svg" alt="Logotipo da ONG Esperança Viva" width="240" height="50">
+      </a>
+      <span class="badge-tag badge-success">Ambiente de Demonstração</span>
+    </div>
+  </header>
+
+  <main class="demo-container">
+    <h1>Guia de Componentes de Feedback</h1>
+    <p class="lead">Exibição dos crachás semânticos (badges), caixas de alerta, modal acessível e notificações toast desenvolvidos para a plataforma.</p>
+
+    <!-- 1. Badges -->
+    <section class="demo-bloco">
+      <h2>1. Categorização por Etiquetas (Badges Semânticos)</h2>
+      <p>Utilizados para sinalizar o status de resgates, campanhas ativas e doações:</p>
+      <div class="badge-group">
+        <span class="badge-tag badge-success">Meta Atingida</span>
+        <span class="badge-tag badge-warning">Resgate Emergencial</span>
+        <span class="badge-tag badge-info">Programa Contínuo</span>
+        <span class="badge-tag badge-danger">Urgente</span>
+        <span class="badge-tag">Institucional</span>
+      </div>
+    </section>
+
+    <!-- 2. Alertas Contextuais -->
+    <section class="demo-bloco">
+      <h2>2. Caixas de Alerta Contextuais</h2>
+      
+      <div class="alerta alerta-sucesso">
+        <span class="alerta-icone">✔</span>
+        <div class="alerta-conteudo">
+          <strong>Cadastro Concluído com Sucesso!</strong>
+          Sua inscrição para voluntariado foi registrada. Nossa coordenação entrará em contato em até 48 horas.
+        </div>
+      </div>
+
+      <div class="alerta alerta-aviso">
+        <span class="alerta-icone">⚠</span>
+        <div class="alerta-conteudo">
+          <strong>Atenção: Vagas Limitadas para o Mutirão</strong>
+          Restam apenas 5 vagas para o mutirão de vacinação deste sábado.
+        </div>
+      </div>
+
+      <div class="alerta alerta-erro">
+        <span class="alerta-icone">✖</span>
+        <div class="alerta-conteudo">
+          <strong>Falha no Envio do Formulário</strong>
+          Verifique o preenchimento do CPF e do e-mail institucional antes de submeter novamente.
+        </div>
+      </div>
+
+      <div class="alerta alerta-info">
+        <span class="alerta-icone">ℹ</span>
+        <div class="alerta-conteudo">
+          <strong>Transparência nas Doações</strong>
+          Todos os valores arrecadados via PIX contam com relatórios financeiros mensais publicados no portal.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Modal de Confirmação de Doação PIX -->
+    <section class="demo-bloco">
+      <h2>3. Modal Acessível de Confirmação</h2>
+      <p>Exemplo da estrutura semântica da janela modal renderizada sobre o conteúdo:</p>
+      
+      <div style="position: relative; height: 320px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); margin-top: 1rem;">
+        <div class="modal-overlay" style="position: absolute; height: 100%; width: 100%;">
+          <div class="modal-card" style="padding: 1.5rem;">
+            <div class="modal-header">
+              <h3>Confirmar Doação via PIX</h3>
+              <button type="button" class="modal-fechar" aria-label="Fechar modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p>Você está prestes a apoiar o tratamento veterinário de 12 animais resgatados nesta semana.</p>
+              <p style="margin-top: 0.5rem;">Chave CNPJ: <strong>00.000.000/0001-00</strong></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" style="padding: 0.6rem 1.2rem; background: var(--border-light); border:none; border-radius: 8px; font-weight:600; cursor:pointer;">Cancelar</button>
+              <button type="button" style="padding: 0.6rem 1.4rem; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-weight:700; cursor:pointer;">Copiar Chave</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Toast Notification -->
+    <section class="demo-bloco">
+      <h2>4. Toast (Notificação Flutuante Não-Obstrutiva)</h2>
+      <p>Alerta posicionado no canto da tela informando ações assíncronas instantâneas:</p>
+      <div class="toast" style="margin-top: 1rem; position: relative;">
+        <span class="toast-icone">✔</span>
+        <div class="toast-mensagem">
+          <strong>Chave PIX Copiada com Sucesso!</strong>
+          <span>Cole no aplicativo do seu banco para concluir a contribuição.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

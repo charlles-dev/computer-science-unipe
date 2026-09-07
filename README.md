@@ -97,7 +97,7 @@ computer-science-unipe/
 | :--- | :---: | :---: | :---: |
 | **Algoritmos e Pensamento Computacional** | 90h | ⏳ Cursando | [Acessar](./periodo-1/algoritmos-pensamento-computacional) |
 | **Desenvolvimento Front-End para Web** | 90h | ⏳ Cursando | [Acessar](./periodo-1/desenvolvimento-front-end-web) |
-| **Design Profissional** | 90h | ⏳ Cursando | [Acessar](./periodo-1/design-profissional) |
+| **Design Profissional** | 90h | ✅ Concluído | [Acessar](./periodo-1/design-profissional) |
 | **Modelagem de Banco de Dados** | 90h | ⏳ Cursando | [Acessar](./periodo-1/modelagem-banco-dados) |
 
 <br/>

@@ -616,3 +616,52 @@ footer {
   to { transform: scale(1); opacity: 1; }
 }
 
+
+/* ==========================================================================
+   ADAPTAÇÃO CROMÁTICA: MODO ESCURO E ALTO CONTRASTE (WCAG AAA)
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-page: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-light: #334155;
+    --dark: #ffffff;
+    --primary: #10b981;
+    --primary-hover: #34d399;
+    --primary-light: #064e3b;
+    --primary-border: #059669;
+  }
+
+  .header-principal {
+    background: rgba(30, 41, 59, 0.95);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  input, select, textarea {
+    background: #0f172a;
+    color: #f1f5f9;
+    border-color: #334155;
+  }
+
+  .contato-card {
+    background: #0f172a;
+  }
+
+  .pix-box {
+    background: #064e3b;
+  }
+}
+
+/* Versão Forçada de Alto Contraste via Classe */
+body.alto-contraste {
+  --bg-page: #000000 !important;
+  --bg-card: #0a0a0a !important;
+  --text-main: #ffffff !important;
+  --text-muted: #e2e8f0 !important;
+  --border-light: #ffffff !important;
+  --dark: #ffff00 !important; /* Amarelo de contraste máximo para títulos */
+  --primary: #00ff66 !important;
+  --primary-hover: #33ff88 !important;
+}

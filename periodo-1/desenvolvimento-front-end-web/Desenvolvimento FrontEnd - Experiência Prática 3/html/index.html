@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma SPA da ONG Esperança Viva - Resgate e Proteção Animal.">
+  <title>ONG Esperança Viva | SPA</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="header-principal">
+    <div class="header-container">
+      <a href="#home" class="logo-link" data-link>
+        <img src="../assets/img/logo.svg" alt="Logotipo da ONG Esperança Viva" width="240" height="50">
+      </a>
+      <nav class="nav-principal" aria-label="Navegação Principal">
+        <ul>
+          <li><a href="#home" class="nav-link active" data-link>Início</a></li>
+          <li><a href="#projetos" class="nav-link" data-link>Projetos</a></li>
+          <li><a href="#cadastro" class="nav-link nav-btn-cta" data-link>Seja Voluntário</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Container dinâmico SPA onde as views serão injetadas -->
+  <main id="app-root" class="main-container" aria-live="polite">
+    <!-- Conteúdo injetado via router.js -->
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ONG Esperança Viva. CNPJ: 00.000.000/0001-00. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Biblioteca Externa: SweetAlert2 para modais e feedbacks acessíveis -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
