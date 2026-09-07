@@ -3,127 +3,356 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Repositório Acadêmico - Ciência da Computação (UNIPÊ)</title>
+  <title>Hub Acadêmico | Ciência da Computação UNIPÊ</title>
+  
+  <!-- HTMX: Reatividade declarativa sem boilerplate de React -->
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-card: #1f2937;
+      --border: #374151;
+      --border-focus: #38bdf8;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --accent: #10b981;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0f172a;
-      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem;
-    }
-    .hub-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      max-width: 640px;
-      width: 100%;
-      padding: 2.5rem;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
-    }
-    h1 {
-      font-size: 1.8rem;
-      color: #38bdf8;
-      margin-bottom: 0.75rem;
-    }
-    p.sub {
-      color: #94a3b8;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
+      padding: 3rem 1.5rem;
       line-height: 1.6;
     }
-    .disciplina-bloco {
-      margin-bottom: 1.5rem;
+
+    .container {
+      max-width: 820px;
+      width: 100%;
     }
-    .disciplina-bloco h2 {
-      font-size: 1.15rem;
-      color: #e2e8f0;
+
+    header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .badge-top {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(2, 132, 199, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       margin-bottom: 1rem;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 0.5rem;
     }
-    .lista-projetos {
-      list-style: none;
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Tabs / Navegação de Períodos via HTMX */
+    .periodo-tabs {
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.35rem;
+      margin-bottom: 2rem;
     }
-    .link-projeto {
+
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    /* Content Area */
+    .disciplina-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .disciplina-header {
+      display: flex;
       justify-content: space-between;
-      text-decoration: none;
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      color: #f1f5f9;
-      font-weight: 500;
-      transition: all 0.2s ease;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
     }
-    .link-projeto:hover {
-      border-color: #38bdf8;
-      background: #1e293b;
-      transform: translateX(4px);
-    }
-    .badge {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      background: #0369a1;
-      color: #e0f2fe;
+
+    .disciplina-header h2 {
+      font-size: 1.25rem;
       font-weight: 700;
+      color: #ffffff;
     }
-    footer {
-      margin-top: 2rem;
-      text-align: center;
+
+    .grid-praticas {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-praticas {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .card-pratica {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-pratica:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -5px rgba(2, 132, 199, 0.2);
+    }
+
+    .card-pratica-topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .pratica-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #38bdf8;
+    }
+
+    .tag-status {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .card-pratica h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-pratica p {
       font-size: 0.85rem;
-      color: #64748b;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-pratica-footer {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    .card-pratica:hover .card-pratica-footer span.arrow {
+      transform: translateX(4px);
+      transition: transform 0.2s ease;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="hub-card">
-    <h1>Portal Acadêmico | UNIPÊ</h1>
-    <p class="sub">Repositório de projetos práticos e atividades desenvolvidas ao longo da graduação em Ciência da Computação.</p>
+  <div class="container">
+    <header>
+      <span class="badge-top">Portfólio Universitário</span>
+      <h1>Ciência da Computação &bull; UNIPÊ</h1>
+      <p class="subtitle">Central de projetos, módulos e experiências práticas de desenvolvimento.</p>
+    </header>
 
-    <div class="disciplina-bloco">
-      <h2>Período 1 &bull; Desenvolvimento Front-End Web</h2>
-      <ul class="lista-projetos">
-        <li>
-          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
-            <span>Experiência Prática 1 (Estrutura HTML5)</span>
-            <span class="badge">Estático</span>
+    <!-- Barra de Controle HTMX para seleção de períodos/disciplinas -->
+    <nav class="periodo-tabs" role="tablist">
+      <button class="tab-btn active"
+              onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-get="#p1"
+              hx-target="#conteudo-dinamico"
+              hx-swap="innerHTML">
+        Período 1 &bull; Front-End
+      </button>
+      <button class="tab-btn"
+              onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-on:click="document.getElementById('conteudo-dinamico').innerHTML = `
+                <div style='text-align: center; padding: 3rem 1rem; color: var(--text-muted);'>
+                  <h3>Próximo Período em Breve</h3>
+                  <p style='margin-top: 0.5rem;'>Disciplinas de Backend, Estrutura de Dados e Bancos de Dados serão incorporadas neste espaço.</p>
+                </div>
+              `">
+        Período 2 &bull; Futuras Entregas
+      </button>
+    </nav>
+
+    <!-- Container Dinâmico HTMX -->
+    <main id="conteudo-dinamico">
+      <section class="disciplina-wrapper" id="p1">
+        <div class="disciplina-header">
+          <div>
+            <h2>Desenvolvimento Front-End Web</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Projetos práticos desenvolvidos para a ONG Esperança Viva</p>
+          </div>
+          <span class="tag-status" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">4 Projetos</span>
+        </div>
+
+        <div class="grid-praticas">
+          <!-- Prática 1 -->
+          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+            <div>
+              <div class="card-pratica-topo">
+                <span class="pratica-num">Prática 01</span>
+                <span class="tag-status">HTML5</span>
+              </div>
+              <h3>Estrutura Semântica</h3>
+              <p>Fundação W3C, tags semânticas, formulário temático e acessibilidade inicial.</p>
+            </div>
+            <div class="card-pratica-footer">
+              <span>Abrir Projeto</span>
+              <span class="arrow">&rarr;</span>
+            </div>
           </a>
-        </li>
-        <li>
-          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
-            <span>Experiência Prática 2 (Design System &amp; Grid)</span>
-            <span class="badge">Responsivo</span>
+
+          <!-- Prática 2 -->
+          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+            <div>
+              <div class="card-pratica-topo">
+                <span class="pratica-num">Prática 02</span>
+                <span class="tag-status">CSS Grid</span>
+              </div>
+              <h3>Design System &amp; Grid</h3>
+              <p>Variáveis :root, 12 colunas, Flexbox microscópico e componentes de feedback.</p>
+            </div>
+            <div class="card-pratica-footer">
+              <span>Abrir Projeto</span>
+              <span class="arrow">&rarr;</span>
+            </div>
           </a>
-        </li>
-        <li>
-          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
-            <span>Experiência Prática 3 (Arquitetura SPA &amp; Storage)</span>
-            <span class="badge">SPA</span>
+
+          <!-- Prática 3 -->
+          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+            <div>
+              <div class="card-pratica-topo">
+                <span class="pratica-num">Prática 03</span>
+                <span class="tag-status">SPA</span>
+              </div>
+              <h3>Arquitetura SPA &amp; Storage</h3>
+              <p>Roteamento em hash, templates com Template Literals e persistência em localStorage.</p>
+            </div>
+            <div class="card-pratica-footer">
+              <span>Abrir Projeto</span>
+              <span class="arrow">&rarr;</span>
+            </div>
           </a>
-        </li>
-        <li>
-          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
-            <span>Experiência Prática 4 (Acessibilidade &amp; Produção)</span>
-            <span class="badge">Produção</span>
+
+          <!-- Prática 4 -->
+          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+            <div>
+              <div class="card-pratica-topo">
+                <span class="pratica-num">Prática 04</span>
+                <span class="tag-status" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Produção</span>
+              </div>
+              <h3>Acessibilidade &amp; Deploy</h3>
+              <p>Conformidade WCAG 2.1 (AA/AAA), modo escuro, minificação e publicação contínua.</p>
+            </div>
+            <div class="card-pratica-footer">
+              <span>Abrir Projeto</span>
+              <span class="arrow">&rarr;</span>
+            </div>
           </a>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </section>
+    </main>
 
     <footer>
-      &copy; Charlles Dev &bull; Ciência da Computação UNIPÊ
+      &copy; 2026 Charlles Dev &bull; Ciência da Computação UNIPÊ &bull; Construído com HTMX
     </footer>
   </div>
 </body>
