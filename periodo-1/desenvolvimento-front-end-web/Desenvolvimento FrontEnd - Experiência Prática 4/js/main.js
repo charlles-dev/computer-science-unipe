@@ -258,8 +258,6 @@
     const root = document.getElementById('app-root');
     if (!root) return;
 
-    // 2. Event Delegation para SUBMIT em formulários dinâmicos
-    root.addEventListener('submit', function(event) {
     // Função auxiliar para exibir/remover erro visual e mensagem injetada no DOM
     function setCampoFeedback(campo, valido, mensagemErro = '') {
       const grupo = campo.closest('.form-grupo') || campo.parentElement;
