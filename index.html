@@ -3,28 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Charlles &mdash; Ciência da Computação UNIPÊ</title>
+  <title>UNIPÊ &mdash; Ciência da Computação | Repositório Acadêmico</title>
 
-  <!-- HTMX para interatividade declarativa -->
+  <!-- HTMX -->
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-  <!-- Tipografia Editorial Técnica: Geist / Inter + JetBrains Mono -->
+  <!-- Tipografia Institucional / Técnica -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #090a0f;
-      --panel: #0d0f17;
-      --border: #1a1e2e;
-      --border-hover: #2e344e;
-      --text: #e2e8f0;
-      --text-muted: #64748b;
-      --text-subtle: #475569;
-      --accent: #22c55e;
-      --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+      /* Paleta Institucional UNIPÊ (Cruzeiro do Sul Educacional) */
+      --unipe-blue: #002d62;         /* Azul Marinho Institucional Unipê */
+      --unipe-blue-dark: #001f44;    /* Azul Profundo */
+      --unipe-yellow: #f5a800;       /* Amarelo Ouro / Destaque Unipê */
+      --unipe-yellow-light: #fff8e7; /* Fundo suave amarelo */
+      --unipe-blue-light: #e8f0fe;   /* Realce azul sutil */
+      
+      /* Neutros & Superfície */
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+      
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,202 +43,287 @@
       font-family: var(--font-sans);
       line-height: 1.5;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
 
-    .layout {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
+    /* Faixa Superior Institucional UNIPÊ */
+    .top-stripe {
+      height: 6px;
+      background: linear-gradient(90deg, var(--unipe-blue) 0%, var(--unipe-blue) 75%, var(--unipe-yellow) 75%, var(--unipe-yellow) 100%);
     }
 
-    /* Header Estilo Engenharia / Minimalista */
-    header {
+    /* Header Institucional */
+    .header-unipe {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .header-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 2.5rem;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .brand-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    /* Monograma Estilizado UNIPÊ */
+    .unipe-logo-badge {
+      background: var(--unipe-blue);
       color: #ffffff;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 2px 4px rgba(0, 45, 98, 0.2);
     }
 
-    .brand-sub {
-      font-family: var(--font-mono);
+    .unipe-logo-badge span.dot {
+      color: var(--unipe-yellow);
+    }
+
+    .brand-text h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--unipe-blue);
+      line-height: 1.2;
+    }
+
+    .brand-text p {
       font-size: 0.8rem;
+      color: var(--text-subtle);
+    }
+
+    .student-badge {
+      font-family: var(--font-mono);
+      font-size: 0.775rem;
+      color: var(--unipe-blue);
+      background: var(--unipe-blue-light);
+      border: 1px solid #bfdbfe;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .student-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--unipe-yellow);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1040px;
+      width: 100%;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+    }
+
+    /* Banner da Disciplina */
+    .discipline-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--unipe-blue);
+      border-radius: 8px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .discipline-info h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--unipe-blue);
+      letter-spacing: -0.02em;
+    }
+
+    .discipline-info p {
+      font-size: 0.9rem;
       color: var(--text-muted);
       margin-top: 0.25rem;
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: #94a3b8;
-      background: #0f1320;
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
-    }
-
-    /* Filtros / Abas HTMX */
-    .nav-filters {
+    /* Abas de Navegação HTMX */
+    .filter-tabs {
       display: flex;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.75rem;
+      background: #f1f5f9;
+      padding: 0.3rem;
+      border-radius: 8px;
+      width: fit-content;
     }
 
-    .filter-btn {
+    .tab-item {
       background: transparent;
-      border: 1px solid transparent;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      padding: 0.4rem 0.85rem;
+      padding: 0.45rem 1rem;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
-    .filter-btn:hover {
-      color: #ffffff;
-      background: #131726;
+    .tab-item:hover {
+      color: var(--unipe-blue);
     }
 
-    .filter-btn.active {
-      color: #ffffff;
-      background: #161b2e;
-      border-color: var(--border-hover);
+    .tab-item.active {
+      background: var(--surface);
+      color: var(--unipe-blue);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    /* Grid / Tabela de Projetos Técnica */
-    .module-header {
+    /* Grade de Projetos Acadêmicos */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 680px) {
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: #93c5fd;
+      box-shadow: 0 8px 16px -4px rgba(0, 45, 98, 0.08);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--border);
+      transition: background 0.2s ease;
+    }
+
+    .project-card:hover::before {
+      background: var(--unipe-yellow);
+    }
+
+    .card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .module-name {
+    .tag-pratica {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--text-subtle);
-    }
-
-    .project-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .project-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 1.25rem;
-      padding: 1rem 1.25rem;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
-    }
-
-    .project-row:hover {
-      border-color: var(--border-hover);
-      background: #111422;
-    }
-
-    .p-code {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: #38bdf8;
-      min-width: 48px;
-    }
-
-    .p-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      min-width: 0;
-    }
-
-    .p-title {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .p-desc {
-      font-size: 0.825rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .p-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .tag-stack {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: #94a3b8;
-      background: #090b12;
-      border: 1px solid var(--border);
-      padding: 0.2rem 0.5rem;
+      font-weight: 700;
+      color: var(--unipe-blue);
+      background: var(--unipe-blue-light);
+      padding: 0.2rem 0.55rem;
       border-radius: 4px;
     }
 
-    .p-arrow {
-      color: var(--text-subtle);
-      font-size: 0.9rem;
-      transition: transform 0.15s ease, color 0.15s ease;
-    }
-
-    .project-row:hover .p-arrow {
-      color: #ffffff;
-      transform: translateX(3px);
-    }
-
-    /* Terminal / Code Log Footer */
-    .system-log {
-      margin-top: 3.5rem;
-      padding: 1.25rem 1.5rem;
-      background: #06070a;
-      border: 1px solid #141724;
-      border-radius: 8px;
+    .tag-periodo {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-subtle);
+    }
+
+    .project-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+
+    .project-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .card-action {
+      margin-top: 1.5rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--unipe-blue);
+    }
+
+    .card-action span.arrow {
+      transition: transform 0.2s ease;
+      color: var(--unipe-yellow);
+      font-size: 1.1rem;
+    }
+
+    .project-card:hover .card-action span.arrow {
+      transform: translateX(4px);
+    }
+
+    /* Footer Institucional */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+    }
+
+    .footer-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -238,138 +331,154 @@
       gap: 1rem;
     }
 
-    .system-log a {
-      color: #94a3b8;
+    .footer-container a {
+      color: var(--unipe-blue);
       text-decoration: none;
-      transition: color 0.15s ease;
+      font-weight: 600;
     }
 
-    .system-log a:hover {
-      color: #ffffff;
+    .footer-container a:hover {
       text-decoration: underline;
-    }
-
-    @media (max-width: 640px) {
-      .project-row {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-      }
-      .p-meta {
-        justify-content: space-between;
-      }
-      header {
-        flex-direction: column;
-        gap: 1rem;
-      }
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <header>
-      <div>
-        <h1 class="brand-title">Charlles Augusto</h1>
-        <p class="brand-sub">B.S. in Computer Science &bull; UNIPÊ (2026)</p>
-      </div>
-      <div class="status-badge">
-        <span class="status-dot"></span>
-        <span>github.io / live</span>
-      </div>
-    </header>
+  <div class="top-stripe"></div>
 
-    <!-- Filtros HTMX (Simples, declarativo e rápido) -->
-    <nav class="nav-filters" role="tablist">
-      <button class="filter-btn active"
-              onclick="document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-get="#sem-1"
-              hx-target="#view-container"
+  <!-- Cabeçalho Oficial no Padrão UNIPÊ -->
+  <header class="header-unipe">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="unipe-logo-badge">
+          UNIPÊ<span class="dot">&bull;</span>
+        </div>
+        <div class="brand-text">
+          <h1>Centro Universitário de João Pessoa</h1>
+          <p>Bacharelado em Ciência da Computação &bull; Repositório Acadêmico</p>
+        </div>
+      </div>
+
+      <div class="student-badge">
+        <span>Aluno: Charlles Augusto</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Cartão de Destaque da Disciplina -->
+    <section class="discipline-banner">
+      <div class="discipline-info">
+        <h2>Desenvolvimento Front-End Web</h2>
+        <p>Projeto de Extensão Curricular: Plataforma Digital para a <strong>ONG Esperança Viva</strong></p>
+      </div>
+      <div>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600;">
+          4 Módulos Concluídos &bull; 100%
+        </span>
+      </div>
+    </section>
+
+    <!-- Controle de Visualização com HTMX -->
+    <div class="filter-tabs" role="tablist">
+      <button class="tab-item active"
+              onclick="document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-get="#modulos"
+              hx-target="#painel-modulos"
               hx-swap="innerHTML">
-        01_frontend_web
+        Módulos Curriculares
       </button>
-      <button class="filter-btn"
-              onclick="document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-on:click="document.getElementById('view-container').innerHTML = `
-                <div style='padding: 3rem 1rem; text-align: center; font-family: var(--font-mono); color: var(--text-subtle); font-size: 0.85rem;'>
-                  // 02_backend_data: Repositório em preparação para o próximo ciclo letivo.
+      <button class="tab-item"
+              onclick="document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-on:click="document.getElementById('painel-modulos').innerHTML = `
+                <div style='background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 3rem 1.5rem; text-align: center; color: var(--text-subtle);'>
+                  <h3 style='color: var(--unipe-blue); margin-bottom: 0.5rem;'>Próximos Períodos em Planejamento</h3>
+                  <p>As futuras disciplinas de Engenharia de Software, Backend e Algoritmos serão listadas automaticamente conforme avanço letivo.</p>
                 </div>
               `">
-        02_backend_data (pending)
+        Planejamento de Períodos
       </button>
-    </nav>
+    </div>
 
-    <!-- Conteúdo Dinâmico HTMX -->
-    <main id="view-container">
-      <section id="sem-1">
-        <div class="module-header">
-          <span class="module-name">Disciplina: Desenvolvimento Front-End Web</span>
-          <span class="module-name">4 Artefatos</span>
-        </div>
+    <!-- Lista de Entregas Práticas -->
+    <div id="painel-modulos">
+      <div class="project-grid" id="modulos">
+        <!-- Prática 1 -->
+        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+          <div>
+            <div class="card-top">
+              <span class="tag-pratica">Experiência Prática 1</span>
+              <span class="tag-periodo">P1 &bull; 2026</span>
+            </div>
+            <h3>Fundação Semântica &amp; Estrutura W3C</h3>
+            <p>Marcação pura HTML5, validação estrita, formulário modular com fieldsets temáticos e acessibilidade inicial.</p>
+          </div>
+          <div class="card-action">
+            <span>Visualizar Entrega</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </a>
 
-        <div class="project-list">
-          <!-- EP 01 -->
-          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
-            <span class="p-code">EP_01</span>
-            <div class="p-info">
-              <span class="p-title">Arquitetura Semântica &amp; Acessibilidade Base</span>
-              <span class="p-desc">Estruturação semântica HTML5, validação W3C, formulário com fieldsets e metadados.</span>
+        <!-- Prática 2 -->
+        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+          <div>
+            <div class="card-top">
+              <span class="tag-pratica">Experiência Prática 2</span>
+              <span class="tag-periodo">P1 &bull; 2026</span>
             </div>
-            <div class="p-meta">
-              <span class="tag-stack">HTML5 / WCAG</span>
-              <span class="p-arrow">&rarr;</span>
-            </div>
-          </a>
+            <h3>Design System, CSS Grid &amp; Feedback</h3>
+            <p>Tokens visuais em :root, grid bidimensional de 12 colunas, 5 breakpoints @media e vitrine de componentes de retorno.</p>
+          </div>
+          <div class="card-action">
+            <span>Visualizar Entrega</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </a>
 
-          <!-- EP 02 -->
-          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
-            <span class="p-code">EP_02</span>
-            <div class="p-info">
-              <span class="p-title">Design System, CSS Grid &amp; Micro-interações</span>
-              <span class="p-desc">Tokens de design (:root), grid de 12 colunas, 5 breakpoints e componentes de feedback.</span>
+        <!-- Prática 3 -->
+        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+          <div>
+            <div class="card-top">
+              <span class="tag-pratica">Experiência Prática 3</span>
+              <span class="tag-periodo">P1 &bull; 2026</span>
             </div>
-            <div class="p-meta">
-              <span class="tag-stack">CSS3 / Grid</span>
-              <span class="p-arrow">&rarr;</span>
-            </div>
-          </a>
+            <h3>Single Page Application &amp; Reatividade</h3>
+            <p>Roteamento por hash, injeção atômica via Template Literals, persistência em localStorage e Event Delegation.</p>
+          </div>
+          <div class="card-action">
+            <span>Visualizar Entrega</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </a>
 
-          <!-- EP 03 -->
-          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
-            <span class="p-code">EP_03</span>
-            <div class="p-info">
-              <span class="p-title">Single Page Application, Templates &amp; Storage</span>
-              <span class="p-desc">Roteador em hash, renderização via Template Literals, persistência em localStorage e Event Delegation.</span>
+        <!-- Prática 4 -->
+        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+          <div>
+            <div class="card-top">
+              <span class="tag-pratica">Experiência Prática 4</span>
+              <span class="tag-periodo">P1 &bull; 2026</span>
             </div>
-            <div class="p-meta">
-              <span class="tag-stack">Vanilla JS / SPA</span>
-              <span class="p-arrow">&rarr;</span>
-            </div>
-          </a>
+            <h3>Acessibilidade WCAG, Bundler &amp; Produção</h3>
+            <p>Adequação WCAG 2.1 (AA/AAA), dark mode nativo, minificação com Vite/esbuild e deploy contínuo em produção.</p>
+          </div>
+          <div class="card-action">
+            <span>Visualizar Entrega</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </main>
 
-          <!-- EP 04 -->
-          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
-            <span class="p-code">EP_04</span>
-            <div class="p-info">
-              <span class="p-title">Otimização para Produção, A11y &amp; CI/CD</span>
-              <span class="p-desc">Conformidade WCAG 2.1 (AA/AAA), dark mode nativo, bundler com esbuild/Vite e deploy no Pages.</span>
-            </div>
-            <div class="p-meta">
-              <span class="tag-stack">Vite / A11y / Deploy</span>
-              <span class="p-arrow">&rarr;</span>
-            </div>
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <!-- Rodapé Técnico Estilo Engenharia de Software -->
-    <footer class="system-log">
+  <!-- Rodapé Institucional -->
+  <footer>
+    <div class="footer-container">
       <div>
-        <span>repo: <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">charlles-dev/computer-science-unipe</a></span>
+        <span>Centro Universitário de João Pessoa &bull; UNIPÊ (Cruzeiro do Sul Educacional)</span>
       </div>
       <div>
-        <span>stack: htmx &bull; vanilla &bull; github-actions</span>
+        <span>Repositório GitHub: <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">charlles-dev/computer-science-unipe</a></span>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 </body>
 </html>
