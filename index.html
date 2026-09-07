@@ -3,356 +3,372 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub Acadêmico | Ciência da Computação UNIPÊ</title>
-  
-  <!-- HTMX: Reatividade declarativa sem boilerplate de React -->
+  <title>Charlles &mdash; Ciência da Computação UNIPÊ</title>
+
+  <!-- HTMX para interatividade declarativa -->
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-  <!-- Google Fonts: Inter -->
+
+  <!-- Tipografia Editorial Técnica: Geist / Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0b0f19;
-      --surface: #111827;
-      --surface-card: #1f2937;
-      --border: #374151;
-      --border-focus: #38bdf8;
-      --text: #f9fafb;
-      --text-muted: #9ca3af;
-      --primary: #0284c7;
-      --primary-hover: #0369a1;
-      --accent: #10b981;
+      --bg: #090a0f;
+      --panel: #0d0f17;
+      --border: #1a1e2e;
+      --border-hover: #2e344e;
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --text-subtle: #475569;
+      --accent: #22c55e;
+      --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.5;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1.5rem;
-      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 820px;
-      width: 100%;
+    .layout {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
     }
 
+    /* Header Estilo Engenharia / Minimalista */
     header {
-      margin-bottom: 2.5rem;
-      text-align: center;
-    }
-
-    .badge-top {
-      display: inline-block;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(2, 132, 199, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-    }
-
-    /* Tabs / Navegação de Períodos via HTMX */
-    .periodo-tabs {
-      display: flex;
-      gap: 0.5rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.35rem;
-      margin-bottom: 2rem;
-    }
-
-    .tab-btn {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .tab-btn:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-    }
-
-    /* Content Area */
-    .disciplina-wrapper {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-      animation: fadeIn 0.25s ease-in-out;
-    }
-
-    .disciplina-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1rem;
-    }
-
-    .disciplina-header h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .grid-praticas {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (min-width: 640px) {
-      .grid-praticas {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .card-pratica {
-      background: var(--surface-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-pratica:hover {
-      border-color: var(--border-focus);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 20px -5px rgba(2, 132, 199, 0.2);
-    }
-
-    .card-pratica-topo {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 0.75rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
     }
 
-    .pratica-num {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #38bdf8;
-    }
-
-    .tag-status {
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .card-pratica h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: #ffffff;
-      margin-bottom: 0.5rem;
     }
 
-    .card-pratica p {
-      font-size: 0.85rem;
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      margin-top: 0.25rem;
     }
 
-    .card-pratica-footer {
-      margin-top: 1.25rem;
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #0f1320;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+    }
+
+    /* Filtros / Abas HTMX */
+    .nav-filters {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover {
+      color: #ffffff;
+      background: #131726;
+    }
+
+    .filter-btn.active {
+      color: #ffffff;
+      background: #161b2e;
+      border-color: var(--border-hover);
+    }
+
+    /* Grid / Tabela de Projetos Técnica */
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .module-name {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+    }
+
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .project-row:hover {
+      border-color: var(--border-hover);
+      background: #111422;
+    }
+
+    .p-code {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #38bdf8;
+      min-width: 48px;
+    }
+
+    .p-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+
+    .p-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #ffffff;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #38bdf8;
+      gap: 0.5rem;
     }
 
-    .card-pratica:hover .card-pratica-footer span.arrow {
-      transform: translateX(4px);
-      transition: transform 0.2s ease;
-    }
-
-    footer {
-      margin-top: 3.5rem;
-      text-align: center;
-      font-size: 0.875rem;
+    .p-desc {
+      font-size: 0.825rem;
       color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    .p-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .tag-stack {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #94a3b8;
+      background: #090b12;
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .p-arrow {
+      color: var(--text-subtle);
+      font-size: 0.9rem;
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+
+    .project-row:hover .p-arrow {
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    /* Terminal / Code Log Footer */
+    .system-log {
+      margin-top: 3.5rem;
+      padding: 1.25rem 1.5rem;
+      background: #06070a;
+      border: 1px solid #141724;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .system-log a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .system-log a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .project-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      .p-meta {
+        justify-content: space-between;
+      }
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="layout">
     <header>
-      <span class="badge-top">Portfólio Universitário</span>
-      <h1>Ciência da Computação &bull; UNIPÊ</h1>
-      <p class="subtitle">Central de projetos, módulos e experiências práticas de desenvolvimento.</p>
+      <div>
+        <h1 class="brand-title">Charlles Augusto</h1>
+        <p class="brand-sub">B.S. in Computer Science &bull; UNIPÊ (2026)</p>
+      </div>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>github.io / live</span>
+      </div>
     </header>
 
-    <!-- Barra de Controle HTMX para seleção de períodos/disciplinas -->
-    <nav class="periodo-tabs" role="tablist">
-      <button class="tab-btn active"
-              onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-get="#p1"
-              hx-target="#conteudo-dinamico"
+    <!-- Filtros HTMX (Simples, declarativo e rápido) -->
+    <nav class="nav-filters" role="tablist">
+      <button class="filter-btn active"
+              onclick="document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-get="#sem-1"
+              hx-target="#view-container"
               hx-swap="innerHTML">
-        Período 1 &bull; Front-End
+        01_frontend_web
       </button>
-      <button class="tab-btn"
-              onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-on:click="document.getElementById('conteudo-dinamico').innerHTML = `
-                <div style='text-align: center; padding: 3rem 1rem; color: var(--text-muted);'>
-                  <h3>Próximo Período em Breve</h3>
-                  <p style='margin-top: 0.5rem;'>Disciplinas de Backend, Estrutura de Dados e Bancos de Dados serão incorporadas neste espaço.</p>
+      <button class="filter-btn"
+              onclick="document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-on:click="document.getElementById('view-container').innerHTML = `
+                <div style='padding: 3rem 1rem; text-align: center; font-family: var(--font-mono); color: var(--text-subtle); font-size: 0.85rem;'>
+                  // 02_backend_data: Repositório em preparação para o próximo ciclo letivo.
                 </div>
               `">
-        Período 2 &bull; Futuras Entregas
+        02_backend_data (pending)
       </button>
     </nav>
 
-    <!-- Container Dinâmico HTMX -->
-    <main id="conteudo-dinamico">
-      <section class="disciplina-wrapper" id="p1">
-        <div class="disciplina-header">
-          <div>
-            <h2>Desenvolvimento Front-End Web</h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Projetos práticos desenvolvidos para a ONG Esperança Viva</p>
-          </div>
-          <span class="tag-status" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">4 Projetos</span>
+    <!-- Conteúdo Dinâmico HTMX -->
+    <main id="view-container">
+      <section id="sem-1">
+        <div class="module-header">
+          <span class="module-name">Disciplina: Desenvolvimento Front-End Web</span>
+          <span class="module-name">4 Artefatos</span>
         </div>
 
-        <div class="grid-praticas">
-          <!-- Prática 1 -->
-          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
-            <div>
-              <div class="card-pratica-topo">
-                <span class="pratica-num">Prática 01</span>
-                <span class="tag-status">HTML5</span>
-              </div>
-              <h3>Estrutura Semântica</h3>
-              <p>Fundação W3C, tags semânticas, formulário temático e acessibilidade inicial.</p>
+        <div class="project-list">
+          <!-- EP 01 -->
+          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+            <span class="p-code">EP_01</span>
+            <div class="p-info">
+              <span class="p-title">Arquitetura Semântica &amp; Acessibilidade Base</span>
+              <span class="p-desc">Estruturação semântica HTML5, validação W3C, formulário com fieldsets e metadados.</span>
             </div>
-            <div class="card-pratica-footer">
-              <span>Abrir Projeto</span>
-              <span class="arrow">&rarr;</span>
+            <div class="p-meta">
+              <span class="tag-stack">HTML5 / WCAG</span>
+              <span class="p-arrow">&rarr;</span>
             </div>
           </a>
 
-          <!-- Prática 2 -->
-          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
-            <div>
-              <div class="card-pratica-topo">
-                <span class="pratica-num">Prática 02</span>
-                <span class="tag-status">CSS Grid</span>
-              </div>
-              <h3>Design System &amp; Grid</h3>
-              <p>Variáveis :root, 12 colunas, Flexbox microscópico e componentes de feedback.</p>
+          <!-- EP 02 -->
+          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+            <span class="p-code">EP_02</span>
+            <div class="p-info">
+              <span class="p-title">Design System, CSS Grid &amp; Micro-interações</span>
+              <span class="p-desc">Tokens de design (:root), grid de 12 colunas, 5 breakpoints e componentes de feedback.</span>
             </div>
-            <div class="card-pratica-footer">
-              <span>Abrir Projeto</span>
-              <span class="arrow">&rarr;</span>
+            <div class="p-meta">
+              <span class="tag-stack">CSS3 / Grid</span>
+              <span class="p-arrow">&rarr;</span>
             </div>
           </a>
 
-          <!-- Prática 3 -->
-          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
-            <div>
-              <div class="card-pratica-topo">
-                <span class="pratica-num">Prática 03</span>
-                <span class="tag-status">SPA</span>
-              </div>
-              <h3>Arquitetura SPA &amp; Storage</h3>
-              <p>Roteamento em hash, templates com Template Literals e persistência em localStorage.</p>
+          <!-- EP 03 -->
+          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+            <span class="p-code">EP_03</span>
+            <div class="p-info">
+              <span class="p-title">Single Page Application, Templates &amp; Storage</span>
+              <span class="p-desc">Roteador em hash, renderização via Template Literals, persistência em localStorage e Event Delegation.</span>
             </div>
-            <div class="card-pratica-footer">
-              <span>Abrir Projeto</span>
-              <span class="arrow">&rarr;</span>
+            <div class="p-meta">
+              <span class="tag-stack">Vanilla JS / SPA</span>
+              <span class="p-arrow">&rarr;</span>
             </div>
           </a>
 
-          <!-- Prática 4 -->
-          <a class="card-pratica" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
-            <div>
-              <div class="card-pratica-topo">
-                <span class="pratica-num">Prática 04</span>
-                <span class="tag-status" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Produção</span>
-              </div>
-              <h3>Acessibilidade &amp; Deploy</h3>
-              <p>Conformidade WCAG 2.1 (AA/AAA), modo escuro, minificação e publicação contínua.</p>
+          <!-- EP 04 -->
+          <a class="project-row" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+            <span class="p-code">EP_04</span>
+            <div class="p-info">
+              <span class="p-title">Otimização para Produção, A11y &amp; CI/CD</span>
+              <span class="p-desc">Conformidade WCAG 2.1 (AA/AAA), dark mode nativo, bundler com esbuild/Vite e deploy no Pages.</span>
             </div>
-            <div class="card-pratica-footer">
-              <span>Abrir Projeto</span>
-              <span class="arrow">&rarr;</span>
+            <div class="p-meta">
+              <span class="tag-stack">Vite / A11y / Deploy</span>
+              <span class="p-arrow">&rarr;</span>
             </div>
           </a>
         </div>
       </section>
     </main>
 
-    <footer>
-      &copy; 2026 Charlles Dev &bull; Ciência da Computação UNIPÊ &bull; Construído com HTMX
+    <!-- Rodapé Técnico Estilo Engenharia de Software -->
+    <footer class="system-log">
+      <div>
+        <span>repo: <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">charlles-dev/computer-science-unipe</a></span>
+      </div>
+      <div>
+        <span>stack: htmx &bull; vanilla &bull; github-actions</span>
+      </div>
     </footer>
   </div>
 </body>
