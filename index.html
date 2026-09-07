@@ -3,482 +3,620 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNIPÊ &mdash; Ciência da Computação | Repositório Acadêmico</title>
+  <title>Área do Aluno | UNIPÊ &mdash; Ciência da Computação</title>
 
-  <!-- HTMX -->
+  <!-- HTMX para navegação dinâmica sem recarregamento -->
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-  <!-- Tipografia Institucional / Técnica -->
+  <!-- Google Fonts: Roboto e Rawline/Inter (família oficial dos portais Cruzeiro do Sul / UNIPÊ) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* Paleta Institucional UNIPÊ (Cruzeiro do Sul Educacional) */
-      --unipe-blue: #002d62;         /* Azul Marinho Institucional Unipê */
-      --unipe-blue-dark: #001f44;    /* Azul Profundo */
-      --unipe-yellow: #f5a800;       /* Amarelo Ouro / Destaque Unipê */
-      --unipe-yellow-light: #fff8e7; /* Fundo suave amarelo */
-      --unipe-blue-light: #e8f0fe;   /* Realce azul sutil */
+      /* Identidade Visual Estrita UNIPÊ / Cruzeiro do Sul */
+      --unipe-primary: #002d62;       /* Azul Escuro Institucional */
+      --unipe-secondary: #0056b3;     /* Azul Royal de Interação */
+      --unipe-accent: #f5a800;        /* Amarelo Ouro / Cruzeiro do Sul */
+      --unipe-accent-hover: #e09600;
+      --unipe-top-stripe: #001f44;
+      --unipe-surface: #ffffff;
+      --unipe-bg: #f4f6f9;           /* Fundo clássico de portal acadêmico */
+      --unipe-card-border: #e1e6ed;
+      --unipe-text-title: #1a273a;
+      --unipe-text-body: #4a5568;
+      --unipe-text-muted: #718096;
+      --unipe-green: #28a745;
       
-      /* Neutros & Superfície */
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --border: #e2e8f0;
-      --border-strong: #cbd5e1;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --text-subtle: #64748b;
-      
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-main: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
+      background-color: var(--unipe-bg);
+      color: var(--unipe-text-body);
+      font-family: var(--font-main);
+      font-size: 15px;
       line-height: 1.5;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      -webkit-font-smoothing: antialiased;
     }
 
-    /* Faixa Superior Institucional UNIPÊ */
-    .top-stripe {
-      height: 6px;
-      background: linear-gradient(90deg, var(--unipe-blue) 0%, var(--unipe-blue) 75%, var(--unipe-yellow) 75%, var(--unipe-yellow) 100%);
+    /* 1. Barra Superior de Utilidades (Topbar Oficial UNIPÊ) */
+    .unipe-topbar {
+      background: var(--unipe-top-stripe);
+      color: #c9d6e4;
+      font-size: 12px;
+      padding: 6px 0;
+      border-bottom: 2px solid var(--unipe-accent);
     }
 
-    /* Header Institucional */
-    .header-unipe {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1.25rem 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-
-    .header-container {
-      max-width: 1040px;
+    .topbar-container {
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
     }
 
-    .brand-group {
+    .topbar-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .topbar-links span {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 5px;
     }
 
-    /* Monograma Estilizado UNIPÊ */
-    .unipe-logo-badge {
-      background: var(--unipe-blue);
+    /* 2. Barra de Navegação Principal do Campus */
+    .unipe-navbar {
+      background: var(--unipe-primary);
       color: #ffffff;
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: 1px;
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
+      padding: 12px 0;
+      box-shadow: 0 2px 6px rgba(0, 45, 98, 0.15);
+    }
+
+    .navbar-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Logo UNIPÊ vetorizada fiel ao manual de marca */
+    .unipe-brand {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
-      box-shadow: 0 2px 4px rgba(0, 45, 98, 0.2);
+      gap: 14px;
+      text-decoration: none;
+      color: #ffffff;
     }
 
-    .unipe-logo-badge span.dot {
-      color: var(--unipe-yellow);
+    .brand-logo-box {
+      background: #ffffff;
+      padding: 6px 12px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
     }
 
-    .brand-text h1 {
-      font-size: 1.05rem;
+    .brand-logo-text {
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--unipe-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-logo-text span {
+      color: var(--unipe-accent);
+    }
+
+    .brand-titles {
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      padding-left: 14px;
+    }
+
+    .brand-titles h1 {
+      font-size: 14px;
       font-weight: 700;
-      color: var(--unipe-blue);
-      line-height: 1.2;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      color: #ffffff;
     }
 
-    .brand-text p {
-      font-size: 0.8rem;
-      color: var(--text-subtle);
+    .brand-titles p {
+      font-size: 12px;
+      color: #a3c1e2;
     }
 
-    .student-badge {
-      font-family: var(--font-mono);
-      font-size: 0.775rem;
-      color: var(--unipe-blue);
-      background: var(--unipe-blue-light);
-      border: 1px solid #bfdbfe;
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
+    /* Perfil do Aluno (Header Widget) */
+    .student-profile {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .student-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
+    .avatar-circle {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: var(--unipe-yellow);
+      background: var(--unipe-accent);
+      color: var(--unipe-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
     }
 
-    /* Main Container */
+    .profile-info {
+      line-height: 1.25;
+    }
+
+    .profile-info strong {
+      display: block;
+      font-size: 13px;
+      color: #ffffff;
+    }
+
+    .profile-info span {
+      font-size: 11px;
+      color: #c9d6e4;
+    }
+
+    /* 3. Sub-Header: Navegação de Módulos (Estilo Blackboard / CAA) */
+    .subnav-bar {
+      background: var(--unipe-surface);
+      border-bottom: 1px solid var(--unipe-card-border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .subnav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .subnav-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--unipe-text-body);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .subnav-btn:hover {
+      color: var(--unipe-primary);
+      background: #f8fafc;
+    }
+
+    .subnav-btn.active {
+      color: var(--unipe-primary);
+      font-weight: 700;
+      border-bottom-color: var(--unipe-primary);
+    }
+
+    /* 4. Conteúdo Principal */
     main {
-      max-width: 1040px;
+      max-width: 1140px;
       width: 100%;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem;
+      margin: 28px auto;
+      padding: 0 20px;
       flex: 1;
     }
 
-    /* Banner da Disciplina */
-    .discipline-banner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 5px solid var(--unipe-blue);
-      border-radius: 8px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    /* Breadcrumbs */
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--unipe-text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .breadcrumb a {
+      color: var(--unipe-secondary);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* Painel do Curso e Notificações */
+    .course-banner {
+      background: var(--unipe-surface);
+      border: 1px solid var(--unipe-card-border);
+      border-left: 6px solid var(--unipe-accent);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1.25rem;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
-    .discipline-info h2 {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--unipe-blue);
-      letter-spacing: -0.02em;
+    .course-title h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--unipe-primary);
+      margin-bottom: 4px;
     }
 
-    .discipline-info p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
+    .course-title p {
+      font-size: 13px;
+      color: var(--unipe-text-muted);
     }
 
-    /* Abas de Navegação HTMX */
-    .filter-tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      background: #f1f5f9;
-      padding: 0.3rem;
-      border-radius: 8px;
-      width: fit-content;
+    .course-badge-status {
+      font-size: 12px;
+      font-weight: 700;
+      color: #155724;
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 6px 12px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .tab-item {
-      background: transparent;
-      border: none;
-      font-family: var(--font-sans);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      padding: 0.45rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .tab-item:hover {
-      color: var(--unipe-blue);
-    }
-
-    .tab-item.active {
-      background: var(--surface);
-      color: var(--unipe-blue);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    /* Grade de Projetos Acadêmicos */
-    .project-grid {
+    /* Grade de Práticas (Cards no Estilo Blackboard / Sala de Aula Virtual) */
+    .cards-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
-    @media (min-width: 680px) {
-      .project-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
+    .academic-card {
+      background: var(--unipe-surface);
+      border: 1px solid var(--unipe-card-border);
+      border-radius: 6px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      position: relative;
-      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     }
 
-    .project-card:hover {
+    .academic-card:hover {
       transform: translateY(-3px);
-      border-color: #93c5fd;
-      box-shadow: 0 8px 16px -4px rgba(0, 45, 98, 0.08);
+      box-shadow: 0 8px 16px rgba(0, 45, 98, 0.08);
+      border-color: #b8d4f2;
     }
 
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--border);
-      transition: background 0.2s ease;
-    }
-
-    .project-card:hover::before {
-      background: var(--unipe-yellow);
-    }
-
-    .card-top {
+    .card-header-bar {
+      background: #f1f5f9;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--unipe-card-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.75rem;
     }
 
-    .tag-pratica {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
+    .unit-tag {
+      font-size: 11px;
       font-weight: 700;
-      color: var(--unipe-blue);
-      background: var(--unipe-blue-light);
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--unipe-primary);
     }
 
-    .tag-periodo {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-subtle);
+    .status-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      color: var(--unipe-text-body);
     }
 
-    .project-card h3 {
-      font-size: 1.05rem;
+    .status-pill.completed {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .card-body {
+      padding: 18px 16px;
+      flex: 1;
+    }
+
+    .card-body h3 {
+      font-size: 15px;
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.5rem;
+      color: var(--unipe-text-title);
+      margin-bottom: 8px;
       line-height: 1.35;
     }
 
-    .project-card p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.55;
+    .card-body p {
+      font-size: 13px;
+      color: var(--unipe-text-body);
+      line-height: 1.5;
     }
 
-    .card-action {
-      margin-top: 1.5rem;
-      padding-top: 0.85rem;
+    .card-footer {
+      padding: 12px 16px;
+      background: #ffffff;
       border-top: 1px solid #f1f5f9;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--unipe-blue);
+      color: var(--unipe-primary);
     }
 
-    .card-action span.arrow {
-      transition: transform 0.2s ease;
-      color: var(--unipe-yellow);
-      font-size: 1.1rem;
+    .card-footer span.btn-text {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .project-card:hover .card-action span.arrow {
+    .card-footer .arrow {
+      color: var(--unipe-accent);
+      font-size: 16px;
+      transition: transform 0.15s ease;
+    }
+
+    .academic-card:hover .card-footer .arrow {
       transform: translateX(4px);
     }
 
-    /* Footer Institucional */
+    /* 5. Rodapé Oficial UNIPÊ / Cruzeiro do Sul */
     footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 2rem 0;
-      margin-top: 4rem;
-      font-size: 0.85rem;
-      color: var(--text-subtle);
+      background: var(--unipe-primary);
+      color: #ffffff;
+      margin-top: auto;
+      border-top: 4px solid var(--unipe-accent);
     }
 
-    .footer-container {
-      max-width: 1040px;
+    .footer-main {
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 30px 20px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 20px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    .footer-container a {
-      color: var(--unipe-blue);
+    .footer-brand strong {
+      font-size: 16px;
+      display: block;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .footer-brand span {
+      color: #a3c1e2;
+    }
+
+    .footer-links a {
+      color: #ffffff;
       text-decoration: none;
-      font-weight: 600;
+      margin-left: 16px;
+      font-weight: 500;
     }
 
-    .footer-container a:hover {
+    .footer-links a:hover {
       text-decoration: underline;
+    }
+
+    .footer-bottom {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      font-size: 12px;
+      color: #8da9c7;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="top-stripe"></div>
 
-  <!-- Cabeçalho Oficial no Padrão UNIPÊ -->
-  <header class="header-unipe">
-    <div class="header-container">
-      <div class="brand-group">
-        <div class="unipe-logo-badge">
-          UNIPÊ<span class="dot">&bull;</span>
+  <!-- Topbar Institucional -->
+  <div class="unipe-topbar">
+    <div class="topbar-container">
+      <div>
+        <span>Portal Institucional de Avaliações e Práticas &bull; Cruzeiro do Sul Educacional</span>
+      </div>
+      <div class="topbar-links">
+        <span>Campus Virtual</span>
+        <span>Blackboard</span>
+        <span>CAA On-line</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Institucional com Logo UNIPÊ -->
+  <header class="unipe-navbar">
+    <div class="navbar-container">
+      <div class="unipe-brand">
+        <div class="brand-logo-box">
+          <div class="brand-logo-text">UNIPÊ<span>.</span></div>
         </div>
-        <div class="brand-text">
+        <div class="brand-titles">
           <h1>Centro Universitário de João Pessoa</h1>
-          <p>Bacharelado em Ciência da Computação &bull; Repositório Acadêmico</p>
+          <p>Coordenação de Bacharelado em Ciência da Computação</p>
         </div>
       </div>
 
-      <div class="student-badge">
-        <span>Aluno: Charlles Augusto</span>
+      <div class="student-profile">
+        <div class="avatar-circle">CA</div>
+        <div class="profile-info">
+          <strong>Charlles Augusto</strong>
+          <span>RGM: 2026.1 &bull; Turma A</span>
+        </div>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- Cartão de Destaque da Disciplina -->
-    <section class="discipline-banner">
-      <div class="discipline-info">
-        <h2>Desenvolvimento Front-End Web</h2>
-        <p>Projeto de Extensão Curricular: Plataforma Digital para a <strong>ONG Esperança Viva</strong></p>
-      </div>
-      <div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600;">
-          4 Módulos Concluídos &bull; 100%
-        </span>
-      </div>
-    </section>
-
-    <!-- Controle de Visualização com HTMX -->
-    <div class="filter-tabs" role="tablist">
-      <button class="tab-item active"
-              onclick="document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-get="#modulos"
-              hx-target="#painel-modulos"
+  <!-- Barra de Abas Curriculares (HTMX) -->
+  <nav class="subnav-bar">
+    <div class="subnav-container" role="tablist">
+      <button class="subnav-btn active"
+              onclick="document.querySelectorAll('.subnav-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-get="#painel-praticas"
+              hx-target="#conteudo-dinamico"
               hx-swap="innerHTML">
-        Módulos Curriculares
+        Minhas Disciplinas &bull; 1º Semestre
       </button>
-      <button class="tab-item"
-              onclick="document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-on:click="document.getElementById('painel-modulos').innerHTML = `
-                <div style='background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 3rem 1.5rem; text-align: center; color: var(--text-subtle);'>
-                  <h3 style='color: var(--unipe-blue); margin-bottom: 0.5rem;'>Próximos Períodos em Planejamento</h3>
-                  <p>As futuras disciplinas de Engenharia de Software, Backend e Algoritmos serão listadas automaticamente conforme avanço letivo.</p>
+      <button class="subnav-btn"
+              onclick="document.querySelectorAll('.subnav-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-on:click="document.getElementById('conteudo-dinamico').innerHTML = `
+                <div style='background: #fff; border: 1px solid #e1e6ed; border-radius: 6px; padding: 40px 20px; text-align: center;'>
+                  <h3 style='color: var(--unipe-primary); margin-bottom: 8px;'>Grade Curricular &bull; Próximos Períodos</h3>
+                  <p style='color: var(--unipe-text-muted); font-size: 14px;'>Disciplinas de Banco de Dados, Algoritmos Avançados e Engenharia de Software serão integradas neste painel pelo Blackboard.</p>
                 </div>
               `">
-        Planejamento de Períodos
+        Histórico e Integralização
       </button>
     </div>
+  </nav>
 
-    <!-- Lista de Entregas Práticas -->
-    <div id="painel-modulos">
-      <div class="project-grid" id="modulos">
-        <!-- Prática 1 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
-          <div>
-            <div class="card-top">
-              <span class="tag-pratica">Experiência Prática 1</span>
-              <span class="tag-periodo">P1 &bull; 2026</span>
-            </div>
-            <h3>Fundação Semântica &amp; Estrutura W3C</h3>
-            <p>Marcação pura HTML5, validação estrita, formulário modular com fieldsets temáticos e acessibilidade inicial.</p>
+  <!-- Conteúdo Central -->
+  <main>
+    <div class="breadcrumb">
+      <a href="#">Ambiente Acadêmico</a> &gt; 
+      <a href="#">Ciência da Computação</a> &gt; 
+      <span>Desenvolvimento Front-End Web</span>
+    </div>
+
+    <!-- Banner da Disciplina no estilo Blackboard / Sala de Aula -->
+    <div class="course-banner">
+      <div class="course-title">
+        <h2>Desenvolvimento Front-End Web (Turma 2026.1)</h2>
+        <p>Projeto de Extensão Integrador: Plataforma Institucional para a <strong>ONG Esperança Viva</strong></p>
+      </div>
+      <div>
+        <span class="course-badge-status">
+          ✔ 4 Entregas Homologadas (100%)
+        </span>
+      </div>
+    </div>
+
+    <!-- Container Dinâmico HTMX com os Módulos Oficiais -->
+    <div id="conteudo-dinamico">
+      <div class="cards-grid" id="painel-praticas">
+        
+        <!-- EP 1 -->
+        <a class="academic-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+          <div class="card-header-bar">
+            <span class="unit-tag">Experiência Prática 1</span>
+            <span class="status-pill completed">Entregue</span>
           </div>
-          <div class="card-action">
-            <span>Visualizar Entrega</span>
+          <div class="card-body">
+            <h3>Estruturação Semântica HTML5</h3>
+            <p>Construção da arquitetura semântica W3C, formulário acessível com fieldsets e padronização visual da ONG.</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-text">Acessar Projeto</span>
             <span class="arrow">&rarr;</span>
           </div>
         </a>
 
-        <!-- Prática 2 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
-          <div>
-            <div class="card-top">
-              <span class="tag-pratica">Experiência Prática 2</span>
-              <span class="tag-periodo">P1 &bull; 2026</span>
-            </div>
-            <h3>Design System, CSS Grid &amp; Feedback</h3>
-            <p>Tokens visuais em :root, grid bidimensional de 12 colunas, 5 breakpoints @media e vitrine de componentes de retorno.</p>
+        <!-- EP 2 -->
+        <a class="academic-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+          <div class="card-header-bar">
+            <span class="unit-tag">Experiência Prática 2</span>
+            <span class="status-pill completed">Entregue</span>
           </div>
-          <div class="card-action">
-            <span>Visualizar Entrega</span>
+          <div class="card-body">
+            <h3>Design System &amp; Grid Responsivo</h3>
+            <p>Variáveis nativas (:root), grid modular de 12 colunas, 5 breakpoints @media e componentes de feedback.</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-text">Acessar Projeto</span>
             <span class="arrow">&rarr;</span>
           </div>
         </a>
 
-        <!-- Prática 3 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
-          <div>
-            <div class="card-top">
-              <span class="tag-pratica">Experiência Prática 3</span>
-              <span class="tag-periodo">P1 &bull; 2026</span>
-            </div>
-            <h3>Single Page Application &amp; Reatividade</h3>
-            <p>Roteamento por hash, injeção atômica via Template Literals, persistência em localStorage e Event Delegation.</p>
+        <!-- EP 3 -->
+        <a class="academic-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+          <div class="card-header-bar">
+            <span class="unit-tag">Experiência Prática 3</span>
+            <span class="status-pill completed">Entregue</span>
           </div>
-          <div class="card-action">
-            <span>Visualizar Entrega</span>
+          <div class="card-body">
+            <h3>Single Page Application &amp; Storage</h3>
+            <p>Motor de roteamento por hashchange, templates dinâmicos, persistência no localStorage e Event Delegation.</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-text">Acessar Projeto</span>
             <span class="arrow">&rarr;</span>
           </div>
         </a>
 
-        <!-- Prática 4 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
-          <div>
-            <div class="card-top">
-              <span class="tag-pratica">Experiência Prática 4</span>
-              <span class="tag-periodo">P1 &bull; 2026</span>
-            </div>
-            <h3>Acessibilidade WCAG, Bundler &amp; Produção</h3>
-            <p>Adequação WCAG 2.1 (AA/AAA), dark mode nativo, minificação com Vite/esbuild e deploy contínuo em produção.</p>
+        <!-- EP 4 -->
+        <a class="academic-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+          <div class="card-header-bar">
+            <span class="unit-tag">Experiência Prática 4</span>
+            <span class="status-pill completed" style="background: #e3f2fd; color: #002d62;">Produção</span>
           </div>
-          <div class="card-action">
-            <span>Visualizar Entrega</span>
+          <div class="card-body">
+            <h3>Acessibilidade WCAG &amp; Publicação</h3>
+            <p>Conformidade estrita WCAG 2.1 (AA/AAA), modo escuro, minificação de build e deploy no GitHub Pages.</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-text">Acessar Projeto</span>
             <span class="arrow">&rarr;</span>
           </div>
         </a>
+
       </div>
     </div>
   </main>
 
-  <!-- Rodapé Institucional -->
+  <!-- Rodapé Institucional Oficial UNIPÊ -->
   <footer>
-    <div class="footer-container">
-      <div>
-        <span>Centro Universitário de João Pessoa &bull; UNIPÊ (Cruzeiro do Sul Educacional)</span>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <strong>Centro Universitário de João Pessoa &bull; UNIPÊ</strong>
+        <span>Cruzeiro do Sul Educacional S.A. | BR-230, Km 22, Água Fria &bull; João Pessoa - PB</span>
       </div>
-      <div>
-        <span>Repositório GitHub: <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">charlles-dev/computer-science-unipe</a></span>
+      <div class="footer-links">
+        <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">Código Fonte no GitHub</a>
+        <a href="https://www.unipe.edu.br" target="_blank">Portal UNIPÊ</a>
       </div>
     </div>
+    <div class="footer-bottom">
+      &copy; 2026 UNIPÊ &bull; Repositório Acadêmico Individual do Curso de Ciência da Computação.
+    </div>
   </footer>
+
 </body>
 </html>
