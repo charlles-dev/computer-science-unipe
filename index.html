@@ -3,182 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Charlles Augusto &mdash; Software Engineering &amp; CS Portfolio</title>
+  <title>Hub de Engenharia &mdash; Ciência da Computação</title>
 
-  <!-- HTMX para navegação reativa sem refresh -->
+  <!-- HTMX para reatividade declarativa sem boilerplate -->
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Inter + JetBrains Mono -->
+  <!-- Tipografia de Engenharia de Software: Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* Dark Theme Moderno / High-End DevTools */
-      --bg: #090d16;
-      --surface: #0f1624;
-      --surface-raised: #141e30;
-      --border: #1e293b;
-      --border-focus: #3b82f6;
-      --border-subtle: #182234;
-
-      /* Tipografia & Contraste */
-      --text-100: #f8fafc;
-      --text-200: #e2e8f0;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-
-      /* Cores de Ação & Semântica */
-      --brand: #3b82f6;
-      --brand-glow: rgba(59, 130, 246, 0.15);
-      --success: #10b981;
-      --success-glow: rgba(16, 185, 129, 0.15);
+      /* Paleta Refinada Inspirada no Azul Institucional */
+      --brand-900: #001e3d;
+      --brand-800: #002d62;
+      --brand-700: #00408a;
+      --brand-gold: #f5a800;
       
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      /* Superfícies Neutras de Alto Padrão */
+      --bg-canvas: #f4f6f9;
+      --surface-card: #ffffff;
+      --surface-subtle: #f8fafc;
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+      
+      /* Tipografia */
+      --text-100: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      
+      --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-200);
-      font-family: var(--font-sans);
+      background-color: var(--bg-canvas);
+      color: var(--text-100);
+      font-family: var(--font-ui);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.55;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Container Principal */
+    /* Linha superior discreta de assinatura visual */
+    .brand-top-accent {
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-800) 0%, var(--brand-700) 80%, var(--brand-gold) 80%, var(--brand-gold) 100%);
+    }
+
     .app-shell {
-      max-width: 980px;
-      margin: 0 auto;
+      max-width: 1060px;
       width: 100%;
+      margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
-    /* 1. Header do Desenvolvedor */
+    /* 1. Header do Aluno / Engenharia */
     header.dev-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 2rem;
       gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .dev-profile {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 14px;
     }
 
     .dev-avatar {
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1px solid var(--border);
+      background: var(--brand-800);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 16px;
-      color: var(--text-100);
-      font-family: var(--font-mono);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 45, 98, 0.15);
+      border: 2px solid #ffffff;
     }
 
     .dev-name-title h1 {
-      font-size: 1.15rem;
-      font-weight: 600;
+      font-size: 1.2rem;
+      font-weight: 700;
       color: var(--text-100);
       letter-spacing: -0.01em;
     }
 
     .dev-name-title p {
       font-size: 0.85rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
+      color: var(--text-dim);
+      font-family: var(--font-code);
     }
 
     .header-links {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 12px;
+    }
+
+    .live-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: #065f46;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
     }
 
     .link-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      text-decoration: none;
+      font-family: var(--font-ui);
       font-size: 0.8rem;
+      font-weight: 600;
       color: var(--text-muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--border-medium);
       padding: 0.4rem 0.85rem;
       border-radius: 6px;
-      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: all 0.15s ease;
     }
 
     .link-chip:hover {
-      color: var(--text-100);
-      border-color: var(--border-focus);
-      background: var(--surface-raised);
-    }
-
-    .live-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      color: #34d399;
-      background: var(--success-glow);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      font-family: var(--font-mono);
-    }
-
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
+      color: var(--brand-800);
+      border-color: var(--brand-800);
+      background: var(--surface-subtle);
     }
 
     /* 2. Banner de Contexto da Trilha */
     .track-banner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-left: 4px solid var(--brand-800);
+      border-radius: 8px;
       padding: 1.5rem 1.75rem;
       margin-bottom: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1.25rem;
+      gap: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
 
     .track-info h2 {
       font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--text-100);
+      font-weight: 700;
+      color: var(--brand-800);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -187,100 +193,87 @@
     .track-info p {
       font-size: 0.875rem;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 0.25rem;
     }
 
     .track-metrics {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      gap: 8px;
     }
 
     .metric-pill {
-      font-family: var(--font-mono);
-      font-size: 0.775rem;
-      color: var(--text-muted);
-      background: var(--bg);
-      border: 1px solid var(--border);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
       padding: 0.35rem 0.75rem;
       border-radius: 6px;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       gap: 6px;
+      color: var(--text-muted);
     }
 
-    .metric-pill strong {
-      color: var(--text-100);
-    }
-
-    /* 3. Navegação de Abas HTMX */
-    .tab-bar {
+    /* 3. Navegação por Abas com HTMX */
+    .tabs-controller {
       display: flex;
-      gap: 0.5rem;
+      gap: 6px;
       margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-medium);
+      padding-bottom: 2px;
     }
 
-    .tab-item {
+    .tab-trigger {
       background: transparent;
       border: none;
+      border-bottom: 2px solid transparent;
       color: var(--text-dim);
-      font-family: var(--font-mono);
+      font-family: var(--font-ui);
+      font-weight: 600;
       font-size: 0.85rem;
-      font-weight: 500;
-      padding: 0.5rem 0.9rem;
-      border-radius: 6px;
+      padding: 0.6rem 1rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
       transition: all 0.15s ease;
+      margin-bottom: -1px;
     }
 
-    .tab-item:hover {
-      color: var(--text-100);
-      background: var(--surface);
+    .tab-trigger:hover {
+      color: var(--brand-800);
     }
 
-    .tab-item.active {
-      color: var(--brand);
-      background: var(--brand-glow);
-      font-weight: 600;
+    .tab-trigger.active {
+      color: var(--brand-800);
+      border-bottom-color: var(--brand-800);
+      font-weight: 700;
     }
 
-    /* 4. Grid de Projetos / Módulos */
-    .grid-projects {
+    /* 4. Grade de Projetos */
+    .project-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (min-width: 640px) {
-      .grid-projects {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
     }
 
     .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.4rem;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 1.5rem;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     }
 
     .project-card:hover {
-      border-color: var(--border-focus);
-      background: var(--surface-raised);
+      border-color: #93c5fd;
+      box-shadow: 0 8px 20px -4px rgba(0, 45, 98, 0.08);
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
     }
 
     .card-head {
@@ -291,41 +284,44 @@
     }
 
     .tag-index {
-      font-family: var(--font-mono);
+      font-family: var(--font-code);
       font-size: 0.75rem;
-      font-weight: 600;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      padding: 0.2rem 0.55rem;
+      font-weight: 700;
+      color: var(--brand-800);
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
     }
 
     .tag-state {
-      font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: #34d399;
-      background: var(--success-glow);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 0.15rem 0.5rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
       border-radius: 4px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
+    .tag-state.done {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
     .tag-state.prod {
-      color: #a78bfa;
-      background: rgba(167, 139, 250, 0.1);
-      border-color: rgba(167, 139, 250, 0.25);
+      background: #eff6ff;
+      color: var(--brand-800);
+      border: 1px solid #bfdbfe;
     }
 
     .project-card h3 {
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-100);
-      margin-bottom: 0.45rem;
-      line-height: 1.4;
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
     }
 
     .project-card p {
@@ -342,11 +338,11 @@
     }
 
     .badge-code {
-      font-family: var(--font-mono);
+      font-family: var(--font-code);
       font-size: 0.7rem;
       color: var(--text-dim);
-      background: var(--bg);
-      border: 1px solid var(--border-subtle);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
       padding: 0.15rem 0.45rem;
       border-radius: 4px;
     }
@@ -354,35 +350,30 @@
     .card-action {
       margin-top: 1.25rem;
       padding-top: 0.75rem;
-      border-top: 1px solid var(--border-subtle);
+      border-top: 1px solid #f1f5f9;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
+      font-size: 0.825rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--brand-800);
       transition: color 0.15s;
     }
 
     .card-action i {
-      color: var(--text-dim);
-      transition: transform 0.15s ease, color 0.15s ease;
-    }
-
-    .project-card:hover .card-action {
-      color: var(--text-100);
+      color: var(--brand-gold);
+      transition: transform 0.15s ease;
     }
 
     .project-card:hover .card-action i {
-      color: var(--brand);
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
 
-    /* 5. Footer Técnico */
+    /* 5. Footer Técnico Minimalista */
     footer.dev-footer {
       margin-top: 4rem;
       padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-light);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -393,17 +384,20 @@
     }
 
     footer a {
-      color: var(--text-muted);
+      color: var(--brand-800);
       text-decoration: none;
+      font-weight: 500;
       transition: color 0.15s;
     }
 
     footer a:hover {
-      color: var(--text-100);
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+  
+  <div class="brand-top-accent"></div>
 
   <div class="app-shell">
     
@@ -413,19 +407,19 @@
         <div class="dev-avatar">CA</div>
         <div class="dev-name-title">
           <h1>Charlles Augusto</h1>
-          <p>Computer Science &bull; Academic Engineering Hub</p>
+          <p>Bacharelado em Ciência da Computação &bull; Repositório Acadêmico</p>
         </div>
       </div>
 
       <div class="header-links">
         <div class="live-status">
           <span class="pulse-dot"></span>
-          <span>online / pages</span>
+          <span>online / github-pages</span>
         </div>
 
         <a class="link-chip" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">
           <i data-lucide="github" style="width: 14px; height: 14px;"></i>
-          <span>Repository</span>
+          <span>Repositório</span>
         </a>
       </div>
     </header>
@@ -434,59 +428,58 @@
     <section class="track-banner">
       <div class="track-info">
         <h2>
-          <i data-lucide="folder-git-2" style="width: 18px; height: 18px; color: var(--brand);"></i>
-          <span>Front-End Engineering Track</span>
+          <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--brand-800);"></i>
+          <span>Desenvolvimento Front-End Web</span>
         </h2>
-        <p>Projeto Integrador: Desenvolvimento contínuo da plataforma da <strong>ONG Esperança Viva</strong></p>
+        <p>Projeto Integrador: Plataforma institucional desenvolvida para a <strong>ONG Esperança Viva</strong></p>
       </div>
 
       <div class="track-metrics">
         <div class="metric-pill">
-          <i data-lucide="check-check" style="width: 14px; height: 14px; color: #10b981;"></i>
+          <i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: #10b981;"></i>
           <span>Status: <strong>4 Entregas Concluídas</strong></span>
         </div>
       </div>
     </section>
 
-    <!-- 3. Abas de Navegação HTMX -->
-    <nav class="tab-bar" role="tablist">
-      <button class="tab-item active"
-              onclick="document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-get="#track-modules"
-              hx-target="#viewport-dynamic"
+    <!-- 3. Abas de Controle via HTMX -->
+    <nav class="tabs-controller" role="tablist">
+      <button class="tab-trigger active"
+              onclick="document.querySelectorAll('.tab-trigger').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-get="#painel-modulo"
+              hx-target="#viewport-dinamico"
               hx-swap="innerHTML">
-        <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
-        <span>01_frontend_web</span>
+        <i data-lucide="layout-grid" style="width: 14px; height: 14px;"></i>
+        <span>Módulos Curriculares</span>
       </button>
 
-      <button class="tab-item"
-              onclick="document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-on:click="document.getElementById('viewport-dynamic').innerHTML = `
-                <div style='background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 48px 24px; text-align: center;'>
-                  <i data-lucide='clock-3' style='width: 28px; height: 28px; color: var(--text-dim); margin-bottom: 12px;'></i>
-                  <h3 style='color: var(--text-100); font-size: 15px; margin-bottom: 6px;'>Próximas Disciplinas em Breve</h3>
-                  <p style='color: var(--text-muted); font-size: 13px; max-width: 480px; margin: 0 auto;'>
-                    Módulos de Engenharia de Software, Backend e Algoritmos serão catalogados aqui nas etapas subsequentes.
+      <button class="tab-trigger"
+              onclick="document.querySelectorAll('.tab-trigger').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
+              hx-on:click="document.getElementById('viewport-dinamico').innerHTML = `
+                <div style='background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 48px 20px; text-align: center;'>
+                  <h3 style='color: var(--brand-800); font-size: 16px; margin-bottom: 6px;'>Próximas Disciplinas</h3>
+                  <p style='color: var(--text-dim); font-size: 13px; max-width: 500px; margin: 0 auto;'>
+                    Projetos de Backend, Estruturas de Dados e Bancos de Dados serão incorporados neste espaço conforme evolução no curso.
                   </p>
                 </div>
               `; lucide.createIcons();">
-        <i data-lucide="code" style="width: 14px; height: 14px;"></i>
-        <span>02_backend_data (pending)</span>
+        <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
+        <span>Planejamento de Períodos</span>
       </button>
     </nav>
 
-    <!-- 4. Viewport Dinâmica dos Projetos -->
-    <main id="viewport-dynamic">
-      <div class="grid-projects" id="track-modules">
+    <!-- 4. Viewport Dinâmica de Projetos -->
+    <main id="viewport-dinamico">
+      <div class="project-grid" id="painel-modulo">
         
         <!-- Prática 1 -->
         <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
           <div>
             <div class="card-head">
               <span class="tag-index">EP_01</span>
-              <span class="tag-state">
+              <span class="tag-state done">
                 <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                Done
+                Validado
               </span>
             </div>
             <h3>Estruturação Semântica HTML5</h3>
@@ -494,12 +487,12 @@
             <div class="stack-badges">
               <span class="badge-code">HTML5</span>
               <span class="badge-code">W3C</span>
-              <span class="badge-code">Forms</span>
+              <span class="badge-code">A11y Base</span>
             </div>
           </div>
           <div class="card-action">
-            <span>Acessar Projeto</span>
-            <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+            <span>Executar Projeto</span>
+            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
           </div>
         </a>
 
@@ -508,9 +501,9 @@
           <div>
             <div class="card-head">
               <span class="tag-index">EP_02</span>
-              <span class="tag-state">
+              <span class="tag-state done">
                 <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                Done
+                Validado
               </span>
             </div>
             <h3>Design System &amp; CSS Grid</h3>
@@ -522,8 +515,8 @@
             </div>
           </div>
           <div class="card-action">
-            <span>Acessar Projeto</span>
-            <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+            <span>Executar Projeto</span>
+            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
           </div>
         </a>
 
@@ -532,13 +525,13 @@
           <div>
             <div class="card-head">
               <span class="tag-index">EP_03</span>
-              <span class="tag-state">
+              <span class="tag-state done">
                 <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                Done
+                Validado
               </span>
             </div>
-            <h3>SPA, Templates &amp; Web Storage</h3>
-            <p>Motor de roteamento em hashchange, templates dinâmicos, persistência no localStorage e Event Delegation.</p>
+            <h3>Single Page Application &amp; Storage</h3>
+            <p>Motor de roteamento por hashchange, templates dinâmicos, persistência em localStorage e Event Delegation.</p>
             <div class="stack-badges">
               <span class="badge-code">Vanilla SPA</span>
               <span class="badge-code">Storage</span>
@@ -546,8 +539,8 @@
             </div>
           </div>
           <div class="card-action">
-            <span>Acessar Projeto</span>
-            <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+            <span>Executar Projeto</span>
+            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
           </div>
         </a>
 
@@ -558,20 +551,20 @@
               <span class="tag-index">EP_04</span>
               <span class="tag-state prod">
                 <i data-lucide="shield-check" style="width: 10px; height: 10px;"></i>
-                Production
+                Produção
               </span>
             </div>
-            <h3>Acessibilidade WCAG, Bundler &amp; CI/CD</h3>
-            <p>Conformidade WCAG 2.1 (AA/AAA), dark mode nativo, minificação com bundler e deploy contínuo no GitHub Pages.</p>
+            <h3>Acessibilidade WCAG &amp; Produção</h3>
+            <p>Conformidade WCAG 2.1 (AA/AAA), dark mode nativo, minificação com bundler e deploy contínuo em produção.</p>
             <div class="stack-badges">
               <span class="badge-code">WCAG 2.1</span>
               <span class="badge-code">Vite</span>
-              <span class="badge-code">CI/CD</span>
+              <span class="badge-code">GitHub Pages</span>
             </div>
           </div>
           <div class="card-action">
-            <span>Acessar Projeto</span>
-            <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+            <span>Executar Projeto</span>
+            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
           </div>
         </a>
 
@@ -581,11 +574,11 @@
     <!-- 5. Footer Técnico Minimalista -->
     <footer class="dev-footer">
       <div>
-        <span>Charlles Augusto &bull; Academic Portfolio</span>
+        <span>Charlles Augusto &bull; Portfólio de Ciência da Computação</span>
       </div>
       <div>
         <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">
-          View on GitHub &rarr;
+          Código-fonte no GitHub &rarr;
         </a>
       </div>
     </footer>
