@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repositório Acadêmico - Ciência da Computação (UNIPÊ)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+    .hub-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      max-width: 640px;
+      width: 100%;
+      padding: 2.5rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: #38bdf8;
+      margin-bottom: 0.75rem;
+    }
+    p.sub {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .disciplina-bloco {
+      margin-bottom: 1.5rem;
+    }
+    .disciplina-bloco h2 {
+      font-size: 1.15rem;
+      color: #e2e8f0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 0.5rem;
+    }
+    .lista-projetos {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .link-projeto {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      color: #f1f5f9;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .link-projeto:hover {
+      border-color: #38bdf8;
+      background: #1e293b;
+      transform: translateX(4px);
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: #0369a1;
+      color: #e0f2fe;
+      font-weight: 700;
+    }
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="hub-card">
+    <h1>Portal Acadêmico | UNIPÊ</h1>
+    <p class="sub">Repositório de projetos práticos e atividades desenvolvidas ao longo da graduação em Ciência da Computação.</p>
+
+    <div class="disciplina-bloco">
+      <h2>Período 1 &bull; Desenvolvimento Front-End Web</h2>
+      <ul class="lista-projetos">
+        <li>
+          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+            <span>Experiência Prática 1 (Estrutura HTML5)</span>
+            <span class="badge">Estático</span>
+          </a>
+        </li>
+        <li>
+          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+            <span>Experiência Prática 2 (Design System &amp; Grid)</span>
+            <span class="badge">Responsivo</span>
+          </a>
+        </li>
+        <li>
+          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+            <span>Experiência Prática 3 (Arquitetura SPA &amp; Storage)</span>
+            <span class="badge">SPA</span>
+          </a>
+        </li>
+        <li>
+          <a class="link-projeto" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+            <span>Experiência Prática 4 (Acessibilidade &amp; Produção)</span>
+            <span class="badge">Produção</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <footer>
+      &copy; Charlles Dev &bull; Ciência da Computação UNIPÊ
+    </footer>
+  </div>
+</body>
+</html>
