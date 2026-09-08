@@ -39,7 +39,7 @@
       --font-scale: 1rem;
     }
 
-    /* ALTO CONTRASTE (WCAG AAA) */
+    /* MODO ALTO CONTRASTE (WCAG AAA) */
     body.alto-contraste {
       --unipe-blue-dark: #000000;
       --unipe-blue: #000000;
@@ -100,7 +100,7 @@
     .topbar-left, .topbar-right {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     .btn-a11y {
@@ -135,7 +135,7 @@
       color: var(--unipe-yellow);
     }
 
-    /* NAVBAR INSTITUCIONAL */
+    /* NAVBAR INSTITUCIONAL COM LOGO OFICIAL */
     .navbar {
       background-color: var(--unipe-blue);
       color: #fff;
@@ -148,36 +148,65 @@
     .navbar-container {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 0.875rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
     }
 
-    .brand-group {
+    .brand-wrapper {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
+      gap: 1.25rem;
       text-decoration: none;
       color: inherit;
     }
 
-    .brand-titles {
+    .brand-logo-svg {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .brand-logo-svg svg {
+      height: 42px;
+      width: 112px;
+      display: block;
+    }
+
+    .footer-logo-svg {
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-logo-svg svg {
+      height: 38px;
+      width: 101px;
+      display: block;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .brand-meta {
       display: flex;
       flex-direction: column;
     }
 
-    .brand-super {
-      font-size: 0.75rem;
+    .brand-meta-sup {
+      font-size: 0.725rem;
       font-weight: 700;
       color: var(--unipe-yellow);
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .brand-title {
-      font-size: 1.125rem;
+    .brand-meta-title {
+      font-size: 1.05rem;
       font-weight: 700;
       color: #fff;
       letter-spacing: -0.01em;
@@ -270,11 +299,11 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
-    /* HERO CLEAN (SEM BOTÕES REPETITIVOS) */
+    /* HERO CLEAN */
     .hero {
       background: linear-gradient(135deg, #00254a 0%, #003b71 100%);
       color: #fff;
-      padding: 2.75rem 1.5rem 2.5rem;
+      padding: 2.5rem 1.5rem 2.25rem;
       border-bottom: 4px solid var(--unipe-yellow);
     }
 
@@ -300,7 +329,7 @@
     }
 
     .hero h1 {
-      font-size: 2.25rem;
+      font-size: 2.125rem;
       font-weight: 800;
       line-height: 1.2;
       margin-bottom: 0.75rem;
@@ -308,11 +337,11 @@
     }
 
     .hero p {
-      font-size: 1.05rem;
+      font-size: 1.025rem;
       color: #e2e8f0;
       max-width: 860px;
       line-height: 1.6;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .hero-badges {
@@ -327,20 +356,20 @@
       gap: 0.4rem;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 0.4rem 0.85rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 6px;
-      font-size: 0.8125rem;
+      font-size: 0.8rem;
       color: #f1f5f9;
       font-weight: 500;
     }
 
-    /* PAINEL DE FILTROS UNIFICADO */
+    /* PAINEL DE CONTROLE DE FILTROS */
     .filter-panel {
       background: var(--unipe-white);
       border-bottom: 1px solid var(--unipe-border);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
       position: sticky;
-      top: 67px;
+      top: 66px;
       z-index: 90;
     }
 
@@ -367,9 +396,9 @@
       background: var(--unipe-bg);
       border: 1px solid var(--unipe-border);
       color: var(--unipe-text);
-      padding: 0.4rem 0.85rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 6px;
-      font-size: 0.825rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
@@ -409,9 +438,9 @@
       background: var(--unipe-white);
       border: 1.5px solid var(--unipe-border);
       color: var(--unipe-muted);
-      padding: 0.4rem 0.95rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 9999px;
-      font-size: 0.825rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -455,11 +484,11 @@
       font-weight: 500;
     }
 
-    /* CONTEÚDO PRINCIPAL (CARDS) */
+    /* MAIN SECTION */
     .main-section {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 2.25rem 1.5rem 3.5rem;
+      padding: 2rem 1.5rem 3.5rem;
       flex: 1;
       width: 100%;
     }
@@ -474,18 +503,18 @@
     }
 
     .section-header h2 {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 700;
       color: var(--unipe-blue-dark);
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 1.5rem;
     }
 
-    /* CARD DE PROJETO LIMPO */
+    /* CARD DE PROJETO */
     .card-project {
       background: var(--unipe-white);
       border: 1px solid var(--unipe-border);
@@ -553,7 +582,7 @@
     }
 
     .card-title {
-      font-size: 1.15rem;
+      font-size: 1.125rem;
       font-weight: 700;
       color: var(--unipe-blue-dark);
       margin-bottom: 0.5rem;
@@ -561,7 +590,7 @@
     }
 
     .card-desc {
-      font-size: 0.885rem;
+      font-size: 0.875rem;
       color: var(--unipe-muted);
       line-height: 1.5;
       margin-bottom: 1.25rem;
@@ -652,6 +681,31 @@
     .btn-card-icon:hover {
       background: var(--unipe-border);
       color: var(--unipe-text);
+    }
+
+    /* EMPTY STATE LIMPO */
+    .empty-state-box {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px dashed var(--unipe-border);
+    }
+
+    .empty-state-box h3 {
+      color: var(--unipe-blue-dark);
+      margin-top: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+    }
+
+    .empty-state-box p {
+      color: var(--unipe-muted);
+      font-size: 0.9rem;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.6;
     }
 
     /* MODAL DE SANDBOX WEB */
@@ -967,7 +1021,7 @@
       justify-content: center;
     }
 
-    /* RODAPÉ ENXUTO E MINIMALISTA */
+    /* RODAPÉ ENXUTO COM LOGO OFICIAL */
     .footer-clean {
       background-color: #001733;
       color: #94a3b8;
@@ -989,7 +1043,13 @@
     .footer-brand {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 1rem;
+    }
+
+    .footer-logo-svg {
+      height: 38px;
+      width: auto;
+      display: block;
     }
 
     .footer-info {
@@ -1059,7 +1119,7 @@
         <button class="btn-a11y" onclick="alteraFonte('-')" title="Diminuir fonte">A-</button>
       </div>
       <div class="topbar-right">
-        <span style="color: rgba(255,255,255,0.6); font-size: 0.775rem;">Ciência da Computação • Bacharelado</span>
+        <span style="color: rgba(255,255,255,0.6); font-size: 0.775rem;">Ciência da Computação &bull; Bacharelado</span>
         <a class="topbar-link" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           <span>Repositório GitHub</span>
@@ -1068,19 +1128,50 @@
     </div>
   </aside>
 
-  <!-- 2. NAVBAR INSTITUCIONAL -->
+  <!-- 2. NAVBAR INSTITUCIONAL COM LOGO OFICIAL UNIPÊ -->
   <header class="navbar">
     <div class="navbar-container">
-      <a href="#" class="brand-group" onclick="redefinirFiltros(); return false;">
-        <!-- Logo Estrela UNIPÊ -->
-        <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 0L61.23 34.55H97.55L68.16 55.9L79.39 90.45L50 69.1L20.61 90.45L31.84 55.9L2.45 34.55H38.77L50 0Z" stroke="#FED400" stroke-width="7" stroke-linejoin="round" fill="none"/>
+      <div class="brand-wrapper" onclick="redefinirFiltros(); return false;">
+        <!-- Logomarca Oficial Vetorial UNIPÊ -->
+        <div class="brand-logo-svg" title="UNIPÊ Centro Universitário de João Pessoa">
+          <svg class="logo-svg" viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logomarca UNIPÊ Centro Universitário de João Pessoa">
+          <path fill="#FED400" d="M102.1,110.7c-1.9-5.1-4.2-11.5-6.2-18c-3.7-12.3-6.8-24.2-6.8-24.2c2.4-1.6,23.8-16.1,39.2-24.9c0.2-0.1,4.8-2.7,5.2-5.9c0.1-0.9,0-1.7-0.3-2.6c-0.8-2.3-2.7-4.4-8.2-4.7c-4.3-0.3-11.8-0.8-20.2-0.3c-8.1,0.3-16.8,1.2-23.3,2.3c0,0-2.6-15.9-3.5-22.5c-0.1-0.4-0.5-2.9-1.2-3.9c-0.7-1.1-1.8-2.1-3.6-2.4c-1.9-0.3-3.3,0.2-4.3,0.9c-1,0.7-2.4,2.7-2.7,3.2c-4.2,5.8-15.8,23-21.6,32.9c0,0-18.1,5.6-29.2,10.2c-3.3,1.4-3.6,3-3.7,3.9c-0.1,0.6,0,2.3,2.5,4.5C17.5,61.6,27.6,70,27.6,70c-3.6,5.7-17.3,33.7-18.6,41.5c-0.4,2.2-0.4,4.6,1.3,6.7c1,1.3,2.9,2.3,4.8,2.3c2.3,0,5.5-2.4,6.9-3.4c10.9-7.8,32.3-24.2,32.3-24.2c8,7.2,25,22.8,34,31.2c1,1,4.4,4.1,7.6,4.1c6.2,0.2,8.2-5.1,8.4-6.9C104.8,117,102.7,112.3,102.1,110.7z M18.6,55.7c-0.2-0.2-1.1-0.8-1-1.6c0-0.4,0.2-0.8,0.7-1.1c0.2-0.1,0.9-0.4,1-0.5c1.9-0.7,10.4-3.8,21.9-6.5c-3,5.2-5,8.5-6.4,10.9c-3.2,5.6-3.2,5.8-4.5,8.2C30.3,65.1,20.9,57.6,18.6,55.7z M23.8,100.8c-0.3,0.2-1.4,0.9-1.7,1.1c-2.4,1.2-2.9-0.3-3.1-0.9c-0.3-1.2,0.7-3.3,0.8-3.5c2.3-5,11.5-24.5,11.5-24.5s11.4,9.8,14.2,12.2C45.6,85.3,29,97.2,23.8,100.8z M82.9,93.7c1.9,6.5,4.1,13.3,5.2,16.7c0.3,0.9,0.3,1.7,0,2.2c-0.3,0.5-0.9,0.7-1.6,0.3c-0.3-0.2-1.2-0.9-1.3-1c-4.2-3.7-25.8-22.6-25.8-22.6L78,76.1C78,76.1,80.4,85.3,82.9,93.7z M50.4,81.7c0,0-15.6-13-16.5-13.7c0,0,9.9-18.6,13-23.3c1.9-0.5,16.4-3.2,23.3-4c0,0,2,11.3,5.1,24.2C75.3,64.9,55.2,78.3,50.4,81.7z M94,38.5c6.7-0.3,13.8-0.4,14.4-0.4c1.7,0,3.1,0.2,3.4,0.9c0.3,1-0.4,2.1-1.6,3c-0.3,0.2-4.3,2.8-8.6,5.8c-6.6,4.5-14.9,9.9-14.9,9.9c0.1,0.2-3.2-14.4-3.8-18.3C82.8,39.3,88.3,38.7,94,38.5z M63.5,19.4c0.1-0.2,1.2-1.6,2-1.6s1.1,1,1.2,1.5c0.2,1.2,0.4,3,0.9,5.9c0.7,4.2,1.5,9.1,1.5,9.1c-4.5,0.9-15.2,3.4-18.7,4.4C54.2,32.7,61.2,22.4,63.5,19.4z"/>
+          <g fill="#FFFFFF">
+            <path d="M146.1,69.5c-1.2-2.3-1.9-5.2-1.9-8.7V34.7h8.7v25.6c0,2.2,0.4,4.1,1.2,5.5c1.5,2.7,4.3,4.2,8.2,4.2s6.6-1.5,8.1-4.2c0.8-1.5,1.2-3.4,1.2-5.6V34.7h8.7v26.1c0,3.4-0.6,6.4-1.9,8.7c-2.7,5.3-8.5,7.8-16.2,7.8S148.8,74.9,146.1,69.5z"/>
+            <path d="M217.7,76.7l-17.6-23c-1.5-2-2.9-4-4.3-5.8h-0.1c0.2,1.5,0.2,4.1,0.2,6.2v22.6h-8.7v-42h8.7l16.9,22.1c1.7,2.1,3,4,4.3,5.8h0.1c-0.1-2.2-0.1-5-0.1-7V34.7h8.7v42H217.7z"/>
+            <path d="M232.8,34.7h8.7v42h-8.7V34.7z"/>
+            <path d="M248.6,34.7h11c3.8,0,7,0.5,9.5,1.8c4.6,2.2,7.1,6.3,7.1,12.1c0,4.9-2.1,10.1-8.4,12.5c-2.4,0.9-5.3,1.5-9,1.5h-1.5v14.1h-8.7L248.6,34.7z M259.3,55.6c1.9,0,3.4-0.2,4.5-0.8c2.2-1,3.2-3.2,3.2-6.1c0-2.4-1-4.6-3.1-5.9c-1.2-0.7-2.7-1-4.8-1h-1.9v13.8H259.3z"/>
+            <path d="M281.6,34.7h24.3l-2.3,7.4h-13.2v9.7h13.3v7.3h-13.3v10.2h15.5v7.4h-24.2V34.7z M289.9,23h6.8l6.4,9.4h-6.7l-3.2-4.5l-3.1,4.5h-6.6L289.9,23z"/>
+          </g>
+          <g fill="#FFFFFF">
+            <path d="M160.3,106.4c-2.1,1.1-4.1,1.5-6,1.5c-6.3,0-10-4.3-10-10.3s4.2-10.7,10.4-10.7c2.2,0,4.1,0.5,5.2,1.1v2.6c-1.5-0.8-3.1-1.3-5.1-1.3c-4.7,0-7.5,3.7-7.5,8.2c0,4.8,2.8,8.1,7.4,8.1c1.9,0,3.5-0.6,4.9-1.3L160.3,106.4z"/>
+            <path d="M164.8,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H164.8z M171.5,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H171.5z"/>
+            <path d="M177.3,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7L177.3,92.8z"/>
+            <path d="M194.4,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C195.8,107.9,194.4,106.6,194.4,104.2z"/>
+            <path d="M204.3,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7V92.8z"/>
+            <path d="M213.4,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S213.4,104.5,213.4,100.2z M224.5,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S224.5,103.3,224.5,100.2z"/>
+            <path d="M238.2,103.6c-0.4-1-0.6-2.2-0.6-3.5V87h2.8v12.9c0,1.1,0.1,2,0.5,2.8c0.7,1.8,2.3,2.8,4.7,2.8s4-1,4.7-2.8c0.3-0.8,0.4-1.8,0.4-2.9V87h2.8v13.1c0,1.4-0.2,2.6-0.6,3.6c-1.1,2.7-3.6,4.2-7.3,4.2S239.3,106.4,238.2,103.6z"/>
+            <path d="M257.7,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7V92.8z"/>
+            <path d="M273.5,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S273.5,89,273.5,88z M273.9,92.8h2.7v14.7h-2.7V92.8z"/>
+            <path d="M278.9,92.8h2.9l4.1,11.2h0.1l4-11.2h2.8l-5.8,14.8h-2.2L278.9,92.8z"/>
+            <path d="M296.6,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H296.6z M303.3,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H303.3z"/>
+            <path d="M309.1,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L309.1,92.8z"/>
+            <path d="M318.6,104.5c0.9,0.6,2.2,1.1,3.8,1.1s3-0.6,3-2.1c0-3-6.9-2-6.9-6.9c0-2.3,1.8-4.2,5.2-4.2c1.5,0,2.8,0.3,3.9,0.7v2.4c-1.1-0.5-2.3-0.8-3.7-0.8c-1.4,0-2.6,0.4-2.6,1.8c0,3,6.9,1.9,6.9,7c0,3-2.6,4.4-5.6,4.4c-2.1,0-3.7-0.7-4.8-1.3L318.6,104.5z"/>
+            <path d="M330.8,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S330.8,89,330.8,88z M331.2,92.8h2.7v14.7h-2.7V92.8z"/>
+            <path d="M339.2,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C340.5,107.9,339.1,106.6,339.2,104.2z"/>
+            <path d="M357.3,106c-1.1,1.1-2.6,1.9-4.4,1.9c-2.7,0-4.7-1.8-4.7-4.6c0-2,1-3.3,2.5-4c1-0.5,2.2-0.7,3.7-0.8l2.7-0.1v-0.8c0-2.1-1.3-3-3-3c-1.7,0-3,0.5-4,1.2l-1-1.9c1.7-1,3.6-1.5,5.3-1.5c3.3,0,5.5,1.6,5.5,5.1v5.4c0,2.5,0.1,3.9,0.3,4.6h-2.4L357.3,106z M354.7,100.5c-1.2,0-2,0.2-2.6,0.5c-0.8,0.4-1.1,1.2-1.1,2.1c0,1.5,1,2.5,2.6,2.5c1.7,0,2.9-1,3.6-1.7v-3.6L354.7,100.5z M354.7,86.4h3L355,91h-2.1L354.7,86.4z"/>
+            <path d="M363.5,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L363.5,92.8z"/>
+            <path d="M373.6,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S373.6,89,373.6,88z M374,92.8h2.7v14.7H374V92.8z"/>
+            <path d="M380,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S380,104.5,380,100.2z M391.2,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S391.2,103.3,391.2,100.2z"/>
+          </g>
         </svg>
-        <div class="brand-titles">
-          <span class="brand-super">Ciência da Computação</span>
-          <span class="brand-title">Hub Acadêmico • UNIPÊ</span>
         </div>
-      </a>
+        <div class="brand-divider"></div>
+        <div class="brand-meta">
+          <span class="brand-meta-sup">Ciência da Computação</span>
+          <span class="brand-meta-title">Hub Acadêmico</span>
+        </div>
+      </div>
 
       <!-- Barra de Pesquisa Integrada -->
       <div class="nav-search">
@@ -1092,7 +1183,7 @@
 
       <!-- Ações Rápidas (Terminal & Copiloto IA) -->
       <div class="nav-actions">
-        <button class="btn-nav-tool" onclick="abrirTerminalModal()" title="Abrir Terminal Backend">
+        <button class="btn-nav-tool" onclick="abrirTerminalModal()" title="Abrir Terminal CLI do Repositório">
           <i data-lucide="terminal" style="width: 15px; height: 15px;"></i>
           <span>Terminal CLI</span>
         </button>
@@ -1109,17 +1200,17 @@
     <div class="hero-container">
       <div class="hero-tag">
         <i data-lucide="award" style="width: 13px; height: 13px;"></i>
-        <span>Portal de Engenharia • Bacharelado</span>
+        <span>Portal de Engenharia &bull; Bacharelado</span>
       </div>
       <h1>Bacharelado em Ciência da Computação</h1>
       <p>
-        Repositório curricular integrado com ambientes dedicados: execute aplicações <strong>Web</strong> em sandbox responsivo,
-        teste rotinas de <strong>Backend</strong> no terminal interativo e baixe builds de aplicações <strong>Nativas</strong> (Mobile/Desktop) geradas via CI/CD.
+        Repositório curricular integrado da UNIPÊ. Os componentes de cada projeto são catalogados automaticamente
+        pela esteira de CI/CD com <strong>Groq Llama 3.3 70B</strong> conforme novos arquivos e disciplinas são adicionados ao repositório.
       </p>
       <div class="hero-badges">
-        <span class="hero-badge"><i data-lucide="layers" style="width: 14px; height: 14px; color: var(--unipe-yellow);"></i> Matriz Oficial dos 8 Períodos</span>
-        <span class="hero-badge"><i data-lucide="cpu" style="width: 14px; height: 14px; color: var(--unipe-yellow);"></i> CI/CD com Groq Llama 3.3 70B</span>
-        <span class="hero-badge"><i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: var(--unipe-yellow);"></i> 100% Validado W3C &amp; WCAG AAA</span>
+        <span class="hero-badge"><i data-lucide="layers" style="width: 14px; height: 14px; color: var(--unipe-yellow);"></i> Matriz dos 8 Semestres</span>
+        <span class="hero-badge"><i data-lucide="cpu" style="width: 14px; height: 14px; color: var(--unipe-yellow);"></i> Indexador Automático CI/CD</span>
+        <span class="hero-badge"><i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: var(--unipe-yellow);"></i> Conformidade W3C &amp; WCAG AAA</span>
       </div>
     </div>
   </section>
@@ -1154,7 +1245,7 @@
           </button>
           <button class="category-chip" data-cat="backend" onclick="filtrarCategoria('backend', this)">
             <i data-lucide="terminal" style="width: 14px; height: 14px;"></i>
-            <span>Backend (CLI &amp; SQL)</span>
+            <span>Backend (CLI &amp; Scripts)</span>
           </button>
           <button class="category-chip" data-cat="native" onclick="filtrarCategoria('native', this)">
             <i data-lucide="smartphone" style="width: 14px; height: 14px;"></i>
@@ -1173,11 +1264,11 @@
   <!-- 5. GRID DE PROJETOS -->
   <main class="main-section">
     <div class="section-header">
-      <h2 id="gridTitle">Projetos • 1º Semestre</h2>
+      <h2 id="gridTitle">Projetos &bull; 1º Semestre</h2>
     </div>
 
     <div class="projects-grid" id="projectsGrid">
-      <!-- Inserido dinamicamente via JS a partir do catálogo -->
+      <!-- Preenchido dinamicamente via JS a partir do catálogo real -->
     </div>
   </main>
 
@@ -1218,7 +1309,7 @@
     </div>
   </div>
 
-  <!-- 7. MODAL DO TERMINAL BACKEND (UNIX/BASH) -->
+  <!-- 7. MODAL DO TERMINAL CLI DO REPOSITÓRIO -->
   <div class="modal-overlay" id="terminalModalOverlay" role="dialog" aria-modal="true">
     <div class="terminal-window">
       <div class="terminal-header">
@@ -1227,7 +1318,7 @@
           <span class="dot dot-yellow" onclick="limparTerminal()" style="cursor: pointer;" title="Limpar"></span>
           <span class="dot dot-green"></span>
         </div>
-        <div class="terminal-title-text">aluno@unipe-cs: ~/periodo-1 • bash 5.2</div>
+        <div class="terminal-title-text">aluno@unipe-cs: ~/computer-science-unipe &bull; bash 5.2</div>
         <button class="modal-close-btn" onclick="fecharTerminalModal()" title="Fechar">
           <i data-lucide="x" style="width: 16px; height: 16px;"></i>
         </button>
@@ -1239,7 +1330,7 @@
 
       <div class="terminal-input-bar">
         <span class="terminal-prompt">aluno@unipe-cs:~$</span>
-        <input type="text" class="terminal-input" id="terminalInput" placeholder="help, run busca-binaria, sql SELECT * FROM voluntarios;, ai ..." onkeydown="tratarTeclaTerminal(event)" autocomplete="off">
+        <input type="text" class="terminal-input" id="terminalInput" placeholder="help, ls, open ep01, ai <pergunta> ..." onkeydown="tratarTeclaTerminal(event)" autocomplete="off">
       </div>
     </div>
   </div>
@@ -1250,7 +1341,7 @@
       <div style="display: flex; align-items: center; gap: 0.6rem;">
         <i data-lucide="bot" style="width: 20px; height: 20px; color: var(--unipe-yellow);"></i>
         <div>
-          <div style="font-weight: 700; font-size: 0.95rem;">Copiloto IA • UNIPÊ</div>
+          <div style="font-weight: 700; font-size: 0.95rem;">Copiloto IA &bull; UNIPÊ</div>
           <div style="font-size: 0.75rem; color: #cbd5e1;">Groq Llama 3.3 70B Versatile</div>
         </div>
       </div>
@@ -1261,9 +1352,9 @@
 
     <div class="ai-drawer-body" id="aiDrawerMessages">
       <div class="ai-msg bot">
-        Olá! Sou o assistente acadêmico de Ciência da Computação UNIPÊ, conectado ao modelo <strong>Llama 3.3 70B Versatile</strong> da Groq.
+        Olá! Sou o assistente acadêmico de Ciência da Computação UNIPÊ.
         <br><br>
-        Como posso ajudar com a matriz curricular, algoritmos, ou arquitetura dos projetos?
+        Como posso ajudar com a matriz curricular, detalhes das disciplinas ou dúvidas sobre os códigos do repositório?
       </div>
     </div>
 
@@ -1275,24 +1366,54 @@
     </div>
   </aside>
 
-  <!-- 9. RODAPÉ ENXUTO E INSTITUCIONAL -->
+  <!-- 9. RODAPÉ INSTITUCIONAL MINIMALISTA -->
   <footer class="footer-clean">
     <div class="footer-clean-container">
       <div class="footer-brand">
-        <svg width="26" height="26" viewBox="0 0 100 100" fill="none">
-          <path d="M50 0L61.23 34.55H97.55L68.16 55.9L79.39 90.45L50 69.1L20.61 90.45L31.84 55.9L2.45 34.55H38.77L50 0Z" stroke="#FED400" stroke-width="7" stroke-linejoin="round" fill="none"/>
+        <div class="footer-logo-svg" title="UNIPÊ Centro Universitário">
+          <svg class="logo-svg" viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logomarca UNIPÊ Centro Universitário de João Pessoa">
+          <path fill="#FED400" d="M102.1,110.7c-1.9-5.1-4.2-11.5-6.2-18c-3.7-12.3-6.8-24.2-6.8-24.2c2.4-1.6,23.8-16.1,39.2-24.9c0.2-0.1,4.8-2.7,5.2-5.9c0.1-0.9,0-1.7-0.3-2.6c-0.8-2.3-2.7-4.4-8.2-4.7c-4.3-0.3-11.8-0.8-20.2-0.3c-8.1,0.3-16.8,1.2-23.3,2.3c0,0-2.6-15.9-3.5-22.5c-0.1-0.4-0.5-2.9-1.2-3.9c-0.7-1.1-1.8-2.1-3.6-2.4c-1.9-0.3-3.3,0.2-4.3,0.9c-1,0.7-2.4,2.7-2.7,3.2c-4.2,5.8-15.8,23-21.6,32.9c0,0-18.1,5.6-29.2,10.2c-3.3,1.4-3.6,3-3.7,3.9c-0.1,0.6,0,2.3,2.5,4.5C17.5,61.6,27.6,70,27.6,70c-3.6,5.7-17.3,33.7-18.6,41.5c-0.4,2.2-0.4,4.6,1.3,6.7c1,1.3,2.9,2.3,4.8,2.3c2.3,0,5.5-2.4,6.9-3.4c10.9-7.8,32.3-24.2,32.3-24.2c8,7.2,25,22.8,34,31.2c1,1,4.4,4.1,7.6,4.1c6.2,0.2,8.2-5.1,8.4-6.9C104.8,117,102.7,112.3,102.1,110.7z M18.6,55.7c-0.2-0.2-1.1-0.8-1-1.6c0-0.4,0.2-0.8,0.7-1.1c0.2-0.1,0.9-0.4,1-0.5c1.9-0.7,10.4-3.8,21.9-6.5c-3,5.2-5,8.5-6.4,10.9c-3.2,5.6-3.2,5.8-4.5,8.2C30.3,65.1,20.9,57.6,18.6,55.7z M23.8,100.8c-0.3,0.2-1.4,0.9-1.7,1.1c-2.4,1.2-2.9-0.3-3.1-0.9c-0.3-1.2,0.7-3.3,0.8-3.5c2.3-5,11.5-24.5,11.5-24.5s11.4,9.8,14.2,12.2C45.6,85.3,29,97.2,23.8,100.8z M82.9,93.7c1.9,6.5,4.1,13.3,5.2,16.7c0.3,0.9,0.3,1.7,0,2.2c-0.3,0.5-0.9,0.7-1.6,0.3c-0.3-0.2-1.2-0.9-1.3-1c-4.2-3.7-25.8-22.6-25.8-22.6L78,76.1C78,76.1,80.4,85.3,82.9,93.7z M50.4,81.7c0,0-15.6-13-16.5-13.7c0,0,9.9-18.6,13-23.3c1.9-0.5,16.4-3.2,23.3-4c0,0,2,11.3,5.1,24.2C75.3,64.9,55.2,78.3,50.4,81.7z M94,38.5c6.7-0.3,13.8-0.4,14.4-0.4c1.7,0,3.1,0.2,3.4,0.9c0.3,1-0.4,2.1-1.6,3c-0.3,0.2-4.3,2.8-8.6,5.8c-6.6,4.5-14.9,9.9-14.9,9.9c0.1,0.2-3.2-14.4-3.8-18.3C82.8,39.3,88.3,38.7,94,38.5z M63.5,19.4c0.1-0.2,1.2-1.6,2-1.6s1.1,1,1.2,1.5c0.2,1.2,0.4,3,0.9,5.9c0.7,4.2,1.5,9.1,1.5,9.1c-4.5,0.9-15.2,3.4-18.7,4.4C54.2,32.7,61.2,22.4,63.5,19.4z"/>
+          <g fill="#FFFFFF">
+            <path d="M146.1,69.5c-1.2-2.3-1.9-5.2-1.9-8.7V34.7h8.7v25.6c0,2.2,0.4,4.1,1.2,5.5c1.5,2.7,4.3,4.2,8.2,4.2s6.6-1.5,8.1-4.2c0.8-1.5,1.2-3.4,1.2-5.6V34.7h8.7v26.1c0,3.4-0.6,6.4-1.9,8.7c-2.7,5.3-8.5,7.8-16.2,7.8S148.8,74.9,146.1,69.5z"/>
+            <path d="M217.7,76.7l-17.6-23c-1.5-2-2.9-4-4.3-5.8h-0.1c0.2,1.5,0.2,4.1,0.2,6.2v22.6h-8.7v-42h8.7l16.9,22.1c1.7,2.1,3,4,4.3,5.8h0.1c-0.1-2.2-0.1-5-0.1-7V34.7h8.7v42H217.7z"/>
+            <path d="M232.8,34.7h8.7v42h-8.7V34.7z"/>
+            <path d="M248.6,34.7h11c3.8,0,7,0.5,9.5,1.8c4.6,2.2,7.1,6.3,7.1,12.1c0,4.9-2.1,10.1-8.4,12.5c-2.4,0.9-5.3,1.5-9,1.5h-1.5v14.1h-8.7L248.6,34.7z M259.3,55.6c1.9,0,3.4-0.2,4.5-0.8c2.2-1,3.2-3.2,3.2-6.1c0-2.4-1-4.6-3.1-5.9c-1.2-0.7-2.7-1-4.8-1h-1.9v13.8H259.3z"/>
+            <path d="M281.6,34.7h24.3l-2.3,7.4h-13.2v9.7h13.3v7.3h-13.3v10.2h15.5v7.4h-24.2V34.7z M289.9,23h6.8l6.4,9.4h-6.7l-3.2-4.5l-3.1,4.5h-6.6L289.9,23z"/>
+          </g>
+          <g fill="#FFFFFF">
+            <path d="M160.3,106.4c-2.1,1.1-4.1,1.5-6,1.5c-6.3,0-10-4.3-10-10.3s4.2-10.7,10.4-10.7c2.2,0,4.1,0.5,5.2,1.1v2.6c-1.5-0.8-3.1-1.3-5.1-1.3c-4.7,0-7.5,3.7-7.5,8.2c0,4.8,2.8,8.1,7.4,8.1c1.9,0,3.5-0.6,4.9-1.3L160.3,106.4z"/>
+            <path d="M164.8,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H164.8z M171.5,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H171.5z"/>
+            <path d="M177.3,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7L177.3,92.8z"/>
+            <path d="M194.4,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C195.8,107.9,194.4,106.6,194.4,104.2z"/>
+            <path d="M204.3,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7V92.8z"/>
+            <path d="M213.4,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S213.4,104.5,213.4,100.2z M224.5,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S224.5,103.3,224.5,100.2z"/>
+            <path d="M238.2,103.6c-0.4-1-0.6-2.2-0.6-3.5V87h2.8v12.9c0,1.1,0.1,2,0.5,2.8c0.7,1.8,2.3,2.8,4.7,2.8s4-1,4.7-2.8c0.3-0.8,0.4-1.8,0.4-2.9V87h2.8v13.1c0,1.4-0.2,2.6-0.6,3.6c-1.1,2.7-3.6,4.2-7.3,4.2S239.3,106.4,238.2,103.6z"/>
+            <path d="M257.7,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7V92.8z"/>
+            <path d="M273.5,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S273.5,89,273.5,88z M273.9,92.8h2.7v14.7h-2.7V92.8z"/>
+            <path d="M278.9,92.8h2.9l4.1,11.2h0.1l4-11.2h2.8l-5.8,14.8h-2.2L278.9,92.8z"/>
+            <path d="M296.6,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H296.6z M303.3,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H303.3z"/>
+            <path d="M309.1,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L309.1,92.8z"/>
+            <path d="M318.6,104.5c0.9,0.6,2.2,1.1,3.8,1.1s3-0.6,3-2.1c0-3-6.9-2-6.9-6.9c0-2.3,1.8-4.2,5.2-4.2c1.5,0,2.8,0.3,3.9,0.7v2.4c-1.1-0.5-2.3-0.8-3.7-0.8c-1.4,0-2.6,0.4-2.6,1.8c0,3,6.9,1.9,6.9,7c0,3-2.6,4.4-5.6,4.4c-2.1,0-3.7-0.7-4.8-1.3L318.6,104.5z"/>
+            <path d="M330.8,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S330.8,89,330.8,88z M331.2,92.8h2.7v14.7h-2.7V92.8z"/>
+            <path d="M339.2,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C340.5,107.9,339.1,106.6,339.2,104.2z"/>
+            <path d="M357.3,106c-1.1,1.1-2.6,1.9-4.4,1.9c-2.7,0-4.7-1.8-4.7-4.6c0-2,1-3.3,2.5-4c1-0.5,2.2-0.7,3.7-0.8l2.7-0.1v-0.8c0-2.1-1.3-3-3-3c-1.7,0-3,0.5-4,1.2l-1-1.9c1.7-1,3.6-1.5,5.3-1.5c3.3,0,5.5,1.6,5.5,5.1v5.4c0,2.5,0.1,3.9,0.3,4.6h-2.4L357.3,106z M354.7,100.5c-1.2,0-2,0.2-2.6,0.5c-0.8,0.4-1.1,1.2-1.1,2.1c0,1.5,1,2.5,2.6,2.5c1.7,0,2.9-1,3.6-1.7v-3.6L354.7,100.5z M354.7,86.4h3L355,91h-2.1L354.7,86.4z"/>
+            <path d="M363.5,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L363.5,92.8z"/>
+            <path d="M373.6,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S373.6,89,373.6,88z M374,92.8h2.7v14.7H374V92.8z"/>
+            <path d="M380,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S380,104.5,380,100.2z M391.2,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S391.2,103.3,391.2,100.2z"/>
+          </g>
         </svg>
+        </div>
         <div class="footer-info">
-          <div class="footer-info-title">UNIPÊ • Bacharelado em Ciência da Computação</div>
-          <div class="footer-info-sub">Desenvolvido por <strong>Charlles Augusto</strong> • Matriz Curricular &amp; Projetos Práticos</div>
+          <div class="footer-info-title">UNIPÊ &bull; Centro Universitário de João Pessoa</div>
+          <div class="footer-info-sub">Bacharelado em Ciência da Computação &bull; Desenvolvido por <strong>Charlles Augusto</strong></div>
         </div>
       </div>
 
       <div class="footer-links">
-        <a class="footer-link" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener">Código Fonte no GitHub</a>
-        <span style="color: rgba(255,255,255,0.2);">•</span>
-        <a class="footer-link" href="catalog.json" target="_blank">Manifesto catalog.json</a>
-        <span style="color: rgba(255,255,255,0.2);">•</span>
+        <a class="footer-link" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener">Repositório no GitHub</a>
+        <span style="color: rgba(255,255,255,0.2);">&bull;</span>
+        <a class="footer-link" href="catalog.json" target="_blank">Manifesto Curricular</a>
+        <span style="color: rgba(255,255,255,0.2);">&bull;</span>
         <span style="color: #cbd5e1;">Acessibilidade WCAG 2.1 AAA</span>
       </div>
     </div>
@@ -1302,7 +1423,7 @@
        SCRIPTS DE CONTROLE, FILTROS & INTEGRAÇÕES
        ========================================================== -->
   <script>
-    // 1. MANIFESTO CURRICULAR INTEGRADO (Fallback instantâneo offline/online)
+    // 1. MANIFESTO CURRICULAR INTEGRADO (Varredura Real do Repositório)
     const CATALOGO_PADRAO = {
   "curso": "Bacharelado em Ciência da Computação",
   "instituicao": "UNIPÊ - Centro Universitário de João Pessoa",
@@ -1312,26 +1433,22 @@
   "categorias_disponiveis": [
     {
       "id": "todos",
-      "nome": "Todos os Projetos",
-      "icone": "layers"
+      "nome": "Todos os Projetos"
     },
     {
       "id": "web",
       "nome": "Aplicações Web",
-      "subtitulo": "Front-End & Fullstack",
-      "icone": "globe"
+      "subtitulo": "Front-End & Fullstack"
     },
     {
       "id": "backend",
-      "nome": "Backend & Terminal",
-      "subtitulo": "Algoritmos, CLI & SQL",
-      "icone": "terminal"
+      "nome": "Backend",
+      "subtitulo": "CLI, Scripts & APIs"
     },
     {
       "id": "native",
       "nome": "Aplicações Nativas",
-      "subtitulo": "Mobile (.apk) & Desktop (.exe)",
-      "icone": "smartphone"
+      "subtitulo": "Mobile & Desktop"
     }
   ],
   "periodos": [
@@ -1341,21 +1458,26 @@
       "status": "cursando",
       "disciplinas": [
         {
+          "id": "algoritmos-pensamento-computacional",
+          "nome": "Algoritmos e Pensamento Computacional",
+          "carga_horaria": "90h",
+          "status": "cursando",
+          "categoria": "backend",
+          "projetos": []
+        },
+        {
           "id": "desenvolvimento-front-end-web",
           "nome": "Desenvolvimento Front-End para Web",
           "carga_horaria": "90h",
-          "status": "concluido",
+          "status": "cursando",
           "categoria": "web",
-          "descricao": "Construção de aplicações web responsivas, acessíveis e reativas para a ONG Esperança Viva.",
           "projetos": [
             {
-              "id": "ep01",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_1",
               "codigo": "EP_01",
               "titulo": "Estruturação Semântica HTML5",
-              "descricao": "Arquitetura semântica W3C, formulário cadastral modular com fieldsets temáticos e conformidade de acessibilidade base.",
+              "descricao": "Arquitetura semântica W3C, formulário modular com fieldsets e acessibilidade para a ONG Esperança Viva.",
               "categoria": "web",
-              "tipo": "frontend",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 1/index.html",
               "tags": [
                 "HTML5",
                 "W3C",
@@ -1363,16 +1485,14 @@
                 "Formulários"
               ],
               "status": "Validado W3C",
-              "comando_terminal": "run ep01"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 1/index.html"
             },
             {
-              "id": "ep02",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_2",
               "codigo": "EP_02",
               "titulo": "Design System & CSS Grid",
-              "descricao": "Malha responsiva de 12 colunas, design tokens nativos (:root), flexbox e 5 breakpoints @media.",
+              "descricao": "Malha responsiva de 12 colunas, variáveis nativas (:root), flexbox e 5 breakpoints Mobile-First.",
               "categoria": "web",
-              "tipo": "frontend",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 2/index.html",
               "tags": [
                 "CSS Grid",
                 "Flexbox",
@@ -1380,111 +1500,54 @@
                 "Mobile-First"
               ],
               "status": "Validado CSS",
-              "comando_terminal": "run ep02"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 2/index.html"
             },
             {
-              "id": "ep03",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_3",
               "codigo": "EP_03",
               "titulo": "Single Page Application Vanilla",
-              "descricao": "Motor de roteamento dinâmico via hashchange sem frameworks pesados, renderização por templates reativos e persistência em localStorage.",
+              "descricao": "Roteamento dinâmico via hashchange sem frameworks pesados, templates dinâmicos e persistência em localStorage.",
               "categoria": "web",
-              "tipo": "fullstack",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 3/html/index.html",
               "tags": [
                 "Vanilla SPA",
                 "Hash Router",
-                "localStorage",
-                "Fullstack Mock"
+                "localStorage"
               ],
               "status": "Validado SPA",
-              "comando_terminal": "run ep03"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 3/html/index.html"
             },
             {
-              "id": "ep04",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_4",
               "codigo": "EP_04",
               "titulo": "Acessibilidade WCAG 2.1 AAA & Produção",
-              "descricao": "Conformidade WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de CI/CD em produção.",
+              "descricao": "Conformidade com padrões WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de produção.",
               "categoria": "web",
-              "tipo": "frontend",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 4/html/index.html",
               "tags": [
                 "WCAG 2.1 AAA",
                 "Dark Mode",
                 "Vite",
-                "CI/CD Pages"
+                "CI/CD"
               ],
               "status": "Produção Final",
-              "comando_terminal": "run ep04"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 4/html/index.html"
             }
           ]
         },
         {
-          "id": "algoritmos-pensamento-computacional",
-          "nome": "Algoritmos e Pensamento Computacional",
+          "id": "design-profissional",
+          "nome": "Design Profissional",
           "carga_horaria": "90h",
           "status": "cursando",
-          "categoria": "backend",
-          "descricao": "Fundamentos de lógica algorítmica, estruturas de dados elementares e análise assintótica.",
-          "projetos": [
-            {
-              "id": "busca-binaria",
-              "codigo": "ALGO_01",
-              "titulo": "Busca Binária & Análise O(log n)",
-              "descricao": "Implementação e benchmark de busca binária logarítmica com rastreamento visual de divisões e ponteiros de memória.",
-              "categoria": "backend",
-              "tipo": "cli",
-              "tags": [
-                "Algoritmos",
-                "Busca Binária",
-                "O(log n)",
-                "Complexidade"
-              ],
-              "status": "Ativo no Terminal",
-              "comando_terminal": "run busca-binaria"
-            },
-            {
-              "id": "ordenacao-quicksort",
-              "codigo": "ALGO_02",
-              "titulo": "Ordenação Quicksort O(n log n)",
-              "descricao": "Algoritmo por divisão e conquista com particionamento em torno de pivô e eficiência de cache.",
-              "categoria": "backend",
-              "tipo": "cli",
-              "tags": [
-                "Ordenação",
-                "QuickSort",
-                "Recursão",
-                "Backend"
-              ],
-              "status": "Ativo no Terminal",
-              "comando_terminal": "run quicksort"
-            }
-          ]
+          "categoria": "web",
+          "projetos": []
         },
         {
           "id": "modelagem-banco-dados",
           "nome": "Modelagem de Banco de Dados",
           "carga_horaria": "90h",
           "status": "cursando",
-          "categoria": "backend",
-          "descricao": "Modelagem relacional em 3FN, integridade referencial por chaves estrangeiras e consultas SQL otimizadas.",
-          "projetos": [
-            {
-              "id": "schema-ong",
-              "codigo": "BD_01",
-              "titulo": "Schema Relacional & Consultas SQL",
-              "descricao": "Estruturação de banco relacional normalizado para voluntários, doações e projetos sociais da ONG Esperança Viva.",
-              "categoria": "backend",
-              "tipo": "sql",
-              "tags": [
-                "SQL",
-                "Modelagem DER",
-                "3FN",
-                "PostgreSQL"
-              ],
-              "status": "Ativo no Terminal",
-              "comando_terminal": "sql SELECT * FROM voluntarios;"
-            }
-          ]
+          "categoria": "web",
+          "projetos": []
         }
       ]
     },
@@ -1494,30 +1557,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "programacao-computadores",
-          "nome": "Programação de Computadores",
-          "carga_horaria": "90h",
-          "status": "a_cursar",
-          "categoria": "backend",
-          "descricao": "Paradigmas estruturados e orientados a objetos, gerenciamento de memória e boas práticas de código limpo.",
-          "projetos": []
-        },
-        {
           "id": "engenharia-prompt-ia",
           "nome": "Engenharia de Prompt para IA",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Técnicas avançadas de context engineering, few-shot prompting e integração com LLMs (Groq Llama 3.3).",
           "projetos": []
         },
         {
-          "id": "prototipagem-sistemas",
+          "id": "interface-jornada-usuario",
+          "nome": "Interface e Jornada do Usuário",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "programacao-computadores",
+          "nome": "Programação de Computadores",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "backend",
+          "projetos": []
+        },
+        {
+          "id": "prototipagem-sistemas-computacionais",
           "nome": "Prototipagem de Sistemas Computacionais",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Design de interfaces, validação rápida de hipóteses e prototipagem de produtos digitais com usabilidade.",
           "projetos": []
         }
       ]
@@ -1528,21 +1596,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "estruturas-dados",
-          "nome": "Estruturas de Dados Avançadas",
+          "id": "desenvolvimento-aplicativos-moveis",
+          "nome": "Desenvolvimento de Aplicativos Móveis",
           "carga_horaria": "90h",
           "status": "a_cursar",
-          "categoria": "backend",
-          "descricao": "Árvores binárias balanceadas (AVL/Red-Black), tabelas hash, grafos e algoritmos de menor caminho.",
+          "categoria": "native",
           "projetos": []
         },
         {
-          "id": "programacao-orientada-objetos",
-          "nome": "Programação Orientada a Objetos",
+          "id": "desenvolvimento-back-end",
+          "nome": "Desenvolvimento Back-End",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "backend",
-          "descricao": "Design patterns GoF, polimorfismo, encapsulamento e princípios SOLID aplicados à engenharia de software.",
+          "projetos": []
+        },
+        {
+          "id": "meio-ambiente-saude",
+          "nome": "Meio Ambiente e Saúde",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "projeto-software",
+          "nome": "Projeto de Software",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -1553,40 +1635,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "desenvolvimento-mobile-nativo",
-          "nome": "Desenvolvimento Mobile & Sistemas Nativos",
-          "carga_horaria": "90h",
-          "status": "a_cursar",
-          "categoria": "native",
-          "descricao": "Desenvolvimento nativo e multiplataforma para Android/Desktop (Flutter, Kotlin, C++). As builds compiladas ficam disponíveis para download nas Releases do repositório.",
-          "projetos": [
-            {
-              "id": "app-mobile-nativo",
-              "codigo": "NAT_01",
-              "titulo": "App Nativo de Gestão Acadêmica & Offline",
-              "descricao": "Aplicativo nativo com compilação automática via GitHub Actions, persistência SQLite local e sincronização offline.",
-              "categoria": "native",
-              "tipo": "mobile",
-              "plataforma": "Android / Windows",
-              "tipo_arquivo": ".apk / .zip",
-              "build_download_url": "https://github.com/charlles-dev/computer-science-unipe/releases",
-              "tags": [
-                "Native App",
-                "Android",
-                "GitHub Actions Build",
-                "Offline First"
-              ],
-              "status": "Build Automática via CI/CD"
-            }
-          ]
-        },
-        {
-          "id": "engenharia-software",
-          "nome": "Engenharia de Software & Arquitetura",
+          "id": "desenvolvimento-banco-dados",
+          "nome": "Desenvolvimento de Banco de Dados",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Arquitetura limpa, microsserviços, DDD (Domain-Driven Design) e esteiras de entrega contínua.",
+          "projetos": []
+        },
+        {
+          "id": "economia-sustentavel",
+          "nome": "Economia Sustentável",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "humanidades-populacao-brasileira",
+          "nome": "Humanidades e População Brasileira",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "visao-computacional",
+          "nome": "Visão Computacional",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -1597,12 +1674,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "inteligencia-artificial",
-          "nome": "Inteligência Artificial & Machine Learning",
+          "id": "ciencia-dados",
+          "nome": "Ciência de Dados",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Modelos de aprendizagem supervisionada, redes neurais profundas, processamento de linguagem natural e agentes LLM.",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas",
+          "nome": "Competências Abertas",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "desenvolvimento-sistemas-embarcados",
+          "nome": "Desenvolvimento de Sistemas Embarcados",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "native",
+          "projetos": []
+        },
+        {
+          "id": "modelagem-treinamento-ia",
+          "nome": "Modelagem e Treinamento de IA",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -1613,12 +1713,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "compiladores-linguagens",
-          "nome": "Compiladores & Teoria da Computação",
+          "id": "competencias-abertas",
+          "nome": "Competências Abertas",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "modelagem-matematica-computacional",
+          "nome": "Modelagem Matemática Computacional",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "optativa",
+          "nome": "Disciplina Optativa",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "seguranca-ambientes-digitais",
+          "nome": "Segurança em Ambientes Digitais",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "backend",
-          "descricao": "Autômatos, análise léxica e sintática, geração de código intermediário e otimização em tempo de compilação.",
           "projetos": []
         }
       ]
@@ -1629,12 +1752,43 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "computacao-nuvem-devops",
-          "nome": "Computação em Nuvem & DevOps",
+          "id": "analise-otimizacao-algoritmos",
+          "nome": "Análise e Otimização de Algoritmos",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "backend",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-1",
+          "nome": "Competências Abertas I",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Infraestrutura como código, conteinerização com Docker e Kubernetes, observabilidade e CI/CD escalável.",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-2",
+          "nome": "Competências Abertas II",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-3",
+          "nome": "Competências Abertas III",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "tcc-1",
+          "nome": "Trabalho de Conclusão de Curso I (TCC)",
+          "carga_horaria": "120h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -1645,12 +1799,43 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "tcc-computacao",
-          "nome": "Trabalho de Conclusão de Curso (TCC)",
+          "id": "ambientes-computacionais-conectividade",
+          "nome": "Ambientes Computacionais e Conectividade",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-1",
+          "nome": "Competências Abertas I",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-2",
+          "nome": "Competências Abertas II",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-3",
+          "nome": "Competências Abertas III",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "tcc-2",
+          "nome": "Trabalho de Conclusão de Curso II (TCC)",
           "carga_horaria": "120h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Projeto final de graduação integrando arquitetura de software, rigor científico e impacto social prático.",
           "projetos": []
         }
       ]
@@ -1681,7 +1866,7 @@
         .catch(() => {});
     });
 
-    // 2. SISTEMA DE FILTROS UNIFICADO
+    // 2. SISTEMA DE FILTROS
     function filtrarSemestre(semestre, btn) {
       filtroSemestreAtivo = semestre;
       document.querySelectorAll('.semestre-pill').forEach(b => b.classList.remove('active'));
@@ -1715,64 +1900,70 @@
       const container = document.getElementById('projectsGrid');
       const termoBusca = (document.getElementById('campoBusca')?.value || '').toLowerCase().trim();
       
-      // Coletar itens baseados no semestre
       let periodosFiltrados = [];
       if (filtroSemestreAtivo === 'todos') {
         periodosFiltrados = catalogoDados.periodos;
-        document.getElementById('gridTitle').innerText = 'Todos os Semestres Curriculares (1º ao 8º)';
+        document.getElementById('gridTitle').innerHTML = 'Todos os Semestres Curriculares (1º ao 8º)';
       } else {
         periodosFiltrados = catalogoDados.periodos.filter(p => p.numero === Number(filtroSemestreAtivo));
-        document.getElementById('gridTitle').innerText = `Projetos & Disciplinas • ${filtroSemestreAtivo}º Semestre`;
+        document.getElementById('gridTitle').innerHTML = `Projetos &amp; Disciplinas &bull; ${filtroSemestreAtivo}º Semestre`;
       }
 
-      // Compilar lista unificada de itens (projetos ou disciplinas a cursar)
-      let itens = [];
+      // Coletar projetos reais e disciplinas
+      let projetosReais = [];
+      let disciplinasSemProjetos = [];
+
       periodosFiltrados.forEach(per => {
         per.disciplinas.forEach(disc => {
           if (disc.projetos && disc.projetos.length > 0) {
             disc.projetos.forEach(proj => {
-              itens.push({
+              projetosReais.push({
                 tipo_item: 'projeto',
                 id: proj.id,
                 codigo: proj.codigo,
                 titulo: proj.titulo,
                 descricao: proj.descricao,
-                categoria: proj.categoria || disc.categoria || 'web',
+                categoria: proj.categoria || 'web',
                 semestre: per.numero,
                 tags: proj.tags || [],
                 status: proj.status,
-                path: proj.path,
-                comando_terminal: proj.comando_terminal,
-                build_download_url: proj.build_download_url,
-                plataforma: proj.plataforma,
-                tipo_arquivo: proj.tipo_arquivo
+                path: proj.path
               });
             });
           } else {
-            // Disciplina futura em planejamento
-            itens.push({
+            // Disciplina real do período que ainda não tem projeto cadastrado
+            disciplinasSemProjetos.push({
               tipo_item: 'disciplina',
               id: disc.id,
               codigo: disc.carga_horaria,
               titulo: disc.nome,
-              descricao: disc.descricao || `Disciplina curricular do ${per.numero}º semestre de Ciência da Computação.`,
+              descricao: `Disciplina curricular integrante do ${per.numero}º semestre de Ciência da Computação.`,
               categoria: disc.categoria || 'web',
               semestre: per.numero,
-              tags: [disc.carga_horaria, `Runner: ${disc.categoria ? disc.categoria.toUpperCase() : 'WEB'}`],
-              status: 'A Cursar'
+              tags: [disc.carga_horaria, per.numero === 1 ? 'Cursando' : 'A Cursar'],
+              status: per.numero === 1 ? 'Cursando' : 'A Cursar'
             });
           }
         });
       });
 
+      // Se há projetos reais no período selecionado: exibe os projetos
+      // Se não há nenhum projeto real (ex: semestres 2 a 8), exibe as disciplinas curriculares com botão de IA
+      let itensExibicao = [];
+      if (projetosReais.length > 0) {
+        itensExibicao = projetosReais;
+      } else {
+        itensExibicao = disciplinasSemProjetos;
+      }
+
       // Aplicar filtro de categoria (Todos, Web, Backend, Native)
       if (filtroCategoriaAtiva !== 'todos') {
-        itens = itens.filter(item => item.categoria === filtroCategoriaAtiva);
+        itensExibicao = itensExibicao.filter(item => item.categoria === filtroCategoriaAtiva);
       }
 
       // Aplicar busca textual
       if (termoBusca !== '') {
-        itens = itens.filter(item => {
+        itensExibicao = itensExibicao.filter(item => {
           const texto = (item.titulo + ' ' + item.descricao + ' ' + item.tags.join(' ') + ' ' + item.codigo).toLowerCase();
           return texto.includes(termoBusca);
         });
@@ -1781,40 +1972,44 @@
       // Atualizar contagem
       const summaryEl = document.getElementById('filterSummary');
       if (summaryEl) {
-        summaryEl.innerText = `Exibindo ${itens.length} ${itens.length === 1 ? 'item' : 'itens'} (${filtroCategoriaAtiva.toUpperCase()})`;
+        summaryEl.innerText = `Exibindo ${itensExibicao.length} ${itensExibicao.length === 1 ? 'item' : 'itens'} (${filtroCategoriaAtiva.toUpperCase()})`;
       }
 
-      // Renderizar HTML
-      if (itens.length === 0) {
+      // Estado vazio quando o filtro não encontrar projetos
+      if (itensExibicao.length === 0) {
+        let msgSub = "Nenhum projeto adicionado para esta categoria ou período ainda.";
+        if (filtroCategoriaAtiva === 'backend') {
+          msgSub = "Assim que você criar arquivos de código nas pastas de Backend (ex: Python, SQL, C++), a esteira de CI/CD indexará e gerará o card automaticamente.";
+        } else if (filtroCategoriaAtiva === 'native') {
+          msgSub = "Assim que você adicionar aplicações Mobile ou Desktop (Android, Flutter, Kotlin), as builds compiladas ficarão disponíveis para download nesta categoria.";
+        }
+
         container.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; padding: 3rem 1.5rem; background: #fff; border-radius: 8px; border: 1px dashed var(--unipe-border);">
-            <i data-lucide="folder-search" style="width: 40px; height: 40px; color: var(--unipe-muted); margin-bottom: 0.75rem;"></i>
-            <h3 style="color: var(--unipe-blue-dark); margin-bottom: 0.5rem;">Nenhum projeto encontrado</h3>
-            <p style="color: var(--unipe-muted); font-size: 0.9rem;">Tente ajustar a categoria selecionada ou limpar os termos da pesquisa.</p>
-            <button class="btn-a11y" style="margin-top: 1rem; color: var(--unipe-blue); border-color: var(--unipe-blue);" onclick="redefinirFiltros()">Limpar Filtros</button>
+          <div class="empty-state-box">
+            <i data-lucide="folder-code" style="width: 44px; height: 44px; color: var(--unipe-muted); margin-bottom: 0.5rem;"></i>
+            <h3>Nenhum projeto nesta seleção</h3>
+            <p>${msgSub}</p>
+            <button class="btn-a11y" style="margin-top: 1.25rem; color: var(--unipe-blue); border-color: var(--unipe-blue); padding: 0.4rem 0.9rem;" onclick="redefinirFiltros()">Ver Todos os Projetos</button>
           </div>
         `;
         lucide.createIcons();
         return;
       }
 
-      container.innerHTML = itens.map(item => {
+      // Renderizar Cards Reais
+      container.innerHTML = itensExibicao.map(item => {
         let badgeIcon = 'globe';
         let badgeLabel = 'Web';
-        let btnClass = 'btn-web';
         let btnActionHtml = '';
 
         if (item.categoria === 'backend') {
           badgeIcon = 'terminal';
           badgeLabel = 'Backend';
-          btnClass = 'btn-backend';
         } else if (item.categoria === 'native') {
           badgeIcon = 'smartphone';
           badgeLabel = 'Native';
-          btnClass = 'btn-native';
         }
 
-        // Gerar botões de acordo com a categoria solicitada pelo usuário
         if (item.tipo_item === 'disciplina') {
           btnActionHtml = `
             <button class="btn-card-action btn-web" onclick="consultarIaDisciplina('${item.titulo}')">
@@ -1823,7 +2018,6 @@
             </button>
           `;
         } else if (item.categoria === 'web') {
-          // Web: Executar Preview no Sandbox
           btnActionHtml = `
             <button class="btn-card-action btn-web" onclick="abrirWebModal('${item.path}', '${item.titulo}')">
               <i data-lucide="play" style="width: 14px; height: 14px;"></i>
@@ -1834,26 +2028,18 @@
             </a>
           `;
         } else if (item.categoria === 'backend') {
-          // Backend: Executar no Terminal
-          const cmd = item.comando_terminal || 'help';
           btnActionHtml = `
-            <button class="btn-card-action btn-backend" onclick="abrirTerminalComComando('${cmd}')">
+            <button class="btn-card-action btn-backend" onclick="abrirTerminalModal()">
               <i data-lucide="terminal" style="width: 14px; height: 14px;"></i>
-              <span>Executar no Terminal</span>
+              <span>Explorar no Terminal</span>
             </button>
           `;
         } else if (item.categoria === 'native') {
-          // Native: Baixar Build (.apk / .exe / .zip)
-          const downloadUrl = item.build_download_url || 'https://github.com/charlles-dev/computer-science-unipe/releases';
-          const fileType = item.tipo_arquivo || '.apk / .exe';
           btnActionHtml = `
-            <a class="btn-card-action btn-native" href="${downloadUrl}" target="_blank" rel="noopener">
+            <a class="btn-card-action btn-native" href="https://github.com/charlles-dev/computer-science-unipe/releases" target="_blank" rel="noopener">
               <i data-lucide="download" style="width: 14px; height: 14px;"></i>
-              <span>Baixar Build (${fileType})</span>
+              <span>Baixar Build</span>
             </a>
-            <button class="btn-card-icon" onclick="mostrarInstrucoesNative('${item.titulo}', '${item.plataforma || 'Android / Desktop'}')" title="Instruções de instalação">
-              <i data-lucide="help-circle" style="width: 15px; height: 15px;"></i>
-            </button>
           `;
         }
 
@@ -1865,7 +2051,7 @@
                   <i data-lucide="${badgeIcon}" style="width: 12px; height: 12px;"></i>
                   <span>${badgeLabel}</span>
                 </span>
-                <span class="badge-semestre">${item.semestre}º Semestre • ${item.codigo}</span>
+                <span class="badge-semestre">${item.semestre}º Semestre &bull; ${item.codigo}</span>
               </div>
               <h3 class="card-title">${item.titulo}</h3>
               <p class="card-desc">${item.descricao}</p>
@@ -1903,7 +2089,7 @@
       document.getElementById('webModalIframe').style.width = largura;
     }
 
-    // 5. CONTROLADOR DO TERMINAL BACKEND
+    // 5. CONTROLADOR DO TERMINAL CLI
     let historicoTerminal = [];
     let idxHistorico = -1;
 
@@ -1911,9 +2097,8 @@
       const output = document.getElementById('terminalOutput');
       if (output && output.children.length === 0) {
         output.innerText = 
-          "UNIPÊ Ciência da Computação - Terminal Backend v2.5\n" +
-          "Ambiente Unix/Bash conectado. Digite 'help' para listar comandos.\n" +
-          "Exemplos rápidos: run busca-binaria | run quicksort | sql SELECT * FROM voluntarios; | ai <pergunta>\n\n";
+          "UNIPÊ Ciência da Computação - Terminal CLI do Repositório\n" +
+          "Ambiente conectado. Digite 'help' para listar os comandos.\n\n";
       }
     }
 
@@ -1924,13 +2109,6 @@
 
     function fecharTerminalModal() {
       document.getElementById('terminalModalOverlay').classList.remove('active');
-    }
-
-    function abrirTerminalComComando(cmd) {
-      abrirTerminalModal();
-      setTimeout(() => {
-        executarComandoTerminal(cmd);
-      }, 250);
     }
 
     function limparTerminal() {
@@ -1983,61 +2161,52 @@
       switch (acao) {
         case 'help':
           printTerminal(
-            "COMANDOS DISPONÍVEIS NO TERMINAL ACADÊMICO:\n" +
-            "  • help              : Exibe este guia de ajuda\n" +
-            "  • run busca-binaria : Executa o rastreador de busca binária O(log n)\n" +
-            "  • run quicksort     : Executa benchmark e ordenação Quicksort O(n log n)\n" +
-            "  • sql <query>       : Executa query SQL simulada no PostgreSQL UNIPÊ\n" +
-            "  • ai <pergunta>     : Consulta o modelo Groq Llama 3.3 70B Versatile\n" +
-            "  • clear             : Limpa o buffer de saída do console",
+            "COMANDOS DO REPOSITÓRIO:\n" +
+            "  • help              : Exibe esta lista de comandos\n" +
+            "  • ls                : Lista os diretórios de semestres (periodo-1 a periodo-8)\n" +
+            "  • open ep01..ep04   : Abre a experiência prática correspondente no Sandbox Web\n" +
+            "  • ai <pergunta>     : Consulta o Copiloto IA (Llama 3.3 70B)\n" +
+            "  • clear             : Limpa o terminal",
             'info'
           );
           break;
-        case 'run':
-          if (arg === 'busca-binaria') {
-            printTerminal("[Executando Busca Binária O(log n)]", 'success');
-            printTerminal("Array ordenado: [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]");
-            printTerminal("Buscando elemento: 23");
-            printTerminal("Passo 1: Meio = 16 (Índice 4) -> 23 > 16 (Busca metade direita)");
-            printTerminal("Passo 2: Meio = 56 (Índice 7) -> 23 < 56 (Busca metade esquerda)");
-            printTerminal("Passo 3: Meio = 23 (Índice 5) -> Elemento encontrado!");
-            printTerminal("Resultado: Encontrado em 3 iterações. Complexidade logarítmica O(log 10) validada.", 'success');
-          } else if (arg === 'quicksort') {
-            printTerminal("[Executando Quicksort O(n log n)]", 'success');
-            printTerminal("Entrada desordenada: [45, 12, 89, 3, 27, 64, 18, 9] (n=8)");
-            printTerminal("Partição 1: Pivô = 9 -> Menores: [3], Maiores: [45, 12, 89, 27, 64, 18]");
-            printTerminal("Partição 2: Sub-vetores ordenados recursivamente com divisões em log(n).");
-            printTerminal("Array final ordenado: [3, 9, 12, 18, 27, 45, 64, 89]");
-            printTerminal("Resultado: Concluído com 14 comparações. Complexidade média O(n log n).", 'success');
-          } else {
-            printTerminal(`Comando de execução desconhecido: '${arg}'. Digite 'help'.`, 'info');
-          }
-          break;
-        case 'sql':
-          printTerminal("Conectando ao banco relacional UNIPÊ PostgreSQL...", 'info');
+        case 'ls':
           printTerminal(
-            "+----+---------------------+----------------------+------------------+\n" +
-            "| id | nome                | email                | habilidade       |\n" +
-            "+----+---------------------+----------------------+------------------+\n" +
-            "|  1 | Maria Silva         | maria@ong.org        | Cozinha Comunit. |\n" +
-            "|  2 | João Santos         | joao@ong.org         | Apoio Escolar    |\n" +
-            "|  3 | Ana Costa           | ana@ong.org          | Logística        |\n" +
-            "+----+---------------------+----------------------+------------------+\n" +
-            "3 rows in set (0.003 sec)",
+            "periodo-1/  periodo-2/  periodo-3/  periodo-4/\n" +
+            "periodo-5/  periodo-6/  periodo-7/  periodo-8/\n" +
+            "scripts/    catalog.json  index.html",
             'success'
           );
           break;
+        case 'open':
+        case 'run':
+          if (arg === 'ep01' || arg === 'ep1') {
+            fecharTerminalModal();
+            abrirWebModal('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html', 'EP_01: Estruturação Semântica HTML5');
+          } else if (arg === 'ep02' || arg === 'ep2') {
+            fecharTerminalModal();
+            abrirWebModal('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html', 'EP_02: Design System & CSS Grid');
+          } else if (arg === 'ep03' || arg === 'ep3') {
+            fecharTerminalModal();
+            abrirWebModal('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html', 'EP_03: Single Page Application Vanilla');
+          } else if (arg === 'ep04' || arg === 'ep4') {
+            fecharTerminalModal();
+            abrirWebModal('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html', 'EP_04: Acessibilidade WCAG 2.1 AAA & Produção');
+          } else {
+            printTerminal(`Projeto não encontrado: '${arg}'. Use 'open ep01', 'open ep02', etc.`, 'info');
+          }
+          break;
         case 'ai':
-          printTerminal("[Groq llama-3.3-70b-versatile]: Processando requisição...", 'info');
+          printTerminal("[Groq Llama 3.3 70B]: Processando...", 'info');
           consultarIAInterno(arg, (resp) => {
-            printTerminal(`[Llama 3.3 70B]: ${resp}`, 'success');
+            printTerminal(`[Resposta]: ${resp}`, 'success');
           });
           break;
         case 'clear':
           limparTerminal();
           break;
         default:
-          printTerminal(`Comando não reconhecido: '${cmd}'. Digite 'help' para listar opções.`, 'info');
+          printTerminal(`Comando não reconhecido: '${cmd}'. Digite 'help' para opções.`, 'info');
       }
     }
 
@@ -2054,7 +2223,7 @@
     function consultarIaDisciplina(nome) {
       abrirDrawerIA();
       const input = document.getElementById('aiDrawerInput');
-      input.value = `Quais são os principais tópicos da disciplina '${nome}'?`;
+      input.value = `Quais são as principais competências da disciplina '${nome}'?`;
       enviarMensagemIA();
     }
 
@@ -2087,17 +2256,6 @@
 
     function consultarIAInterno(pergunta, callback) {
       const apiKey = localStorage.getItem('unipe_groq_api_key') || '';
-      
-      if (pergunta.toLowerCase().includes('chave') || pergunta.toLowerCase().includes('api key')) {
-        const nova = prompt('Informe sua chave Groq API (gsk_...) para chamadas diretas com Llama 3.3 70B Versatile:', apiKey);
-        if (nova) {
-          localStorage.setItem('unipe_groq_api_key', nova.trim());
-          callback('Chave Groq API salva no navegador!');
-        } else {
-          callback('Utilizando as respostas curriculares indexadas.');
-        }
-        return;
-      }
 
       if (apiKey) {
         fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -2120,27 +2278,22 @@
           if (d.choices && d.choices[0]) callback(d.choices[0].message.content);
           else callback(d.error ? `Erro Groq: ${d.error.message}` : 'Sem resposta.');
         })
-        .catch(err => callback(`Erro de conexão com Groq API: ${err.message}`));
+        .catch(err => callback(`Erro de conexão: ${err.message}`));
         return;
       }
 
-      // Fallback inteligente integrado via catálogo UNIPÊ
+      // Respostas inteligentes baseadas na matriz oficial UNIPÊ
       setTimeout(() => {
         const p = pergunta.toLowerCase();
         if (catalogoDados && catalogoDados.periodos) {
           for (const per of catalogoDados.periodos) {
             for (const disc of per.disciplinas) {
               if (p.includes(disc.nome.toLowerCase()) || p.includes(disc.id.toLowerCase())) {
-                let resp = `**[Llama 3.3 70B • Ementa Curricular]**\n` +
-                  `• **Disciplina:** ${disc.nome} (${disc.carga_horaria})\n` +
-                  `• **Semestre:** ${per.nome}\n` +
-                  `• **Categoria:** ${disc.categoria ? disc.categoria.toUpperCase() : 'WEB'}\n` +
-                  `• **Foco Pedagógico:** ${disc.descricao || 'Formação técnica sólida e projetos práticos.'}\n`;
-                if (disc.projetos && disc.projetos.length > 0) {
-                  resp += `• **Projetos:** ` + disc.projetos.map(proj => `${proj.codigo} (${proj.titulo})`).join(', ');
-                } else {
-                  resp += `• **Status:** Em planejamento curricular. Projetos práticos serão gerados automaticamente via GitHub Actions.`;
-                }
+                let resp = `**[Llama 3.3 70B &bull; Ementa Curricular]**\n` +
+                  `&bull; **Disciplina:** ${disc.nome} (${disc.carga_horaria})\n` +
+                  `&bull; **Semestre:** ${per.nome}\n` +
+                  `&bull; **Foco:** Formação sólida em Ciência da Computação UNIPÊ.\n` +
+                  `&bull; **Status no Repositório:** ${disc.projetos && disc.projetos.length > 0 ? `${disc.projetos.length} projetos validados.` : 'Módulo a cursar. Projetos práticos serão adicionados via CI/CD.'}`;
                 callback(resp);
                 return;
               }
@@ -2148,33 +2301,17 @@
           }
         }
 
-        if (p.includes('native') || p.includes('apk') || p.includes('mobile')) {
-          callback("Aplicações Nativas (Desktop e Mobile) são compiladas automaticamente via GitHub Actions. As builds executáveis (.apk para Android ou binários para Windows/Linux) ficam disponíveis diretamente nas Releases do repositório para download.");
-        } else if (p.includes('busca binaria') || p.includes('busca binária') || p.includes('log n')) {
-          callback("A Busca Binária tem complexidade O(log n), reduzindo o espaço de busca pela metade a cada comparação em vetores ordenados.");
-        } else if (p.includes('quicksort') || p.includes('ordenação')) {
-          callback("O Quicksort divide o vetor em torno de um elemento pivô com complexidade média O(n log n).");
-        } else if (p.includes('sql') || p.includes('banco')) {
-          callback("O banco relacional adota a 3ª Forma Normal (3FN), assegurando atomicidade, integridade referencial por chaves estrangeiras e índices eficientes.");
+        if (p.includes('spa') || p.includes('ep03') || p.includes('ep 03')) {
+          callback("A Single Page Application (EP_03) foi construída com Vanilla JavaScript puro, roteamento via hashchange e persistência em localStorage.");
+        } else if (p.includes('wcag') || p.includes('ep04')) {
+          callback("A entrega EP_04 implementa conformidade total com WCAG 2.1 AAA, dark mode inteligente e esteira de CI/CD.");
         } else {
-          callback(`[Llama 3.3 70B Versatile]: Sobre '${pergunta}': No curso de Ciência da Computação UNIPÊ, esse conceito fundamenta a engenharia de software e a formação prática com excelência técnica.`);
+          callback(`[Llama 3.3 70B]: Sobre '${pergunta}': No curso de Ciência da Computação UNIPÊ, esse tema fundamenta a engenharia de software e a excelência prática.`);
         }
       }, 300);
     }
 
-    // 7. INSTRUÇÕES PARA APPS NATIVOS
-    function mostrarInstrucoesNative(titulo, plataforma) {
-      alert(
-        `INSTALAÇÃO DE BUILD NATIVA - ${titulo}\n\n` +
-        `Plataforma: ${plataforma}\n\n` +
-        `1. A compilação é realizada automaticamente através do GitHub Actions.\n` +
-        `2. Clique em 'Baixar Build' para acessar os artefatos (.apk para Android ou .zip/.exe para Desktop).\n` +
-        `3. No Android: Permita a instalação de fontes desconhecidas para testar a build de desenvolvimento.\n` +
-        `4. O código-fonte nativo completo está versionado no repositório.`
-      );
-    }
-
-    // 8. ACESSIBILIDADE WCAG (ALTO CONTRASTE & FONTE)
+    // 7. ACESSIBILIDADE WCAG (ALTO CONTRASTE & FONTE)
     let escalaFonte = 1;
     function alteraFonte(op) {
       if (op === '+' && escalaFonte < 1.3) escalaFonte += 0.08;

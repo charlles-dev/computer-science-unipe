@@ -7,26 +7,22 @@
   "categorias_disponiveis": [
     {
       "id": "todos",
-      "nome": "Todos os Projetos",
-      "icone": "layers"
+      "nome": "Todos os Projetos"
     },
     {
       "id": "web",
       "nome": "Aplicações Web",
-      "subtitulo": "Front-End & Fullstack",
-      "icone": "globe"
+      "subtitulo": "Front-End & Fullstack"
     },
     {
       "id": "backend",
-      "nome": "Backend & Terminal",
-      "subtitulo": "Algoritmos, CLI & SQL",
-      "icone": "terminal"
+      "nome": "Backend",
+      "subtitulo": "CLI, Scripts & APIs"
     },
     {
       "id": "native",
       "nome": "Aplicações Nativas",
-      "subtitulo": "Mobile (.apk) & Desktop (.exe)",
-      "icone": "smartphone"
+      "subtitulo": "Mobile & Desktop"
     }
   ],
   "periodos": [
@@ -36,21 +32,26 @@
       "status": "cursando",
       "disciplinas": [
         {
+          "id": "algoritmos-pensamento-computacional",
+          "nome": "Algoritmos e Pensamento Computacional",
+          "carga_horaria": "90h",
+          "status": "cursando",
+          "categoria": "backend",
+          "projetos": []
+        },
+        {
           "id": "desenvolvimento-front-end-web",
           "nome": "Desenvolvimento Front-End para Web",
           "carga_horaria": "90h",
-          "status": "concluido",
+          "status": "cursando",
           "categoria": "web",
-          "descricao": "Construção de aplicações web responsivas, acessíveis e reativas para a ONG Esperança Viva.",
           "projetos": [
             {
-              "id": "ep01",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_1",
               "codigo": "EP_01",
               "titulo": "Estruturação Semântica HTML5",
-              "descricao": "Arquitetura semântica W3C, formulário cadastral modular com fieldsets temáticos e conformidade de acessibilidade base.",
+              "descricao": "Arquitetura semântica W3C, formulário modular com fieldsets e acessibilidade para a ONG Esperança Viva.",
               "categoria": "web",
-              "tipo": "frontend",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 1/index.html",
               "tags": [
                 "HTML5",
                 "W3C",
@@ -58,16 +59,14 @@
                 "Formulários"
               ],
               "status": "Validado W3C",
-              "comando_terminal": "run ep01"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 1/index.html"
             },
             {
-              "id": "ep02",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_2",
               "codigo": "EP_02",
               "titulo": "Design System & CSS Grid",
-              "descricao": "Malha responsiva de 12 colunas, design tokens nativos (:root), flexbox e 5 breakpoints @media.",
+              "descricao": "Malha responsiva de 12 colunas, variáveis nativas (:root), flexbox e 5 breakpoints Mobile-First.",
               "categoria": "web",
-              "tipo": "frontend",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 2/index.html",
               "tags": [
                 "CSS Grid",
                 "Flexbox",
@@ -75,111 +74,54 @@
                 "Mobile-First"
               ],
               "status": "Validado CSS",
-              "comando_terminal": "run ep02"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 2/index.html"
             },
             {
-              "id": "ep03",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_3",
               "codigo": "EP_03",
               "titulo": "Single Page Application Vanilla",
-              "descricao": "Motor de roteamento dinâmico via hashchange sem frameworks pesados, renderização por templates reativos e persistência em localStorage.",
+              "descricao": "Roteamento dinâmico via hashchange sem frameworks pesados, templates dinâmicos e persistência em localStorage.",
               "categoria": "web",
-              "tipo": "fullstack",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 3/html/index.html",
               "tags": [
                 "Vanilla SPA",
                 "Hash Router",
-                "localStorage",
-                "Fullstack Mock"
+                "localStorage"
               ],
               "status": "Validado SPA",
-              "comando_terminal": "run ep03"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 3/html/index.html"
             },
             {
-              "id": "ep04",
+              "id": "p1_desenvolvimento_frontend_-_experiência_prática_4",
               "codigo": "EP_04",
               "titulo": "Acessibilidade WCAG 2.1 AAA & Produção",
-              "descricao": "Conformidade WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de CI/CD em produção.",
+              "descricao": "Conformidade com padrões WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de produção.",
               "categoria": "web",
-              "tipo": "frontend",
-              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 4/html/index.html",
               "tags": [
                 "WCAG 2.1 AAA",
                 "Dark Mode",
                 "Vite",
-                "CI/CD Pages"
+                "CI/CD"
               ],
               "status": "Produção Final",
-              "comando_terminal": "run ep04"
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 4/html/index.html"
             }
           ]
         },
         {
-          "id": "algoritmos-pensamento-computacional",
-          "nome": "Algoritmos e Pensamento Computacional",
+          "id": "design-profissional",
+          "nome": "Design Profissional",
           "carga_horaria": "90h",
           "status": "cursando",
-          "categoria": "backend",
-          "descricao": "Fundamentos de lógica algorítmica, estruturas de dados elementares e análise assintótica.",
-          "projetos": [
-            {
-              "id": "busca-binaria",
-              "codigo": "ALGO_01",
-              "titulo": "Busca Binária & Análise O(log n)",
-              "descricao": "Implementação e benchmark de busca binária logarítmica com rastreamento visual de divisões e ponteiros de memória.",
-              "categoria": "backend",
-              "tipo": "cli",
-              "tags": [
-                "Algoritmos",
-                "Busca Binária",
-                "O(log n)",
-                "Complexidade"
-              ],
-              "status": "Ativo no Terminal",
-              "comando_terminal": "run busca-binaria"
-            },
-            {
-              "id": "ordenacao-quicksort",
-              "codigo": "ALGO_02",
-              "titulo": "Ordenação Quicksort O(n log n)",
-              "descricao": "Algoritmo por divisão e conquista com particionamento em torno de pivô e eficiência de cache.",
-              "categoria": "backend",
-              "tipo": "cli",
-              "tags": [
-                "Ordenação",
-                "QuickSort",
-                "Recursão",
-                "Backend"
-              ],
-              "status": "Ativo no Terminal",
-              "comando_terminal": "run quicksort"
-            }
-          ]
+          "categoria": "web",
+          "projetos": []
         },
         {
           "id": "modelagem-banco-dados",
           "nome": "Modelagem de Banco de Dados",
           "carga_horaria": "90h",
           "status": "cursando",
-          "categoria": "backend",
-          "descricao": "Modelagem relacional em 3FN, integridade referencial por chaves estrangeiras e consultas SQL otimizadas.",
-          "projetos": [
-            {
-              "id": "schema-ong",
-              "codigo": "BD_01",
-              "titulo": "Schema Relacional & Consultas SQL",
-              "descricao": "Estruturação de banco relacional normalizado para voluntários, doações e projetos sociais da ONG Esperança Viva.",
-              "categoria": "backend",
-              "tipo": "sql",
-              "tags": [
-                "SQL",
-                "Modelagem DER",
-                "3FN",
-                "PostgreSQL"
-              ],
-              "status": "Ativo no Terminal",
-              "comando_terminal": "sql SELECT * FROM voluntarios;"
-            }
-          ]
+          "categoria": "web",
+          "projetos": []
         }
       ]
     },
@@ -189,30 +131,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "programacao-computadores",
-          "nome": "Programação de Computadores",
-          "carga_horaria": "90h",
-          "status": "a_cursar",
-          "categoria": "backend",
-          "descricao": "Paradigmas estruturados e orientados a objetos, gerenciamento de memória e boas práticas de código limpo.",
-          "projetos": []
-        },
-        {
           "id": "engenharia-prompt-ia",
           "nome": "Engenharia de Prompt para IA",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Técnicas avançadas de context engineering, few-shot prompting e integração com LLMs (Groq Llama 3.3).",
           "projetos": []
         },
         {
-          "id": "prototipagem-sistemas",
+          "id": "interface-jornada-usuario",
+          "nome": "Interface e Jornada do Usuário",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "programacao-computadores",
+          "nome": "Programação de Computadores",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "backend",
+          "projetos": []
+        },
+        {
+          "id": "prototipagem-sistemas-computacionais",
           "nome": "Prototipagem de Sistemas Computacionais",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Design de interfaces, validação rápida de hipóteses e prototipagem de produtos digitais com usabilidade.",
           "projetos": []
         }
       ]
@@ -223,21 +170,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "estruturas-dados",
-          "nome": "Estruturas de Dados Avançadas",
+          "id": "desenvolvimento-aplicativos-moveis",
+          "nome": "Desenvolvimento de Aplicativos Móveis",
           "carga_horaria": "90h",
           "status": "a_cursar",
-          "categoria": "backend",
-          "descricao": "Árvores binárias balanceadas (AVL/Red-Black), tabelas hash, grafos e algoritmos de menor caminho.",
+          "categoria": "native",
           "projetos": []
         },
         {
-          "id": "programacao-orientada-objetos",
-          "nome": "Programação Orientada a Objetos",
+          "id": "desenvolvimento-back-end",
+          "nome": "Desenvolvimento Back-End",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "backend",
-          "descricao": "Design patterns GoF, polimorfismo, encapsulamento e princípios SOLID aplicados à engenharia de software.",
+          "projetos": []
+        },
+        {
+          "id": "meio-ambiente-saude",
+          "nome": "Meio Ambiente e Saúde",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "projeto-software",
+          "nome": "Projeto de Software",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -248,40 +209,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "desenvolvimento-mobile-nativo",
-          "nome": "Desenvolvimento Mobile & Sistemas Nativos",
-          "carga_horaria": "90h",
-          "status": "a_cursar",
-          "categoria": "native",
-          "descricao": "Desenvolvimento nativo e multiplataforma para Android/Desktop (Flutter, Kotlin, C++). As builds compiladas ficam disponíveis para download nas Releases do repositório.",
-          "projetos": [
-            {
-              "id": "app-mobile-nativo",
-              "codigo": "NAT_01",
-              "titulo": "App Nativo de Gestão Acadêmica & Offline",
-              "descricao": "Aplicativo nativo com compilação automática via GitHub Actions, persistência SQLite local e sincronização offline.",
-              "categoria": "native",
-              "tipo": "mobile",
-              "plataforma": "Android / Windows",
-              "tipo_arquivo": ".apk / .zip",
-              "build_download_url": "https://github.com/charlles-dev/computer-science-unipe/releases",
-              "tags": [
-                "Native App",
-                "Android",
-                "GitHub Actions Build",
-                "Offline First"
-              ],
-              "status": "Build Automática via CI/CD"
-            }
-          ]
-        },
-        {
-          "id": "engenharia-software",
-          "nome": "Engenharia de Software & Arquitetura",
+          "id": "desenvolvimento-banco-dados",
+          "nome": "Desenvolvimento de Banco de Dados",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Arquitetura limpa, microsserviços, DDD (Domain-Driven Design) e esteiras de entrega contínua.",
+          "projetos": []
+        },
+        {
+          "id": "economia-sustentavel",
+          "nome": "Economia Sustentável",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "humanidades-populacao-brasileira",
+          "nome": "Humanidades e População Brasileira",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "visao-computacional",
+          "nome": "Visão Computacional",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -292,12 +248,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "inteligencia-artificial",
-          "nome": "Inteligência Artificial & Machine Learning",
+          "id": "ciencia-dados",
+          "nome": "Ciência de Dados",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Modelos de aprendizagem supervisionada, redes neurais profundas, processamento de linguagem natural e agentes LLM.",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas",
+          "nome": "Competências Abertas",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "desenvolvimento-sistemas-embarcados",
+          "nome": "Desenvolvimento de Sistemas Embarcados",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "native",
+          "projetos": []
+        },
+        {
+          "id": "modelagem-treinamento-ia",
+          "nome": "Modelagem e Treinamento de IA",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -308,12 +287,35 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "compiladores-linguagens",
-          "nome": "Compiladores & Teoria da Computação",
+          "id": "competencias-abertas",
+          "nome": "Competências Abertas",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "modelagem-matematica-computacional",
+          "nome": "Modelagem Matemática Computacional",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "optativa",
+          "nome": "Disciplina Optativa",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "seguranca-ambientes-digitais",
+          "nome": "Segurança em Ambientes Digitais",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "backend",
-          "descricao": "Autômatos, análise léxica e sintática, geração de código intermediário e otimização em tempo de compilação.",
           "projetos": []
         }
       ]
@@ -324,12 +326,43 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "computacao-nuvem-devops",
-          "nome": "Computação em Nuvem & DevOps",
+          "id": "analise-otimizacao-algoritmos",
+          "nome": "Análise e Otimização de Algoritmos",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "backend",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-1",
+          "nome": "Competências Abertas I",
           "carga_horaria": "90h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Infraestrutura como código, conteinerização com Docker e Kubernetes, observabilidade e CI/CD escalável.",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-2",
+          "nome": "Competências Abertas II",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-3",
+          "nome": "Competências Abertas III",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "tcc-1",
+          "nome": "Trabalho de Conclusão de Curso I (TCC)",
+          "carga_horaria": "120h",
+          "status": "a_cursar",
+          "categoria": "web",
           "projetos": []
         }
       ]
@@ -340,12 +373,43 @@
       "status": "planejamento",
       "disciplinas": [
         {
-          "id": "tcc-computacao",
-          "nome": "Trabalho de Conclusão de Curso (TCC)",
+          "id": "ambientes-computacionais-conectividade",
+          "nome": "Ambientes Computacionais e Conectividade",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-1",
+          "nome": "Competências Abertas I",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-2",
+          "nome": "Competências Abertas II",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "competencias-abertas-3",
+          "nome": "Competências Abertas III",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "categoria": "web",
+          "projetos": []
+        },
+        {
+          "id": "tcc-2",
+          "nome": "Trabalho de Conclusão de Curso II (TCC)",
           "carga_horaria": "120h",
           "status": "a_cursar",
           "categoria": "web",
-          "descricao": "Projeto final de graduação integrando arquitetura de software, rigor científico e impacto social prático.",
           "projetos": []
         }
       ]
