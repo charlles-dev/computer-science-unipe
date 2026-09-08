@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script de Catalogacao e Indexacao com IA (Groq llama-3.3-70b-versatile)
-UNIPE - Bacharelado em Ciencia da Computacao
+Script de Catalogação e Indexação com IA (Groq llama-3.3-70b-versatile)
+UNIPÊ - Bacharelado em Ciência da Computação
+
+Categorias Unificadas:
+  - web: Aplicações Web (Front-End puro e Fullstack) -> Ação: Executar no Sandbox
+  - backend: Aplicações de Terminal, Algoritmos, SQL e Serviços -> Ação: Executar no Terminal
+  - native: Aplicações Nativas Mobile/Desktop (Flutter, Kotlin, C++) -> Ação: Baixar Build (.apk, .exe, .zip)
 """
 
 import os
@@ -11,6 +16,7 @@ import json
 import urllib.request
 import urllib.error
 
+# A chave do Groq deve ser configurada nos Secrets do repositório GitHub (GROQ_API_KEY)
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "").strip()
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
@@ -21,6 +27,12 @@ CURRICULO_BASE = {
     "aluno": "Charlles Augusto",
     "periodo_atual": 1,
     "total_periodos": 8,
+    "categorias_disponiveis": [
+        {"id": "todos", "nome": "Todos os Projetos", "icone": "layers"},
+        {"id": "web", "nome": "Aplicações Web", "subtitulo": "Front-End & Fullstack", "icone": "globe"},
+        {"id": "backend", "nome": "Backend & Terminal", "subtitulo": "Algoritmos, CLI & SQL", "icone": "terminal"},
+        {"id": "native", "nome": "Aplicações Nativas", "subtitulo": "Mobile (.apk) & Desktop (.exe)", "icone": "smartphone"}
+    ],
     "periodos": [
         {
             "numero": 1,
@@ -32,15 +44,16 @@ CURRICULO_BASE = {
                     "nome": "Desenvolvimento Front-End para Web",
                     "carga_horaria": "90h",
                     "status": "concluido",
-                    "tipo_runner": "web",
+                    "categoria": "web",
                     "descricao": "Construção de aplicações web responsivas, acessíveis e reativas para a ONG Esperança Viva.",
                     "projetos": [
                         {
                             "id": "ep01",
                             "codigo": "EP_01",
                             "titulo": "Estruturação Semântica HTML5",
-                            "descricao": "Arquitetura semântica W3C, formulário cadastral modular com fieldsets temáticos e acessibilidade base.",
-                            "tipo": "web",
+                            "descricao": "Arquitetura semântica W3C, formulário cadastral modular com fieldsets temáticos e conformidade de acessibilidade base.",
+                            "categoria": "web",
+                            "tipo": "frontend",
                             "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 1/index.html",
                             "tags": ["HTML5", "W3C", "Acessibilidade", "Formulários"],
                             "status": "Validado W3C",
@@ -51,7 +64,8 @@ CURRICULO_BASE = {
                             "codigo": "EP_02",
                             "titulo": "Design System & CSS Grid",
                             "descricao": "Malha responsiva de 12 colunas, design tokens nativos (:root), flexbox e 5 breakpoints @media.",
-                            "tipo": "web",
+                            "categoria": "web",
+                            "tipo": "frontend",
                             "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 2/index.html",
                             "tags": ["CSS Grid", "Flexbox", "Tokens", "Mobile-First"],
                             "status": "Validado CSS",
@@ -61,19 +75,21 @@ CURRICULO_BASE = {
                             "id": "ep03",
                             "codigo": "EP_03",
                             "titulo": "Single Page Application Vanilla",
-                            "descricao": "Motor de roteamento por hashchange, templates dinâmicos, persistência em localStorage e event delegation.",
-                            "tipo": "web",
+                            "descricao": "Motor de roteamento dinâmico via hashchange sem frameworks pesados, renderização por templates reativos e persistência em localStorage.",
+                            "categoria": "web",
+                            "tipo": "fullstack",
                             "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 3/html/index.html",
-                            "tags": ["Vanilla SPA", "Hash Router", "localStorage", "Templates"],
+                            "tags": ["Vanilla SPA", "Hash Router", "localStorage", "Fullstack Mock"],
                             "status": "Validado SPA",
                             "comando_terminal": "run ep03"
                         },
                         {
                             "id": "ep04",
                             "codigo": "EP_04",
-                            "titulo": "Acessibilidade WCAG 2.1 & Produção",
-                            "descricao": "Conformidade WCAG 2.1 AAA, dark mode inteligente, minificação com bundler e deploy contínuo em produção.",
-                            "tipo": "web",
+                            "titulo": "Acessibilidade WCAG 2.1 AAA & Produção",
+                            "descricao": "Conformidade WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de CI/CD em produção.",
+                            "categoria": "web",
+                            "tipo": "frontend",
                             "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 4/html/index.html",
                             "tags": ["WCAG 2.1 AAA", "Dark Mode", "Vite", "CI/CD Pages"],
                             "status": "Produção Final",
@@ -86,25 +102,27 @@ CURRICULO_BASE = {
                     "nome": "Algoritmos e Pensamento Computacional",
                     "carga_horaria": "90h",
                     "status": "cursando",
-                    "tipo_runner": "backend",
-                    "descricao": "Fundamentos de lógica algorítmica, estruturas de dados elementares e complexidade assintótica.",
+                    "categoria": "backend",
+                    "descricao": "Fundamentos de lógica algorítmica, estruturas de dados elementares e análise assintótica.",
                     "projetos": [
                         {
                             "id": "busca-binaria",
                             "codigo": "ALGO_01",
-                            "titulo": "Busca Binária & Análise Assintótica",
-                            "descricao": "Implementação interativa de busca binária com cálculo de passos O(log n) vs O(n).",
-                            "tipo": "backend",
-                            "tags": ["Algoritmos", "Busca Binária", "O(log n)", "Python/JS"],
+                            "titulo": "Busca Binária & Análise O(log n)",
+                            "descricao": "Implementação e benchmark de busca binária logarítmica com rastreamento visual de divisões e ponteiros de memória.",
+                            "categoria": "backend",
+                            "tipo": "cli",
+                            "tags": ["Algoritmos", "Busca Binária", "O(log n)", "Complexidade"],
                             "status": "Ativo no Terminal",
                             "comando_terminal": "run busca-binaria"
                         },
                         {
                             "id": "ordenacao-quicksort",
                             "codigo": "ALGO_02",
-                            "titulo": "Ordenação Rápida (QuickSort)",
-                            "descricao": "Divisão e conquista, partição de pivô e ordenação comparativa com benchmark de execuções.",
-                            "tipo": "backend",
+                            "titulo": "Ordenação Quicksort O(n log n)",
+                            "descricao": "Algoritmo por divisão e conquista com particionamento em torno de pivô e eficiência de cache.",
+                            "categoria": "backend",
+                            "tipo": "cli",
                             "tags": ["Ordenação", "QuickSort", "Recursão", "Backend"],
                             "status": "Ativo no Terminal",
                             "comando_terminal": "run quicksort"
@@ -116,38 +134,19 @@ CURRICULO_BASE = {
                     "nome": "Modelagem de Banco de Dados",
                     "carga_horaria": "90h",
                     "status": "cursando",
-                    "tipo_runner": "fullstack",
-                    "descricao": "Modelos conceitual e relacional, diagramas entidade-relacionamento (DER) e normalização SQL.",
+                    "categoria": "backend",
+                    "descricao": "Modelagem relacional em 3FN, integridade referencial por chaves estrangeiras e consultas SQL otimizadas.",
                     "projetos": [
                         {
                             "id": "schema-ong",
                             "codigo": "BD_01",
                             "titulo": "Schema Relacional & Consultas SQL",
-                            "descricao": "Modelagem 3FN com tabelas de voluntários, doações, projetos sociais e queries simuladas.",
-                            "tipo": "fullstack",
+                            "descricao": "Estruturação de banco relacional normalizado para voluntários, doações e projetos sociais da ONG Esperança Viva.",
+                            "categoria": "backend",
+                            "tipo": "sql",
                             "tags": ["SQL", "Modelagem DER", "3FN", "PostgreSQL"],
-                            "status": "Ativo no Explorer",
+                            "status": "Ativo no Terminal",
                             "comando_terminal": "sql SELECT * FROM voluntarios;"
-                        }
-                    ]
-                },
-                {
-                    "id": "design-profissional",
-                    "nome": "Design Profissional",
-                    "carga_horaria": "90h",
-                    "status": "concluido",
-                    "tipo_runner": "web",
-                    "descricao": "Metodologias de design centrado no usuário, tipografia, contraste e arquitetura de informação.",
-                    "projetos": [
-                        {
-                            "id": "guia-estilo-unipe",
-                            "codigo": "DS_01",
-                            "titulo": "Guia de Estilos & Design Tokens",
-                            "descricao": "Manual de identidade visual e especificações de componentes adotados no portal acadêmico.",
-                            "tipo": "web",
-                            "tags": ["Design Tokens", "UI/UX", "Acessibilidade", "Figma"],
-                            "status": "Documentado",
-                            "comando_terminal": "cat design-tokens"
                         }
                     ]
                 }
@@ -158,10 +157,33 @@ CURRICULO_BASE = {
             "nome": "2º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "programacao-computadores", "nome": "Programação de Computadores", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "backend"},
-                {"id": "engenharia-prompt-ia", "nome": "Engenharia de Prompt para IA", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "fullstack"},
-                {"id": "prototipagem-sistemas-computacionais", "nome": "Prototipagem de Sistemas Computacionais", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "web"},
-                {"id": "interface-jornada-usuario", "nome": "Interface e Jornada do Usuário", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "web"}
+                {
+                    "id": "programacao-computadores",
+                    "nome": "Programação de Computadores",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "backend",
+                    "descricao": "Paradigmas estruturados e orientados a objetos, gerenciamento de memória e boas práticas de código limpo.",
+                    "projetos": []
+                },
+                {
+                    "id": "engenharia-prompt-ia",
+                    "nome": "Engenharia de Prompt para IA",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "web",
+                    "descricao": "Técnicas avançadas de context engineering, few-shot prompting e integração com LLMs (Groq Llama 3.3).",
+                    "projetos": []
+                },
+                {
+                    "id": "prototipagem-sistemas",
+                    "nome": "Prototipagem de Sistemas Computacionais",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "web",
+                    "descricao": "Design de interfaces, validação rápida de hipóteses e prototipagem de produtos digitais com usabilidade.",
+                    "projetos": []
+                }
             ]
         },
         {
@@ -169,9 +191,24 @@ CURRICULO_BASE = {
             "nome": "3º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "estruturas-dados", "nome": "Estruturas de Dados Avançadas", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "backend"},
-                {"id": "redes-computadores", "nome": "Redes de Computadores", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "backend"},
-                {"id": "programacao-orientada-objetos", "nome": "Programação Orientada a Objetos", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "backend"}
+                {
+                    "id": "estruturas-dados",
+                    "nome": "Estruturas de Dados Avançadas",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "backend",
+                    "descricao": "Árvores binárias balanceadas (AVL/Red-Black), tabelas hash, grafos e algoritmos de menor caminho.",
+                    "projetos": []
+                },
+                {
+                    "id": "programacao-orientada-objetos",
+                    "nome": "Programação Orientada a Objetos",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "backend",
+                    "descricao": "Design patterns GoF, polimorfismo, encapsulamento e princípios SOLID aplicados à engenharia de software.",
+                    "projetos": []
+                }
             ]
         },
         {
@@ -179,8 +216,38 @@ CURRICULO_BASE = {
             "nome": "4º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "sistemas-operacionais", "nome": "Sistemas Operacionais", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "backend"},
-                {"id": "engenharia-software", "nome": "Engenharia de Software", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "fullstack"}
+                {
+                    "id": "desenvolvimento-mobile-nativo",
+                    "nome": "Desenvolvimento Mobile & Sistemas Nativos",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "native",
+                    "descricao": "Desenvolvimento nativo e multiplataforma para Android/Desktop (Flutter, Kotlin, C++). As builds compiladas ficam disponíveis para download nas Releases do repositório.",
+                    "projetos": [
+                        {
+                            "id": "app-mobile-nativo",
+                            "codigo": "NAT_01",
+                            "titulo": "App Nativo de Gestão Acadêmica & Offline",
+                            "descricao": "Aplicativo nativo com compilação automática via GitHub Actions, persistência SQLite local e sincronização offline.",
+                            "categoria": "native",
+                            "tipo": "mobile",
+                            "plataforma": "Android / Windows",
+                            "tipo_arquivo": ".apk / .zip",
+                            "build_download_url": "https://github.com/charlles-dev/computer-science-unipe/releases",
+                            "tags": ["Native App", "Android", "GitHub Actions Build", "Offline First"],
+                            "status": "Build Automática via CI/CD"
+                        }
+                    ]
+                },
+                {
+                    "id": "engenharia-software",
+                    "nome": "Engenharia de Software & Arquitetura",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "web",
+                    "descricao": "Arquitetura limpa, microsserviços, DDD (Domain-Driven Design) e esteiras de entrega contínua.",
+                    "projetos": []
+                }
             ]
         },
         {
@@ -188,7 +255,15 @@ CURRICULO_BASE = {
             "nome": "5º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "inteligencia-artificial", "nome": "Inteligência Artificial & Machine Learning", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "fullstack"}
+                {
+                    "id": "inteligencia-artificial",
+                    "nome": "Inteligência Artificial & Machine Learning",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "web",
+                    "descricao": "Modelos de aprendizagem supervisionada, redes neurais profundas, processamento de linguagem natural e agentes LLM.",
+                    "projetos": []
+                }
             ]
         },
         {
@@ -196,7 +271,15 @@ CURRICULO_BASE = {
             "nome": "6º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "compiladores-linguagens", "nome": "Compiladores & Teoria da Computação", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "backend"}
+                {
+                    "id": "compiladores-linguagens",
+                    "nome": "Compiladores & Teoria da Computação",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "backend",
+                    "descricao": "Autômatos, análise léxica e sintática, geração de código intermediário e otimização em tempo de compilação.",
+                    "projetos": []
+                }
             ]
         },
         {
@@ -204,7 +287,15 @@ CURRICULO_BASE = {
             "nome": "7º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "computacao-nuvem-devops", "nome": "Computação em Nuvem & DevOps", "carga_horaria": "90h", "status": "a_cursar", "tipo_runner": "fullstack"}
+                {
+                    "id": "computacao-nuvem-devops",
+                    "nome": "Computação em Nuvem & DevOps",
+                    "carga_horaria": "90h",
+                    "status": "a_cursar",
+                    "categoria": "web",
+                    "descricao": "Infraestrutura como código, conteinerização com Docker e Kubernetes, observabilidade e CI/CD escalável.",
+                    "projetos": []
+                }
             ]
         },
         {
@@ -212,14 +303,22 @@ CURRICULO_BASE = {
             "nome": "8º Período Letivo",
             "status": "planejamento",
             "disciplinas": [
-                {"id": "tcc-computacao", "nome": "Trabalho de Conclusão de Curso (TCC)", "carga_horaria": "120h", "status": "a_cursar", "tipo_runner": "fullstack"}
+                {
+                    "id": "tcc-computacao",
+                    "nome": "Trabalho de Conclusão de Curso (TCC)",
+                    "carga_horaria": "120h",
+                    "status": "a_cursar",
+                    "categoria": "web",
+                    "descricao": "Projeto final de graduação integrando arquitetura de software, rigor científico e impacto social prático.",
+                    "projetos": []
+                }
             ]
         }
     ]
 }
 
 def consultar_groq_llama(prompt):
-    """Consulta o Groq usando o modelo llama-3.3-70b-versatile"""
+    """Consulta o Groq usando o modelo llama-3.3-70b-versatile se a chave estiver configurada"""
     if not GROQ_API_KEY:
         return None
     
@@ -234,7 +333,7 @@ def consultar_groq_llama(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "Você é o agente de catalogação técnica do portal de Ciência da Computação UNIPÊ. Responda estritamente em JSON com chaves: sumario, tags_recomendadas, comandos_sugeridos."
+                "content": "Você é o agente de catalogação do Hub de Ciência da Computação UNIPÊ. Categorize os projetos estritamente em 'web', 'backend' ou 'native'. Responda em JSON com chaves: sumario, categoria_sugerida, tags_recomendadas, comandos_sugeridos."
             },
             {
                 "role": "user",
@@ -252,18 +351,18 @@ def consultar_groq_llama(prompt):
             content = data["choices"][0]["message"]["content"]
             return json.loads(content)
     except Exception as e:
-        print(f"[Aviso] Falha ao consultar Groq API ({e}). Usando modo determinístico.", file=sys.stderr)
+        print(f"[Aviso] Falha na consulta Groq API ({e}). Usando modo estruturado local.", file=sys.stderr)
         return None
 
 def main():
-    print("--- Iniciando indexador curricular UNIPÊ ---")
+    print("--- Gerador de Catálogo Curricular UNIPÊ ---")
     if GROQ_API_KEY:
-        print(f"[Groq IA] Chave detectada. Modelo: {GROQ_MODEL}")
-        res = consultar_groq_llama("Analise o projeto acadêmico de desenvolvimento front-end web UNIPÊ")
+        print(f"[Groq IA] Chave detectada nos secrets. Modelo: {GROQ_MODEL}")
+        res = consultar_groq_llama("Indexe as disciplinas e projetos dividindo em web, backend e native")
         if res:
-            print("[Groq IA] Conexão bem-sucedida com Llama 3.3 70B!")
+            print("[Groq IA] Conexão com Llama 3.3 70B validada com sucesso!")
     else:
-        print("[Modo Local] Executando gerador determinístico curricular.")
+        print("[Modo Local] Executando catálogo estruturado (chave GROQ_API_KEY pode ser adicionada nos secrets do GitHub).")
 
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     output_path = os.path.join(repo_root, "catalog.json")

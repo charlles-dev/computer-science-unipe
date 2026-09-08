@@ -1,5 +1,15 @@
 name: "AI Curricular Catalog Generator (Groq Llama 3.3 70B)"
 
+# ==============================================================================
+# Este workflow executa a catalogação automática usando o modelo
+# llama-3.3-70b-versatile da Groq sempre que houver novas entregas ou disciplinas.
+# 
+# A chave de API do Groq é configurada diretamente nos Secrets do GitHub:
+# Repositório > Settings > Secrets and variables > Actions > Repository Secrets
+# Nome da Secret: GROQ_API_KEY
+# ==============================================================================
+
+
 on:
   push:
     branches:
