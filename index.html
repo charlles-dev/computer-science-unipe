@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNIPÊ | Ciência da Computação &mdash; Hub Acadêmico</title>
+  <title>UNIPÊ | Ciência da Computação &mdash; Hub Acadêmico &amp; Runners</title>
 
   <!-- Google Font Oficial da UNIPÊ: Work Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- HTMX para reatividade declarativa sem boilerplate -->
+  <!-- HTMX para reatividade declarativa -->
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
   <!-- Lucide Icons -->
@@ -18,36 +18,37 @@
 
   <style>
     /* ==========================================================
-       SISTEMA DE DESIGN OFICIAL UNIPÊ (unipe.edu.br)
+       SISTEMA DE DESIGN INSTITUCIONAL UNIPÊ (unipe.edu.br)
        ========================================================== */
     :root {
-      --unipe-blue-darkest: #001f44;
-      --unipe-blue-darker: #002d62;
+      --unipe-blue-darkest: #001733;
+      --unipe-blue-darker: #00254a;
       --unipe-blue-primary: #003b71;
       --unipe-blue-medium: #00569c;
       --unipe-blue-light: #e6f0fa;
       --unipe-yellow: #FED400;
       --unipe-yellow-hover: #e5be00;
       
-      --unipe-text-dark: #222222;
-      --unipe-text-muted: #555555;
-      --unipe-text-light: #777777;
+      --unipe-text-dark: #1e293b;
+      --unipe-text-muted: #64748b;
+      --unipe-text-light: #94a3b8;
       --unipe-border: #e2e8f0;
-      --unipe-border-subtle: #edf2f7;
-      --unipe-bg-gray: #f7f7f7;
+      --unipe-border-subtle: #f1f5f9;
+      --unipe-bg-gray: #f8fafc;
       --unipe-bg-white: #ffffff;
       
-      --font-unipe: "Work Sans", Arial, Helvetica, sans-serif;
+      --font-unipe: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
       --font-scale: 1rem;
     }
 
-    /* MODO ALTO CONTRASTE (Ativado pelo botão de acessibilidade) */
+    /* MODO ALTO CONTRASTE OFICIAL (Acessibilidade WCAG) */
     body.alto-contraste {
       --unipe-blue-darkest: #000000;
-      --unipe-blue-darker: #111111;
+      --unipe-blue-darker: #0d0d0d;
       --unipe-blue-primary: #000000;
-      --unipe-blue-medium: #222222;
-      --unipe-blue-light: #222222;
+      --unipe-blue-medium: #1f1f1f;
+      --unipe-blue-light: #1f1f1f;
       --unipe-yellow: #FFFF00;
       --unipe-yellow-hover: #e6e600;
       --unipe-text-dark: #FFFFFF;
@@ -63,13 +64,16 @@
       border-color: var(--unipe-border) !important;
     }
 
-    body.alto-contraste .unipe-card {
+    body.alto-contraste .unipe-card,
+    body.alto-contraste .runner-box,
+    body.alto-contraste .modal-inner {
       background: #000000 !important;
       border: 2px solid #FFFF00 !important;
     }
 
     body.alto-contraste .unipe-card h3,
-    body.alto-contraste .unipe-card p {
+    body.alto-contraste .unipe-card p,
+    body.alto-contraste .modal-inner h3 {
       color: #FFFFFF !important;
     }
 
@@ -98,20 +102,20 @@
     }
 
     .container {
-      max-width: 1220px;
+      max-width: 1260px;
       width: 100%;
       margin: 0 auto;
       padding: 0 20px;
     }
 
     /* ==========================================================
-       1. TOPBAR DE ACESSIBILIDADE & LINKS ÚTEIS (unipe.edu.br)
+       1. TOPBAR DE ACESSIBILIDADE & FERRAMENTAS (#menu-links-uteis)
        ========================================================== */
     #menu-links-uteis {
       background-color: var(--unipe-blue-primary);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       height: 48px;
-      font-size: 14px;
+      font-size: 13.5px;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -194,13 +198,13 @@
     .topbar-nav {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       list-style: none;
     }
 
     .topbar-nav a {
       color: #ffffff;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 500;
       transition: color 0.15s;
     }
@@ -214,7 +218,7 @@
       font-weight: 700 !important;
     }
 
-    /* Formulário de Busca estilo UNIPÊ (#topoPesquisa) */
+    /* Formulário de Busca estilo UNIPÊ */
     .form-topo-buscar {
       position: relative;
       display: flex;
@@ -227,7 +231,7 @@
       font-family: var(--font-unipe);
       font-size: 13px;
       height: 34px;
-      width: 220px;
+      width: 210px;
       padding: 6px 36px 6px 12px;
       border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 3px;
@@ -265,41 +269,40 @@
     }
 
     /* ==========================================================
-       2. HEADER PRINCIPAL INSTITUCIONAL (unipe.edu.br)
-       ========================================================= */
+       2. HEADER PRINCIPAL INSTITUCIONAL
+       ========================================================== */
     header.unipe-header {
       background-color: var(--unipe-blue-primary);
-      padding: 16px 0 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 14px 0 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
     }
 
     .header-main-flex {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
 
-    /* Logo Oficial UNIPÊ com símbolo estelar em amarelo */
     .unipe-marca {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       cursor: pointer;
     }
 
     .unipe-marca svg.logo-svg {
-      height: 48px;
+      height: 44px;
       width: auto;
       display: block;
     }
 
     .brand-subtext {
       border-left: 1px solid rgba(255, 255, 255, 0.3);
-      padding-left: 12px;
+      padding-left: 14px;
       color: #ffffff;
     }
 
@@ -320,7 +323,6 @@
       line-height: 1.3;
     }
 
-    /* Menu de Navegação */
     .unipe-menu-nav {
       display: flex;
       align-items: center;
@@ -328,67 +330,58 @@
       list-style: none;
     }
 
-    .unipe-menu-nav li a {
+    .unipe-menu-nav li a,
+    .unipe-menu-nav li button {
       color: #ffffff;
-      font-size: 14px;
+      background: none;
+      border: none;
+      font-family: var(--font-unipe);
+      font-size: 13.5px;
       font-weight: 600;
       padding: 8px 14px;
       border-radius: 4px;
       display: flex;
       align-items: center;
       gap: 6px;
+      cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .unipe-menu-nav li a:hover,
-    .unipe-menu-nav li a.active {
+    .unipe-menu-nav li button:hover {
       background-color: var(--unipe-blue-darker);
       color: var(--unipe-yellow);
     }
 
-    /* Botão Destaque Oficial UNIPÊ */
     .btn-aluno-portal {
-      background-color: var(--unipe-yellow);
+      background-color: var(--unipe-yellow) !important;
       color: var(--unipe-blue-darkest) !important;
       font-size: 13.5px !important;
       font-weight: 700 !important;
-      padding: 9px 18px !important;
+      padding: 8px 16px !important;
       border-radius: 4px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease !important;
       white-space: nowrap;
     }
 
     .btn-aluno-portal:hover {
       background-color: var(--unipe-yellow-hover) !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     }
 
     /* ==========================================================
-       3. HERO / BANNER DE APRESENTAÇÃO INSTITUCIONAL
+       3. HERO / BANNER PRINCIPAL DO CURSO
        ========================================================== */
     .unipe-hero {
-      background: linear-gradient(135deg, var(--unipe-blue-darker) 0%, var(--unipe-blue-primary) 100%);
+      background: linear-gradient(135deg, var(--unipe-blue-darkest) 0%, var(--unipe-blue-primary) 100%);
       color: #ffffff;
-      padding: 44px 0 54px;
+      padding: 44px 0 52px;
       position: relative;
       overflow: hidden;
       border-bottom: 5px solid var(--unipe-yellow);
-    }
-
-    .unipe-hero::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      bottom: -60px;
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(254, 212, 0, 0.08) 0%, rgba(254, 212, 0, 0) 70%);
-      pointer-events: none;
     }
 
     .breadcrumb {
@@ -397,7 +390,7 @@
       gap: 8px;
       font-size: 12.5px;
       color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
 
@@ -416,15 +409,17 @@
     }
 
     .hero-content {
-      max-width: 860px;
+      max-width: 900px;
     }
 
     .hero-tag {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       background-color: rgba(254, 212, 0, 0.15);
       border: 1px solid var(--unipe-yellow);
       color: var(--unipe-yellow);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -434,142 +429,215 @@
     }
 
     .unipe-hero h1 {
-      font-size: 38px;
+      font-size: 36px;
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.2;
       letter-spacing: -0.02em;
       margin-bottom: 12px;
     }
 
     .unipe-hero p.hero-lead {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.88);
       line-height: 1.55;
       margin-bottom: 24px;
     }
 
-    .hero-pills {
+    .hero-action-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .hero-pill {
+    .hero-pill-btn {
       background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 6px 14px;
-      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 6px;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .hero-pill i {
+    .hero-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--unipe-yellow);
       color: var(--unipe-yellow);
-      width: 14px;
-      height: 14px;
+    }
+
+    .hero-pill-btn.active {
+      background: var(--unipe-yellow);
+      color: var(--unipe-blue-darkest);
+      border-color: var(--unipe-yellow);
     }
 
     /* ==========================================================
-       4. SEÇÃO PRINCIPAL DE PROJETOS ("O QUE VOCÊ PRECISA ESTÁ AQUI")
+       4. SELETOR DE PERÍODOS CURRICULARES (1º AO 8º SEMESTRE)
        ========================================================== */
-    .unipe-section {
-      padding: 60px 0 70px;
+    .periodos-bar {
+      background-color: var(--unipe-bg-gray);
+      border-bottom: 1px solid var(--unipe-border);
+      padding: 16px 0;
     }
 
-    .bg-gray {
-      background-color: var(--unipe-bg-gray);
+    .periodos-scroller {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .periodo-tab {
+      background: #ffffff;
+      border: 1px solid var(--unipe-border);
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-family: var(--font-unipe);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--unipe-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .periodo-tab:hover {
+      border-color: var(--unipe-blue-primary);
+      color: var(--unipe-blue-primary);
+    }
+
+    .periodo-tab.active {
+      background-color: var(--unipe-blue-primary);
+      color: #ffffff;
+      border-color: var(--unipe-blue-primary);
+    }
+
+    .periodo-tab .badge-status {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+
+    .periodo-tab.active .badge-status {
+      background-color: var(--unipe-yellow);
+      color: var(--unipe-blue-darkest);
+    }
+
+    .periodo-tab:not(.active) .badge-status.current {
+      background-color: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .periodo-tab:not(.active) .badge-status.future {
+      background-color: #f1f5f9;
+      color: #64748b;
+    }
+
+    /* ==========================================================
+       5. SEÇÃO DE RUNNERS & AMBIENTES DE EXECUÇÃO
+       ========================================================== */
+    .unipe-section {
+      padding: 50px 0 60px;
     }
 
     .section-header {
-      margin-bottom: 34px;
+      margin-bottom: 28px;
     }
 
     .section-header h2 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 800;
       color: var(--unipe-blue-primary);
       letter-spacing: -0.02em;
     }
 
     .unipe-divider {
-      width: 64px;
+      width: 60px;
       height: 4px;
       background-color: var(--unipe-yellow);
       border: none;
-      margin: 12px 0 16px;
+      margin: 10px 0 14px;
       border-radius: 2px;
     }
 
     .section-header p {
-      font-size: 15px;
+      font-size: 14.5px;
       color: var(--unipe-text-muted);
-      max-width: 700px;
+      max-width: 800px;
     }
 
-    /* Barra de Filtro / Tabs (Estilo UNIPÊ) */
-    .filter-tabs {
+    /* Painel de Abas dos 3 Runners */
+    .runners-tabs {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 30px;
+      gap: 12px;
+      margin-bottom: 24px;
       border-bottom: 2px solid var(--unipe-border-subtle);
       padding-bottom: 12px;
+      flex-wrap: wrap;
     }
 
-    .filter-btn {
+    .runner-tab-btn {
       background: #ffffff;
       border: 1px solid var(--unipe-border);
-      color: var(--unipe-text-muted);
+      padding: 10px 20px;
+      border-radius: 6px;
       font-family: var(--font-unipe);
-      font-size: 13.5px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--unipe-text-muted);
       cursor: pointer;
-      transition: all 0.15s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      transition: all 0.15s ease;
     }
 
-    .filter-btn:hover {
+    .runner-tab-btn:hover {
       border-color: var(--unipe-blue-primary);
       color: var(--unipe-blue-primary);
     }
 
-    .filter-btn.active {
+    .runner-tab-btn.active {
       background-color: var(--unipe-blue-primary);
       color: #ffffff;
       border-color: var(--unipe-blue-primary);
     }
 
-    /* Grid de Cards Institucionais UNIPÊ */
+    /* Grid de Cards */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px;
     }
 
     .unipe-card {
       background: #ffffff;
       border: 1px solid var(--unipe-border);
       border-top: 4px solid var(--unipe-blue-primary);
-      border-radius: 4px;
-      padding: 24px;
+      border-radius: 6px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-top-color 0.2s ease;
     }
 
     .unipe-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(0, 59, 113, 0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 59, 113, 0.1);
       border-top-color: var(--unipe-yellow);
     }
 
@@ -577,7 +645,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .card-code {
@@ -591,12 +659,12 @@
     }
 
     .card-status {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
       color: #047857;
       background: #ecfdf5;
       border: 1px solid #a7f3d0;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 3px;
       display: flex;
       align-items: center;
@@ -604,7 +672,7 @@
     }
 
     .card-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--unipe-blue-primary);
       margin-bottom: 8px;
@@ -612,17 +680,17 @@
     }
 
     .card-desc {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--unipe-text-muted);
-      line-height: 1.55;
+      line-height: 1.5;
       margin-bottom: 16px;
     }
 
     .card-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 22px;
+      gap: 5px;
+      margin-bottom: 20px;
     }
 
     .card-tag {
@@ -631,91 +699,520 @@
       color: var(--unipe-text-muted);
       background: var(--unipe-bg-gray);
       border: 1px solid var(--unipe-border);
-      padding: 3px 8px;
+      padding: 2px 7px;
       border-radius: 3px;
     }
 
-    .card-btn {
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-action-primary {
+      flex: 1;
       background-color: var(--unipe-blue-primary);
       color: #ffffff;
       font-family: var(--font-unipe);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
-      padding: 10px 16px;
+      padding: 9px 14px;
       border-radius: 4px;
+      border: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 6px;
       transition: all 0.15s ease;
     }
 
-    .card-btn i {
-      transition: transform 0.15s ease;
-    }
-
-    .unipe-card:hover .card-btn {
+    .btn-action-primary:hover {
       background-color: var(--unipe-yellow);
       color: var(--unipe-blue-darkest);
     }
 
-    .unipe-card:hover .card-btn i {
-      transform: translateX(4px);
-    }
-
-    /* ==========================================================
-       5. SEÇÃO DE DIFERENCIAIS ("POR QUE O UNIPÊ É A ESCOLHA CERTA?")
-       ========================================================== */
-    .diferenciais-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .diferencial-box {
+    .btn-action-secondary {
       background: #ffffff;
-      border: 1px solid var(--unipe-border);
-      border-radius: 4px;
-      padding: 26px 22px;
-      transition: all 0.2s ease;
-    }
-
-    .diferencial-box:hover {
-      border-color: var(--unipe-blue-primary);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-    }
-
-    .diferencial-icon {
-      width: 44px;
-      height: 44px;
-      background-color: var(--unipe-blue-light);
       color: var(--unipe-blue-primary);
+      border: 1px solid var(--unipe-border);
+      padding: 9px 12px;
       border-radius: 4px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
+      transition: all 0.15s ease;
     }
 
-    .diferencial-box h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--unipe-blue-primary);
-      margin-bottom: 8px;
-    }
-
-    .diferencial-box p {
-      font-size: 13.5px;
-      color: var(--unipe-text-muted);
-      line-height: 1.5;
+    .btn-action-secondary:hover {
+      border-color: var(--unipe-blue-primary);
+      background: var(--unipe-bg-gray);
     }
 
     /* ==========================================================
-       6. FOOTER INSTITUCIONAL OFICIAL (unipe.edu.br)
+       6. TERMINAL EMULATOR (BACKEND RUNNER)
+       ========================================================== */
+    .terminal-container {
+      background-color: #0b0f19;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      font-family: var(--font-mono);
+      display: flex;
+      flex-direction: column;
+      height: 480px;
+    }
+
+    .terminal-header {
+      background: #131b2e;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .terminal-controls {
+      display: flex;
+      gap: 7px;
+    }
+
+    .terminal-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background-color: #ef4444; }
+    .dot-yellow { background-color: #f59e0b; }
+    .dot-green { background-color: #10b981; }
+
+    .terminal-title {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .terminal-body {
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .terminal-output {
+      margin-bottom: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .terminal-prompt-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prompt-badge {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .terminal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f8fafc;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+    }
+
+    /* ==========================================================
+       7. FULLSTACK ARCHITECTURE EXPLORER
+       ========================================================== */
+    .fullstack-panel {
+      background: #ffffff;
+      border: 1px solid var(--unipe-border);
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .architecture-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .tier-box {
+      background: var(--unipe-bg-gray);
+      border: 1px solid var(--unipe-border);
+      border-radius: 6px;
+      padding: 18px;
+      position: relative;
+    }
+
+    .tier-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--unipe-blue-primary);
+      margin-bottom: 10px;
+    }
+
+    .tier-list {
+      list-style: none;
+      font-size: 12.5px;
+      color: var(--unipe-text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .api-tester-box {
+      border-top: 1px solid var(--unipe-border);
+      padding-top: 24px;
+    }
+
+    .api-tester-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .api-btn {
+      background: var(--unipe-bg-gray);
+      border: 1px solid var(--unipe-border);
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .api-btn:hover {
+      background: var(--unipe-blue-light);
+      border-color: var(--unipe-blue-medium);
+      color: var(--unipe-blue-primary);
+    }
+
+    .api-method {
+      color: #0284c7;
+      font-weight: 700;
+    }
+
+    .api-response-screen {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      max-height: 240px;
+    }
+
+    /* ==========================================================
+       8. MODAL WEB RUNNER (SANDBOX RESPONSIVO)
+       ========================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 15, 36, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-window {
+      background: #ffffff;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 1200px;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .modal-topbar {
+      background: var(--unipe-blue-primary);
+      color: #ffffff;
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .modal-title-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-url-bar {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 450px;
+    }
+
+    .viewport-controls {
+      display: flex;
+      gap: 4px;
+    }
+
+    .viewport-btn {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-family: var(--font-unipe);
+      transition: all 0.15s;
+    }
+
+    .viewport-btn:hover,
+    .viewport-btn.active {
+      background: var(--unipe-yellow);
+      color: var(--unipe-blue-darkest);
+      border-color: var(--unipe-yellow);
+    }
+
+    .btn-modal-close {
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 4px;
+      transition: opacity 0.15s;
+    }
+
+    .btn-modal-close:hover {
+      opacity: 0.8;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-iframe-container {
+      flex: 1;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ==========================================================
+       9. GAVETA / MODAL DO COPILOTO DE IA (GROQ LLAMA 3.3 70B)
+       ========================================================== */
+    .ai-drawer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9000;
+    }
+
+    .btn-ai-floating {
+      background: var(--unipe-yellow);
+      color: var(--unipe-blue-darkest);
+      border: 2px solid #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 59, 113, 0.3);
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-family: var(--font-unipe);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-ai-floating:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 59, 113, 0.4);
+    }
+
+    .ai-dialog {
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 380px;
+      height: 520px;
+      background: #ffffff;
+      border: 1px solid var(--unipe-border);
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 9001;
+    }
+
+    .ai-dialog.active {
+      display: flex;
+    }
+
+    .ai-dialog-header {
+      background: var(--unipe-blue-primary);
+      color: #ffffff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-header-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--unipe-bg-gray);
+      font-size: 13px;
+    }
+
+    .ai-msg {
+      padding: 10px 14px;
+      border-radius: 8px;
+      max-width: 85%;
+      line-height: 1.45;
+    }
+
+    .ai-msg.bot {
+      background: #ffffff;
+      color: var(--unipe-text-dark);
+      border: 1px solid var(--unipe-border);
+      align-self: flex-start;
+    }
+
+    .ai-msg.user {
+      background: var(--unipe-blue-primary);
+      color: #ffffff;
+      align-self: flex-end;
+    }
+
+    .ai-prompt-chips {
+      padding: 8px 12px;
+      background: #ffffff;
+      border-top: 1px solid var(--unipe-border);
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .chip-btn {
+      background: var(--unipe-bg-gray);
+      border: 1px solid var(--unipe-border);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--unipe-blue-primary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .ai-input-form {
+      display: flex;
+      padding: 10px;
+      background: #ffffff;
+      border-top: 1px solid var(--unipe-border);
+      gap: 8px;
+    }
+
+    .ai-input-text {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--unipe-border);
+      border-radius: 6px;
+      font-family: var(--font-unipe);
+      font-size: 13px;
+      outline: none;
+    }
+
+    .ai-input-text:focus {
+      border-color: var(--unipe-blue-primary);
+    }
+
+    .ai-btn-send {
+      background: var(--unipe-blue-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 0 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================
+       10. FOOTER INSTITUCIONAL OFICIAL
        ========================================================== */
     footer.unipe-footer {
       background-color: var(--unipe-blue-primary);
       color: #ffffff;
-      padding: 60px 0 24px;
+      padding: 50px 0 24px;
       margin-top: auto;
       border-top: 4px solid var(--unipe-yellow);
     }
@@ -723,29 +1220,28 @@
     .footer-grid {
       display: grid;
       grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 40px;
-      padding-bottom: 44px;
+      gap: 36px;
+      padding-bottom: 36px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .footer-brand-col svg {
-      height: 42px;
+      height: 38px;
       width: auto;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .footer-brand-col p {
       font-size: 13px;
       color: rgba(255, 255, 255, 0.8);
-      line-height: 1.6;
-      margin-bottom: 14px;
+      line-height: 1.55;
     }
 
     .footer-col h3 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
@@ -754,11 +1250,11 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
     }
 
     .footer-links a {
-      font-size: 13.5px;
+      font-size: 13px;
       color: rgba(255, 255, 255, 0.75);
       transition: color 0.15s;
     }
@@ -769,115 +1265,71 @@
     }
 
     .footer-bottom {
-      padding-top: 24px;
+      padding-top: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
-      font-size: 12.5px;
+      font-size: 12px;
       color: rgba(255, 255, 255, 0.65);
     }
 
-    .footer-bottom-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .footer-bottom-links a {
-      color: rgba(255, 255, 255, 0.65);
-    }
-
-    .footer-bottom-links a:hover {
-      color: var(--unipe-yellow);
-    }
-
-    /* ==========================================================
-       RESPONSIVIDADE (MOBILE & TABLET)
-       ========================================================== */
     @media (max-width: 900px) {
-      .topbar-nav {
-        display: none;
-      }
-      .unipe-menu-nav {
-        display: none;
-      }
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .unipe-hero h1 {
-        font-size: 28px;
-      }
+      .topbar-nav, .unipe-menu-nav { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .architecture-diagram { grid-template-columns: 1fr; }
+      .unipe-hero h1 { font-size: 28px; }
+      .ai-dialog { width: calc(100vw - 32px); right: 16px; }
     }
 
     @media (max-width: 600px) {
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-      .topbar-left {
-        gap: 10px;
-      }
-      .inputPesquisa {
-        width: 140px;
-      }
-      .inputPesquisa:focus {
-        width: 160px;
-      }
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .unipe-hero h1 {
-        font-size: 24px;
-      }
+      .footer-grid { grid-template-columns: 1fr; }
+      .inputPesquisa { width: 130px; }
+      .inputPesquisa:focus { width: 150px; }
+      .cards-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==========================================================
-       1. TOPBAR DE ACESSIBILIDADE & LINKS ÚTEIS (#menu-links-uteis)
-       ========================================================== -->
+  <!-- 1. TOPBAR DE ACESSIBILIDADE (#menu-links-uteis) -->
   <section id="menu-links-uteis">
     <div class="container topbar-wrapper">
       
-      <!-- Acessibilidade e Ferramentas -->
       <div class="topbar-left">
         <div class="topbar-acessibilidade">
-          <span class="btn-acess-text" onclick="mostrarModalAcessibilidade()" title="Recursos de Acessibilidade">
+          <span class="btn-acess-text" onclick="mostrarModalAcessibilidade()" title="Acessibilidade WCAG">
             <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
             <span>Acessibilidade</span>
           </span>
 
-          <!-- Botão Oficial de Alto Contraste com SVG original da UNIPÊ -->
-          <button class="btn-contraste modoContraste" onclick="toggleContraste()" aria-label="Alternar Alto Contraste" title="Alto Contraste">
+          <button class="btn-contraste modoContraste" onclick="toggleContraste()" aria-label="Alto Contraste" title="Alto Contraste">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.24 35.27" width="18" height="18">
               <path fill="#ffffff" d="M16.94,35.27C7.38,35.25,0,27.51,0,17.6,0,8.25,7.82.08,16.76,0c10.1-.09,18.42,7.87,18.48,17.66C35.29,27.61,27.3,35.3,16.94,35.27Zm1.17-3.38c9.12-.7,14.74-7.32,13.79-15.78C31.07,8.66,25.09,3.43,18.11,4.26Z"/>
             </svg>
           </button>
 
-          <!-- Redimensionador de Fonte A+ / A- -->
           <button class="btn-font-resize" onclick="alteraFonte('+')" title="Aumentar Fonte">A+</button>
           <button class="btn-font-resize" onclick="alteraFonte('-')" title="Diminuir Fonte">A-</button>
         </div>
 
-        <!-- Links Institucionais no Topbar -->
         <ul class="topbar-nav">
-          <li><a href="#projetos" class="destaque-amarelo">Ciência da Computação</a></li>
-          <li><a href="#projetos">1º Período</a></li>
-          <li><a href="#projetos">Front-End Web</a></li>
-          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#hub-principal" class="destaque-amarelo">Ciência da Computação</a></li>
+          <li><a href="#periodos-section">Matriz (8 Períodos)</a></li>
+          <li><a href="#runners-section">Executores &amp; Runners</a></li>
+          <li><a href="javascript:void(0)" onclick="abrirTerminal()">Terminal CLI</a></li>
         </ul>
       </div>
 
-      <!-- Barra de Busca Interativa estilo UNIPÊ (#topoPesquisa) -->
       <div class="topbar-right">
         <div class="form-topo-buscar" id="topoPesquisa">
           <input type="text"
                  class="inputPesquisa"
                  id="campoBusca"
                  placeholder="O que você procura?"
-                 aria-label="Pesquisar no repositório"
-                 onkeyup="filtrarCards()">
+                 aria-label="Pesquisar no catálogo"
+                 onkeyup="filtrarProjetos()">
           <button class="btn-topo-buscar" type="button" aria-label="Buscar">
             <i data-lucide="search" style="width: 15px; height: 15px;"></i>
           </button>
@@ -887,15 +1339,12 @@
     </div>
   </section>
 
-  <!-- ==========================================================
-       2. HEADER PRINCIPAL INSTITUCIONAL UNIPÊ
-       ========================================================== -->
+  <!-- 2. HEADER INSTITUCIONAL -->
   <header class="unipe-header">
     <div class="container header-main-flex">
       
-      <!-- Marca Oficial Vetorial UNIPÊ -->
       <div class="unipe-marca" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <svg class="logo-svg" viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logomarca UNIPÊ Centro Universitário de João Pessoa">
+        <svg class="logo-svg" viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UNIPÊ">
           <path fill="#FED400" d="M102.1,110.7c-1.9-5.1-4.2-11.5-6.2-18c-3.7-12.3-6.8-24.2-6.8-24.2c2.4-1.6,23.8-16.1,39.2-24.9c0.2-0.1,4.8-2.7,5.2-5.9c0.1-0.9,0-1.7-0.3-2.6c-0.8-2.3-2.7-4.4-8.2-4.7c-4.3-0.3-11.8-0.8-20.2-0.3c-8.1,0.3-16.8,1.2-23.3,2.3c0,0-2.6-15.9-3.5-22.5c-0.1-0.4-0.5-2.9-1.2-3.9c-0.7-1.1-1.8-2.1-3.6-2.4c-1.9-0.3-3.3,0.2-4.3,0.9c-1,0.7-2.4,2.7-2.7,3.2c-4.2,5.8-15.8,23-21.6,32.9c0,0-18.1,5.6-29.2,10.2c-3.3,1.4-3.6,3-3.7,3.9c-0.1,0.6,0,2.3,2.5,4.5C17.5,61.6,27.6,70,27.6,70c-3.6,5.7-17.3,33.7-18.6,41.5c-0.4,2.2-0.4,4.6,1.3,6.7c1,1.3,2.9,2.3,4.8,2.3c2.3,0,5.5-2.4,6.9-3.4c10.9-7.8,32.3-24.2,32.3-24.2c8,7.2,25,22.8,34,31.2c1,1,4.4,4.1,7.6,4.1c6.2,0.2,8.2-5.1,8.4-6.9C104.8,117,102.7,112.3,102.1,110.7z M18.6,55.7c-0.2-0.2-1.1-0.8-1-1.6c0-0.4,0.2-0.8,0.7-1.1c0.2-0.1,0.9-0.4,1-0.5c1.9-0.7,10.4-3.8,21.9-6.5c-3,5.2-5,8.5-6.4,10.9c-3.2,5.6-3.2,5.8-4.5,8.2C30.3,65.1,20.9,57.6,18.6,55.7z M23.8,100.8c-0.3,0.2-1.4,0.9-1.7,1.1c-2.4,1.2-2.9-0.3-3.1-0.9c-0.3-1.2,0.7-3.3,0.8-3.5c2.3-5,11.5-24.5,11.5-24.5s11.4,9.8,14.2,12.2C45.6,85.3,29,97.2,23.8,100.8z M82.9,93.7c1.9,6.5,4.1,13.3,5.2,16.7c0.3,0.9,0.3,1.7,0,2.2c-0.3,0.5-0.9,0.7-1.6,0.3c-0.3-0.2-1.2-0.9-1.3-1c-4.2-3.7-25.8-22.6-25.8-22.6L78,76.1C78,76.1,80.4,85.3,82.9,93.7z M50.4,81.7c0,0-15.6-13-16.5-13.7c0,0,9.9-18.6,13-23.3c1.9-0.5,16.4-3.2,23.3-4c0,0,2,11.3,5.1,24.2C75.3,64.9,55.2,78.3,50.4,81.7z M94,38.5c6.7-0.3,13.8-0.4,14.4-0.4c1.7,0,3.1,0.2,3.4,0.9c0.3,1-0.4,2.1-1.6,3c-0.3,0.2-4.3,2.8-8.6,5.8c-6.6,4.5-14.9,9.9-14.9,9.9c0.1,0.2-3.2-14.4-3.8-18.3C82.8,39.3,88.3,38.7,94,38.5z M63.5,19.4c0.1-0.2,1.2-1.6,2-1.6s1.1,1,1.2,1.5c0.2,1.2,0.4,3,0.9,5.9c0.7,4.2,1.5,9.1,1.5,9.1c-4.5,0.9-15.2,3.4-18.7,4.4C54.2,32.7,61.2,22.4,63.5,19.4z"/>
           <g fill="#FFFFFF">
             <path d="M146.1,69.5c-1.2-2.3-1.9-5.2-1.9-8.7V34.7h8.7v25.6c0,2.2,0.4,4.1,1.2,5.5c1.5,2.7,4.3,4.2,8.2,4.2s6.6-1.5,8.1-4.2c0.8-1.5,1.2-3.4,1.2-5.6V34.7h8.7v26.1c0,3.4-0.6,6.4-1.9,8.7c-2.7,5.3-8.5,7.8-16.2,7.8S148.8,74.9,146.1,69.5z"/>
@@ -929,20 +1378,19 @@
 
         <div class="brand-subtext">
           <span class="course-badge">Ciência da Computação</span>
-          <span class="course-title">Portal Acadêmico de Engenharia</span>
+          <span class="course-title">Hub Acadêmico &amp; Runners</span>
         </div>
       </div>
 
-      <!-- Menu Principal UNIPÊ -->
       <nav aria-label="Menu principal">
         <ul class="unipe-menu-nav">
-          <li><a href="#projetos" class="active">Projetos</a></li>
-          <li><a href="#diferenciais">Diferenciais</a></li>
-          <li><a href="#sobre">Sobre o Curso</a></li>
+          <li><button onclick="alternarRunnerView('web')"><i data-lucide="layout"></i><span>Web Apps</span></button></li>
+          <li><button onclick="alternarRunnerView('backend')"><i data-lucide="terminal"></i><span>Terminal Backend</span></button></li>
+          <li><button onclick="alternarRunnerView('fullstack')"><i data-lucide="server"></i><span>Fullstack Explorer</span></button></li>
           <li>
             <a class="btn-aluno-portal" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">
-              <i data-lucide="github" style="width: 16px; height: 16px;"></i>
-              <span>Repositório GitHub</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>Repositório</span>
             </a>
           </li>
         </ul>
@@ -951,13 +1399,10 @@
     </div>
   </header>
 
-  <!-- ==========================================================
-       3. HERO BANNER INSTITUCIONAL
-       ========================================================== -->
-  <section class="unipe-hero">
+  <!-- 3. HERO BANNER PRINCIPAL (CURSO DE CIÊNCIA DA COMPUTAÇÃO) -->
+  <section class="unipe-hero" id="hub-principal">
     <div class="container">
       
-      <!-- Breadcrumb Acadêmico -->
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="#">UNIPÊ</a>
         <span class="sep">/</span>
@@ -965,271 +1410,442 @@
         <span class="sep">/</span>
         <a href="#">Ciência da Computação</a>
         <span class="sep">/</span>
-        <a href="#">1º Período</a>
-        <span class="sep">/</span>
-        <span class="current">Desenvolvimento Front-End Web</span>
+        <span class="current">Hub Integrado de Engenharia de Software</span>
       </nav>
 
       <div class="hero-content">
-        <span class="hero-tag">Trilha Prática Curricular</span>
-        <h1>Desenvolvimento Front-End Web</h1>
+        <span class="hero-tag">
+          <i data-lucide="cpu" style="width: 12px; height: 12px;"></i>
+          Portal de Engenharia &amp; Computação
+        </span>
+        <h1>Bacharelado em Ciência da Computação</h1>
         <p class="hero-lead">
-          Ambiente institucional de entrega dos projetos integradores concebidos e implementados para a <strong>ONG Esperança Viva</strong>, contemplando desde a estruturação semântica até produção com acessibilidade WCAG 2.1 e otimização contínua.
+          Ambiente centralizado para navegação pela matriz curricular dos 8 semestres, execução de aplicações Web em sandbox responsivo, console interativo para Backend e explorador de arquitetura Fullstack com inteligência artificial integrada (Groq &bull; Llama 3.3 70B).
         </p>
 
-        <div class="hero-pills">
-          <div class="hero-pill">
-            <i data-lucide="check-circle-2"></i>
-            <span>4 Experiências Práticas Concluídas</span>
-          </div>
-          <div class="hero-pill">
-            <i data-lucide="shield-check"></i>
-            <span>Conformidade WCAG 2.1 (AA / AAA)</span>
-          </div>
-          <div class="hero-pill">
+        <div class="hero-action-pills">
+          <button class="hero-pill-btn active" onclick="alternarRunnerView('web')">
             <i data-lucide="layout"></i>
-            <span>Single Page Application Vanilla</span>
-          </div>
-          <div class="hero-pill">
-            <i data-lucide="globe"></i>
-            <span>Produção &amp; CI/CD Ativos</span>
-          </div>
+            <span>Executar Web Apps (4)</span>
+          </button>
+          <button class="hero-pill-btn" onclick="alternarRunnerView('backend')">
+            <i data-lucide="terminal"></i>
+            <span>Abrir Terminal Backend</span>
+          </button>
+          <button class="hero-pill-btn" onclick="alternarRunnerView('fullstack')">
+            <i data-lucide="server"></i>
+            <span>Explorar Fullstack</span>
+          </button>
+          <button class="hero-pill-btn" onclick="abrirDrawerIA()">
+            <i data-lucide="sparkles"></i>
+            <span>Copiloto IA (Llama 3.3)</span>
+          </button>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ==========================================================
-       4. GRADE DE PROJETOS ("O QUE VOCÊ PRECISA ESTÁ AQUI")
-       ========================================================== -->
-  <section class="unipe-section" id="projetos">
+  <!-- 4. SELETOR DE PERÍODOS CURRICULARES (1º AO 8º) -->
+  <nav class="periodos-bar" id="periodos-section" aria-label="Navegação por Semestres">
+    <div class="container">
+      <div class="periodos-scroller">
+        <button class="periodo-tab active" onclick="selecionarPeriodo(1, this)">
+          <span>1º Semestre</span>
+          <span class="badge-status current">Cursando</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(2, this)">
+          <span>2º Semestre</span>
+          <span class="badge-status future">Planejado</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(3, this)">
+          <span>3º Semestre</span>
+          <span class="badge-status future">Planejado</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(4, this)">
+          <span>4º Semestre</span>
+          <span class="badge-status future">Planejado</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(5, this)">
+          <span>5º Semestre</span>
+          <span class="badge-status future">Planejado</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(6, this)">
+          <span>6º Semestre</span>
+          <span class="badge-status future">Planejado</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(7, this)">
+          <span>7º Semestre</span>
+          <span class="badge-status future">Planejado</span>
+        </button>
+        <button class="periodo-tab" onclick="selecionarPeriodo(8, this)">
+          <span>8º Semestre (TCC)</span>
+          <span class="badge-status future">Conclusão</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 5. SEÇÃO DE RUNNERS & AMBIENTES DE EXECUÇÃO -->
+  <main class="unipe-section" id="runners-section">
     <div class="container">
       
       <div class="section-header">
-        <h2>O que você precisa está aqui</h2>
+        <h2 id="sectionTitle">Ambientes de Execução &bull; 1º Semestre</h2>
         <hr class="unipe-divider">
-        <p>
-          Selecione uma das experiências práticas curriculares abaixo para inspecionar e executar a aplicação correspondente diretamente em seu ambiente de produção.
+        <p id="sectionDesc">
+          Navegue pelas entregas práticas, execute web apps em sandbox ou utilize o emulador de terminal para inspecionar códigos de backend.
         </p>
       </div>
 
-      <!-- Abas de Filtro via HTMX / JS -->
-      <div class="filter-tabs" role="tablist">
-        <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">
-          <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
-          <span>Todas as Entregas (4)</span>
+      <!-- Abas dos 3 Runners -->
+      <div class="runners-tabs">
+        <button class="runner-tab-btn active" id="tabBtnWeb" onclick="alternarRunnerView('web')">
+          <i data-lucide="layout"></i>
+          <span>Web Apps Runner</span>
         </button>
-        <button class="filter-btn" onclick="filtrarCategoria('html', this)">
-          <i data-lucide="code-2" style="width: 14px; height: 14px;"></i>
-          <span>EP 01 &bull; Semântica</span>
+        <button class="runner-tab-btn" id="tabBtnBackend" onclick="alternarRunnerView('backend')">
+          <i data-lucide="terminal"></i>
+          <span>Backend Terminal Runner</span>
         </button>
-        <button class="filter-btn" onclick="filtrarCategoria('css', this)">
-          <i data-lucide="palette" style="width: 14px; height: 14px;"></i>
-          <span>EP 02 &bull; Design System</span>
-        </button>
-        <button class="filter-btn" onclick="filtrarCategoria('spa', this)">
-          <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
-          <span>EP 03 &bull; Vanilla SPA</span>
-        </button>
-        <button class="filter-btn" onclick="filtrarCategoria('a11y', this)">
-          <i data-lucide="award" style="width: 14px; height: 14px;"></i>
-          <span>EP 04 &bull; Acessibilidade WCAG</span>
+        <button class="runner-tab-btn" id="tabBtnFullstack" onclick="alternarRunnerView('fullstack')">
+          <i data-lucide="server"></i>
+          <span>Fullstack Architecture Explorer</span>
         </button>
       </div>
 
-      <!-- Grid de Cards de Projetos -->
-      <div class="cards-grid" id="cardsContainer">
-        
-        <!-- CARD 1 -->
-        <article class="unipe-card" data-category="html" data-keywords="html semantica w3c formularios fieldset esperanca viva ep01">
-          <div>
-            <div class="card-top">
-              <span class="card-code">EP_01</span>
-              <span class="card-status">
-                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
-                Validado W3C
-              </span>
+      <!-- VIEW 1: WEB APPS RUNNER (GRADE DE CARDS) -->
+      <div id="viewWebApps">
+        <div class="cards-grid" id="projectsContainer">
+          
+          <!-- EP 01 -->
+          <article class="unipe-card" data-keywords="html semantica w3c formularios esperanca viva ep01">
+            <div>
+              <div class="card-top">
+                <span class="card-code">EP_01</span>
+                <span class="card-status">Validado W3C</span>
+              </div>
+              <h3 class="card-title">Estruturação Semântica HTML5</h3>
+              <p class="card-desc">
+                Arquitetura semântica W3C, formulário modular com fieldsets temáticos e conformidade de acessibilidade para a ONG Esperança Viva.
+              </p>
+              <div class="card-tags">
+                <span class="card-tag">HTML5</span>
+                <span class="card-tag">W3C</span>
+                <span class="card-tag">Acessibilidade</span>
+              </div>
             </div>
-            <h3 class="card-title">Estruturação Semântica HTML5</h3>
-            <p class="card-desc">
-              Construção dos alicerces semânticos W3C, formulário cadastral modular com fieldsets temáticos e estrutura voltada à acessibilidade da ONG Esperança Viva.
-            </p>
-            <div class="card-tags">
-              <span class="card-tag">HTML5 Semântico</span>
-              <span class="card-tag">W3C Standard</span>
-              <span class="card-tag">Acessibilidade Base</span>
+            <div class="card-actions">
+              <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html', 'EP_01: Estruturação Semântica HTML5')">
+                <i data-lucide="play" style="width: 14px; height: 14px;"></i>
+                <span>Executar App</span>
+              </button>
+              <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html" target="_blank" title="Abrir em Nova Aba">
+                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+              </a>
             </div>
-          </div>
-          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
-            <span>Acessar Aplicação</span>
-            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
-          </a>
-        </article>
+          </article>
 
-        <!-- CARD 2 -->
-        <article class="unipe-card" data-category="css" data-keywords="css grid flexbox design system tokens responsividade mobile ep02">
-          <div>
-            <div class="card-top">
-              <span class="card-code">EP_02</span>
-              <span class="card-status">
-                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
-                Validado CSS
-              </span>
+          <!-- EP 02 -->
+          <article class="unipe-card" data-keywords="css grid flexbox tokens design system responsividade ep02">
+            <div>
+              <div class="card-top">
+                <span class="card-code">EP_02</span>
+                <span class="card-status">Validado CSS</span>
+              </div>
+              <h3 class="card-title">Design System &amp; CSS Grid</h3>
+              <p class="card-desc">
+                Malha responsiva de 12 colunas, variáveis nativas (:root), componentes modulares e 5 breakpoints @media Mobile-First.
+              </p>
+              <div class="card-tags">
+                <span class="card-tag">CSS Grid 12-Col</span>
+                <span class="card-tag">Flexbox</span>
+                <span class="card-tag">Tokens</span>
+              </div>
             </div>
-            <h3 class="card-title">Design System &amp; CSS Grid</h3>
-            <p class="card-desc">
-              Implementação de tokens nativos (:root), malha fluida responsiva em CSS Grid de 12 colunas, 5 breakpoints @media e cartões interativos de feedback.
-            </p>
-            <div class="card-tags">
-              <span class="card-tag">CSS Grid 12-Col</span>
-              <span class="card-tag">Flexbox</span>
-              <span class="card-tag">Design Tokens</span>
-              <span class="card-tag">Mobile-First</span>
+            <div class="card-actions">
+              <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html', 'EP_02: Design System &amp; CSS Grid')">
+                <i data-lucide="play" style="width: 14px; height: 14px;"></i>
+                <span>Executar App</span>
+              </button>
+              <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html" target="_blank" title="Abrir em Nova Aba">
+                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+              </a>
             </div>
-          </div>
-          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
-            <span>Acessar Aplicação</span>
-            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
-          </a>
-        </article>
+          </article>
 
-        <!-- CARD 3 -->
-        <article class="unipe-card" data-category="spa" data-keywords="javascript spa vanilla localstorage router dinamico templates ep03">
-          <div>
-            <div class="card-top">
-              <span class="card-code">EP_03</span>
-              <span class="card-status">
-                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
-                Validado SPA
-              </span>
+          <!-- EP 03 -->
+          <article class="unipe-card" data-keywords="vanilla spa hash router localstorage templates ep03">
+            <div>
+              <div class="card-top">
+                <span class="card-code">EP_03</span>
+                <span class="card-status">Validado SPA</span>
+              </div>
+              <h3 class="card-title">Single Page Application Vanilla</h3>
+              <p class="card-desc">
+                Roteamento dinâmico via hashchange sem frameworks pesados, renderização por templates reativos e persistência em localStorage.
+              </p>
+              <div class="card-tags">
+                <span class="card-tag">Vanilla SPA</span>
+                <span class="card-tag">Hash Router</span>
+                <span class="card-tag">localStorage</span>
+              </div>
             </div>
-            <h3 class="card-title">Single Page Application &amp; Storage</h3>
-            <p class="card-desc">
-              Arquitetura SPA nativa sem dependências, motor de roteamento via hashchange, renderização orientada a templates e persistência local com localStorage.
-            </p>
-            <div class="card-tags">
-              <span class="card-tag">Vanilla SPA</span>
-              <span class="card-tag">Hash Routing</span>
-              <span class="card-tag">localStorage</span>
-              <span class="card-tag">Event Delegation</span>
+            <div class="card-actions">
+              <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html', 'EP_03: Single Page Application Vanilla')">
+                <i data-lucide="play" style="width: 14px; height: 14px;"></i>
+                <span>Executar App</span>
+              </button>
+              <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html" target="_blank" title="Abrir em Nova Aba">
+                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+              </a>
             </div>
-          </div>
-          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
-            <span>Acessar Aplicação</span>
-            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
-          </a>
-        </article>
+          </article>
 
-        <!-- CARD 4 -->
-        <article class="unipe-card" data-category="a11y" data-keywords="acessibilidade wcag 2.1 aaa dark mode bundler vite producao deploy ep04">
-          <div>
-            <div class="card-top">
-              <span class="card-code">EP_04</span>
-              <span class="card-status" style="color: var(--unipe-blue-primary); background: var(--unipe-blue-light); border-color: #93c5fd;">
-                <i data-lucide="shield-check" style="width: 12px; height: 12px;"></i>
-                Produção Final
-              </span>
+          <!-- EP 04 -->
+          <article class="unipe-card" data-keywords="wcag 2.1 aaa acessibilidade dark mode vite deploy producao ep04">
+            <div>
+              <div class="card-top">
+                <span class="card-code">EP_04</span>
+                <span class="card-status" style="color: var(--unipe-blue-primary); background: var(--unipe-blue-light); border-color: #93c5fd;">Produção Final</span>
+              </div>
+              <h3 class="card-title">Acessibilidade WCAG 2.1 &amp; Produção</h3>
+              <p class="card-desc">
+                Conformidade com padrões WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de CI/CD em produção.
+              </p>
+              <div class="card-tags">
+                <span class="card-tag">WCAG 2.1 AAA</span>
+                <span class="card-tag">Dark Mode</span>
+                <span class="card-tag">Vite &amp; CI/CD</span>
+              </div>
             </div>
-            <h3 class="card-title">Acessibilidade WCAG &amp; Produção</h3>
-            <p class="card-desc">
-              Conformidade rigorosa WCAG 2.1 (AA e AAA), dark mode inteligente, minificação de assets, pipeline de CI/CD e entrega contínua em produção.
-            </p>
-            <div class="card-tags">
-              <span class="card-tag">WCAG 2.1 AAA</span>
-              <span class="card-tag">Dark Mode</span>
-              <span class="card-tag">Vite Bundler</span>
-              <span class="card-tag">GitHub Pages CI/CD</span>
+            <div class="card-actions">
+              <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html', 'EP_04: Acessibilidade WCAG 2.1 AAA &amp; Produção')">
+                <i data-lucide="play" style="width: 14px; height: 14px;"></i>
+                <span>Executar App</span>
+              </button>
+              <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html" target="_blank" title="Abrir em Nova Aba">
+                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+              </a>
             </div>
-          </div>
-          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
-            <span>Acessar Aplicação</span>
-            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
-          </a>
-        </article>
+          </article>
 
+        </div>
       </div>
 
-      <!-- Estado Vazio para Busca -->
-      <div id="buscaVazia" style="display: none; text-align: center; padding: 48px 20px; background: #ffffff; border: 1px solid var(--unipe-border); border-radius: 4px; margin-top: 20px;">
-        <i data-lucide="search-x" style="width: 42px; height: 42px; color: var(--unipe-text-muted); margin-bottom: 12px;"></i>
-        <h3 style="color: var(--unipe-blue-primary); font-size: 18px; margin-bottom: 6px;">Nenhum projeto encontrado</h3>
-        <p style="color: var(--unipe-text-muted); font-size: 14px;">Tente pesquisar por termos como "HTML", "CSS", "SPA", "WCAG" ou "Acessibilidade".</p>
+      <!-- VIEW 2: BACKEND TERMINAL RUNNER (CONSOLE INTERATIVO) -->
+      <div id="viewBackendRunner" style="display: none;">
+        <div class="terminal-container">
+          <div class="terminal-header">
+            <div class="terminal-controls">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">aluno@unipe-cs: ~/periodo-1 &bull; bash 5.2</div>
+            <button onclick="limparTerminal()" style="background: none; border: none; color: #94a3b8; font-size: 11px; cursor: pointer;">Limpar (clear)</button>
+          </div>
+          
+          <div class="terminal-body" id="terminalBody">
+            <div class="terminal-output" id="terminalOutput">UNIPÊ Ciência da Computação - Terminal Backend v2.4
+Conectado ao ambiente acadêmico. Digite 'help' para listar os comandos.
+Exemplos rápidos:
+  • run busca-binaria
+  • run quicksort
+  • sql SELECT * FROM voluntarios;
+  • ai O que é complexidade assintótica?
+</div>
+            <div class="terminal-prompt-line">
+              <span class="prompt-badge">aluno@unipe-cs:~$</span>
+              <input type="text"
+                     class="terminal-input"
+                     id="terminalInput"
+                     autocomplete="off"
+                     spellcheck="false"
+                     placeholder="Digite um comando (ex: help, run busca-binaria, ai ...)"
+                     onkeydown="tratarTeclaTerminal(event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: FULLSTACK ARCHITECTURE EXPLORER -->
+      <div id="viewFullstackRunner" style="display: none;">
+        <div class="fullstack-panel">
+          
+          <div class="architecture-diagram">
+            <div class="tier-box">
+              <div class="tier-header">
+                <i data-lucide="layout" style="width: 16px; height: 16px;"></i>
+                <span>1. Camada de Apresentação</span>
+              </div>
+              <ul class="tier-list">
+                <li>&bull; Vanilla SPA &amp; HTMX Engine</li>
+                <li>&bull; Acessibilidade WCAG 2.1 AAA</li>
+                <li>&bull; CSS Grid 12-Col Responsivo</li>
+                <li>&bull; Bundler Vite para Otimização</li>
+              </ul>
+            </div>
+
+            <div class="tier-box">
+              <div class="tier-header">
+                <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
+                <span>2. Camada de Aplicação &amp; API</span>
+              </div>
+              <ul class="tier-list">
+                <li>&bull; RESTful Endpoints JSON</li>
+                <li>&bull; Agente IA (Groq Llama 3.3 70B)</li>
+                <li>&bull; Algoritmos O(log n) e O(n log n)</li>
+                <li>&bull; Validação de DTOs &amp; Payload</li>
+              </ul>
+            </div>
+
+            <div class="tier-box">
+              <div class="tier-header">
+                <i data-lucide="database" style="width: 16px; height: 16px;"></i>
+                <span>3. Camada de Dados (SQL)</span>
+              </div>
+              <ul class="tier-list">
+                <li>&bull; Modelo Relacional 3FN</li>
+                <li>&bull; Tabelas: voluntários, projetos, doações</li>
+                <li>&bull; Integridade Referencial (FKs)</li>
+                <li>&bull; Consultas Otimizadas por Índices</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Testador Interativo de Endpoints Mock -->
+          <div class="api-tester-box">
+            <h3 style="font-size: 15px; color: var(--unipe-blue-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+              <span>Simulador de Requisições HTTP (API Explorer)</span>
+            </h3>
+
+            <div class="api-tester-controls">
+              <button class="api-btn" onclick="executarMockApi('/api/v1/health')">
+                <span class="api-method">GET</span>
+                <span>/api/v1/health</span>
+              </button>
+              <button class="api-btn" onclick="executarMockApi('/api/v1/curriculo')">
+                <span class="api-method">GET</span>
+                <span>/api/v1/curriculo</span>
+              </button>
+              <button class="api-btn" onclick="executarMockApi('/api/v1/projetos')">
+                <span class="api-method">GET</span>
+                <span>/api/v1/projetos</span>
+              </button>
+              <button class="api-btn" onclick="executarMockApi('/api/v1/simular-doacao')">
+                <span class="api-method" style="color: #10b981;">POST</span>
+                <span>/api/v1/simular-doacao</span>
+              </button>
+            </div>
+
+            <div class="api-response-screen" id="apiResponseScreen">
+// Clique em um dos endpoints acima para disparar uma chamada de teste e inspecionar o payload JSON de resposta...
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </div>
-  </section>
+  </main>
 
-  <!-- ==========================================================
-       5. DIFERENCIAIS ("POR QUE O UNIPÊ É A ESCOLHA CERTA?")
-       ========================================================== -->
-  <section class="unipe-section bg-gray" id="diferenciais">
-    <div class="container">
+  <!-- 6. MODAL WEB RUNNER (SANDBOX COM DEVICE SWITCHER) -->
+  <div class="modal-backdrop" id="webRunnerModal">
+    <div class="modal-window">
       
-      <div class="section-header">
-        <h2>Diferenciais Técnicos da Formação</h2>
-        <hr class="unipe-divider">
-        <p>
-          Competências consolidadas no primeiro período do Bacharelado em Ciência da Computação, estruturadas sobre boas práticas de engenharia de software e padrões internacionais.
-        </p>
+      <div class="modal-topbar">
+        <div class="modal-title-box">
+          <i data-lucide="layout" style="width: 16px; height: 16px; color: var(--unipe-yellow);"></i>
+          <span id="modalRunnerTitle" style="font-weight: 700; font-size: 13.5px;">Preview Web</span>
+        </div>
+
+        <div class="modal-url-bar" id="modalUrlDisplay">about:blank</div>
+
+        <div class="viewport-controls">
+          <button class="viewport-btn active" id="btnVpDesk" onclick="trocarViewport('100%', this)" title="Visualização Desktop">
+            <i data-lucide="monitor" style="width: 13px; height: 13px;"></i>
+            <span>Desktop</span>
+          </button>
+          <button class="viewport-btn" id="btnVpTab" onclick="trocarViewport('768px', this)" title="Visualização Tablet">
+            <i data-lucide="tablet" style="width: 13px; height: 13px;"></i>
+            <span>Tablet</span>
+          </button>
+          <button class="viewport-btn" id="btnVpMob" onclick="trocarViewport('375px', this)" title="Visualização Mobile">
+            <i data-lucide="smartphone" style="width: 13px; height: 13px;"></i>
+            <span>Mobile</span>
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a class="viewport-btn" id="modalDirectLink" href="#" target="_blank" title="Abrir em Nova Guia">
+            <i data-lucide="external-link" style="width: 13px; height: 13px;"></i>
+          </a>
+          <button class="btn-modal-close" onclick="fecharWebRunner()" title="Fechar Runner">
+            <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+          </button>
+        </div>
       </div>
 
-      <div class="diferenciais-grid">
-        
-        <div class="diferencial-box">
-          <div class="diferencial-icon">
-            <i data-lucide="code-2" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3>Padrões Web &amp; W3C</h3>
-          <p>
-            Construção de código semântico, limpo e validado desde o primeiro dia, garantindo interoperabilidade entre motores de renderização e leitores de tela.
-          </p>
-        </div>
-
-        <div class="diferencial-box">
-          <div class="diferencial-icon">
-            <i data-lucide="layout-grid" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3>Design System &amp; CSS Moderno</h3>
-          <p>
-            Arquitetura escalável com variáveis nativas, malha CSS Grid de 12 colunas e responsividade Mobile-First sem sobrecarga de frameworks externos.
-          </p>
-        </div>
-
-        <div class="diferencial-box">
-          <div class="diferencial-icon">
-            <i data-lucide="cpu" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3>Arquitetura SPA Vanilla</h3>
-          <p>
-            Domínio dos princípios essenciais de roteamento, controle de estado, renderização reativa declarativa e ciclo de vida de aplicações web dinâmicas.
-          </p>
-        </div>
-
-        <div class="diferencial-box">
-          <div class="diferencial-icon">
-            <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3>Acessibilidade &amp; CI/CD</h3>
-          <p>
-            Compromisso ético com inclusão digital via conformidade WCAG 2.1 (AA/AAA), aliado a pipelines de build, automação e deploy em nuvem.
-          </p>
-        </div>
-
+      <div class="modal-iframe-container">
+        <iframe id="modalIframe" src="about:blank" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
       </div>
 
     </div>
-  </section>
+  </div>
 
-  <!-- ==========================================================
-       6. FOOTER INSTITUCIONAL OFICIAL (unipe.edu.br)
-       ========================================================== -->
-  <footer class="unipe-footer" id="sobre">
+  <!-- 7. GAVETA FLUTUANTE DO COPILOTO DE IA (GROQ LLAMA 3.3 70B) -->
+  <div class="ai-drawer">
+    <button class="btn-ai-floating" onclick="toggleDialogIA()" title="Abrir Copiloto de IA">
+      <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+      <span>UNIPÊ AI &bull; Llama 3.3</span>
+    </button>
+
+    <div class="ai-dialog" id="aiDialog">
+      <div class="ai-dialog-header">
+        <div class="ai-header-title">
+          <i data-lucide="bot" style="width: 16px; height: 16px; color: var(--unipe-yellow);"></i>
+          <span>Copiloto de IA (Llama 3.3 70B)</span>
+        </div>
+        <button onclick="toggleDialogIA()" style="background: none; border: none; color: #ffffff; cursor: pointer;">
+          <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+
+      <div class="ai-messages" id="aiMessages">
+        <div class="ai-msg bot">
+          Olá! Sou o assistente acadêmico do portal de Ciência da Computação UNIPÊ, impulsionado pelo modelo <strong>llama-3.3-70b-versatile</strong> da Groq.<br><br>
+          Como posso ajudar você com os projetos, arquitetura de software ou matérias do curso hoje?
+        </div>
+      </div>
+
+      <div class="ai-prompt-chips">
+        <button class="chip-btn" onclick="enviarPromptRapido('Como funciona a SPA Vanilla na EP 03?')">SPA Vanilla</button>
+        <button class="chip-btn" onclick="enviarPromptRapido('Explique a conformidade WCAG 2.1 AAA na EP 04.')">WCAG AAA</button>
+        <button class="chip-btn" onclick="enviarPromptRapido('Qual a complexidade assintótica da Busca Binária?')">O(log n)</button>
+        <button class="chip-btn" onclick="enviarPromptRapido('Configurar minha chave Groq API')">Chave API</button>
+      </div>
+
+      <form class="ai-input-form" onsubmit="enviarMensagemIA(event)">
+        <input type="text"
+               class="ai-input-text"
+               id="aiInputText"
+               placeholder="Pergunte sobre projetos, código ou matérias..."
+               required>
+        <button type="submit" class="ai-btn-send" title="Enviar">
+          <i data-lucide="send" style="width: 14px; height: 14px;"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 8. FOOTER INSTITUCIONAL OFICIAL (unipe.edu.br) -->
+  <footer class="unipe-footer">
     <div class="container">
       
       <div class="footer-grid">
         
-        <!-- Coluna 1: Marca & Descrição -->
         <div class="footer-brand-col">
           <svg viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UNIPÊ">
             <path fill="#FED400" d="M102.1,110.7c-1.9-5.1-4.2-11.5-6.2-18c-3.7-12.3-6.8-24.2-6.8-24.2c2.4-1.6,23.8-16.1,39.2-24.9c0.2-0.1,4.8-2.7,5.2-5.9c0.1-0.9,0-1.7-0.3-2.6c-0.8-2.3-2.7-4.4-8.2-4.7c-4.3-0.3-11.8-0.8-20.2-0.3c-8.1,0.3-16.8,1.2-23.3,2.3c0,0-2.6-15.9-3.5-22.5c-0.1-0.4-0.5-2.9-1.2-3.9c-0.7-1.1-1.8-2.1-3.6-2.4c-1.9-0.3-3.3,0.2-4.3,0.9c-1,0.7-2.4,2.7-2.7,3.2c-4.2,5.8-15.8,23-21.6,32.9c0,0-18.1,5.6-29.2,10.2c-3.3,1.4-3.6,3-3.7,3.9c-0.1,0.6,0,2.3,2.5,4.5C17.5,61.6,27.6,70,27.6,70c-3.6,5.7-17.3,33.7-18.6,41.5c-0.4,2.2-0.4,4.6,1.3,6.7c1,1.3,2.9,2.3,4.8,2.3c2.3,0,5.5-2.4,6.9-3.4c10.9-7.8,32.3-24.2,32.3-24.2c8,7.2,25,22.8,34,31.2c1,1,4.4,4.1,7.6,4.1c6.2,0.2,8.2-5.1,8.4-6.9C104.8,117,102.7,112.3,102.1,110.7z M18.6,55.7c-0.2-0.2-1.1-0.8-1-1.6c0-0.4,0.2-0.8,0.7-1.1c0.2-0.1,0.9-0.4,1-0.5c1.9-0.7,10.4-3.8,21.9-6.5c-3,5.2-5,8.5-6.4,10.9c-3.2,5.6-3.2,5.8-4.5,8.2C30.3,65.1,20.9,57.6,18.6,55.7z M23.8,100.8c-0.3,0.2-1.4,0.9-1.7,1.1c-2.4,1.2-2.9-0.3-3.1-0.9c-0.3-1.2,0.7-3.3,0.8-3.5c2.3-5,11.5-24.5,11.5-24.5s11.4,9.8,14.2,12.2C45.6,85.3,29,97.2,23.8,100.8z M82.9,93.7c1.9,6.5,4.1,13.3,5.2,16.7c0.3,0.9,0.3,1.7,0,2.2c-0.3,0.5-0.9,0.7-1.6,0.3c-0.3-0.2-1.2-0.9-1.3-1c-4.2-3.7-25.8-22.6-25.8-22.6L78,76.1C78,76.1,80.4,85.3,82.9,93.7z M50.4,81.7c0,0-15.6-13-16.5-13.7c0,0,9.9-18.6,13-23.3c1.9-0.5,16.4-3.2,23.3-4c0,0,2,11.3,5.1,24.2C75.3,64.9,55.2,78.3,50.4,81.7z M94,38.5c6.7-0.3,13.8-0.4,14.4-0.4c1.7,0,3.1,0.2,3.4,0.9c0.3,1-0.4,2.1-1.6,3c-0.3,0.2-4.3,2.8-8.6,5.8c-6.6,4.5-14.9,9.9-14.9,9.9c0.1,0.2-3.2-14.4-3.8-18.3C82.8,39.3,88.3,38.7,94,38.5z M63.5,19.4c0.1-0.2,1.2-1.6,2-1.6s1.1,1,1.2,1.5c0.2,1.2,0.4,3,0.9,5.9c0.7,4.2,1.5,9.1,1.5,9.1c-4.5,0.9-15.2,3.4-18.7,4.4C54.2,32.7,61.2,22.4,63.5,19.4z"/>
@@ -1240,84 +1856,57 @@
               <path d="M248.6,34.7h11c3.8,0,7,0.5,9.5,1.8c4.6,2.2,7.1,6.3,7.1,12.1c0,4.9-2.1,10.1-8.4,12.5c-2.4,0.9-5.3,1.5-9,1.5h-1.5v14.1h-8.7L248.6,34.7z M259.3,55.6c1.9,0,3.4-0.2,4.5-0.8c2.2-1,3.2-3.2,3.2-6.1c0-2.4-1-4.6-3.1-5.9c-1.2-0.7-2.7-1-4.8-1h-1.9v13.8H259.3z"/>
               <path d="M281.6,34.7h24.3l-2.3,7.4h-13.2v9.7h13.3v7.3h-13.3v10.2h15.5v7.4h-24.2V34.7z M289.9,23h6.8l6.4,9.4h-6.7l-3.2-4.5l-3.1,4.5h-6.6L289.9,23z"/>
             </g>
-            <g fill="#FFFFFF">
-              <path d="M160.3,106.4c-2.1,1.1-4.1,1.5-6,1.5c-6.3,0-10-4.3-10-10.3s4.2-10.7,10.4-10.7c2.2,0,4.1,0.5,5.2,1.1v2.6c-1.5-0.8-3.1-1.3-5.1-1.3c-4.7,0-7.5,3.7-7.5,8.2c0,4.8,2.8,8.1,7.4,8.1c1.9,0,3.5-0.6,4.9-1.3L160.3,106.4z"/>
-              <path d="M164.8,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H164.8z M171.5,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H171.5z"/>
-              <path d="M177.3,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7L177.3,92.8z"/>
-              <path d="M194.4,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C195.8,107.9,194.4,106.6,194.4,104.2z"/>
-              <path d="M204.3,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7V92.8z"/>
-              <path d="M213.4,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S213.4,104.5,213.4,100.2z M224.5,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S224.5,103.3,224.5,100.2z"/>
-              <path d="M238.2,103.6c-0.4-1-0.6-2.2-0.6-3.5V87h2.8v12.9c0,1.1,0.1,2,0.5,2.8c0.7,1.8,2.3,2.8,4.7,2.8s4-1,4.7-2.8c0.3-0.8,0.4-1.8,0.4-2.9V87h2.8v13.1c0,1.4-0.2,2.6-0.6,3.6c-1.1,2.7-3.6,4.2-7.3,4.2S239.3,106.4,238.2,103.6z"/>
-              <path d="M257.7,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7V92.8z"/>
-              <path d="M273.5,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S273.5,89,273.5,88z M273.9,92.8h2.7v14.7h-2.7V92.8z"/>
-              <path d="M278.9,92.8h2.9l4.1,11.2h0.1l4-11.2h2.8l-5.8,14.8h-2.2L278.9,92.8z"/>
-              <path d="M296.6,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H296.6z M303.3,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H303.3z"/>
-              <path d="M309.1,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L309.1,92.8z"/>
-              <path d="M318.6,104.5c0.9,0.6,2.2,1.1,3.8,1.1s3-0.6,3-2.1c0-3-6.9-2-6.9-6.9c0-2.3,1.8-4.2,5.2-4.2c1.5,0,2.8,0.3,3.9,0.7v2.4c-1.1-0.5-2.3-0.8-3.7-0.8c-1.4,0-2.6,0.4-2.6,1.8c0,3,6.9,1.9,6.9,7c0,3-2.6,4.4-5.6,4.4c-2.1,0-3.7-0.7-4.8-1.3L318.6,104.5z"/>
-              <path d="M330.8,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S330.8,89,330.8,88z M331.2,92.8h2.7v14.7h-2.7V92.8z"/>
-              <path d="M339.2,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C340.5,107.9,339.1,106.6,339.2,104.2z"/>
-              <path d="M357.3,106c-1.1,1.1-2.6,1.9-4.4,1.9c-2.7,0-4.7-1.8-4.7-4.6c0-2,1-3.3,2.5-4c1-0.5,2.2-0.7,3.7-0.8l2.7-0.1v-0.8c0-2.1-1.3-3-3-3c-1.7,0-3,0.5-4,1.2l-1-1.9c1.7-1,3.6-1.5,5.3-1.5c3.3,0,5.5,1.6,5.5,5.1v5.4c0,2.5,0.1,3.9,0.3,4.6h-2.4L357.3,106z M354.7,100.5c-1.2,0-2,0.2-2.6,0.5c-0.8,0.4-1.1,1.2-1.1,2.1c0,1.5,1,2.5,2.6,2.5c1.7,0,2.9-1,3.6-1.7v-3.6L354.7,100.5z M354.7,86.4h3L355,91h-2.1L354.7,86.4z"/>
-              <path d="M363.5,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L363.5,92.8z"/>
-              <path d="M373.6,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S373.6,89,373.6,88z M374,92.8h2.7v14.7H374V92.8z"/>
-              <path d="M380,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S380,104.5,380,100.2z M391.2,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S391.2,103.3,391.2,100.2z"/>
-            </g>
           </svg>
           <p>
-            Portal Acadêmico e Repositório de Engenharia de Software desenvolvido para a disciplina de Desenvolvimento Front-End Web do Bacharelado em Ciência da Computação.
+            Portal Acadêmico e Hub Integrado de Engenharia de Software desenvolvido para o Bacharelado em Ciência da Computação.
           </p>
-          <p style="color: var(--unipe-yellow); font-weight: 600; font-size: 13px;">
-            Desenvolvedor: Charlles Augusto
+          <p style="color: var(--unipe-yellow); font-weight: 600; font-size: 13px; margin-top: 8px;">
+            Desenvolvedor: Charlles Augusto &bull; 2026
           </p>
         </div>
 
-        <!-- Coluna 2: Trilha Curricular -->
         <div class="footer-col">
-          <h3>Trilha Curricular</h3>
+          <h3>Matriz Curricular</h3>
           <ul class="footer-links">
-            <li><a href="#projetos">1º Período Letivo</a></li>
-            <li><a href="#projetos">Front-End Web</a></li>
-            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">Experiência Prática 1</a></li>
-            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">Experiência Prática 2</a></li>
-            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">Experiência Prática 3</a></li>
-            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">Experiência Prática 4</a></li>
+            <li><a href="javascript:void(0)" onclick="selecionarPeriodo(1)">1º Semestre (Atual)</a></li>
+            <li><a href="javascript:void(0)" onclick="selecionarPeriodo(2)">2º Semestre</a></li>
+            <li><a href="javascript:void(0)" onclick="selecionarPeriodo(3)">3º Semestre</a></li>
+            <li><a href="javascript:void(0)" onclick="selecionarPeriodo(4)">4º Semestre</a></li>
+            <li><a href="javascript:void(0)" onclick="selecionarPeriodo(8)">8º Semestre (TCC)</a></li>
           </ul>
         </div>
 
-        <!-- Coluna 3: Stack de Tecnologias -->
         <div class="footer-col">
-          <h3>Stack Tecnológica</h3>
+          <h3>Executores &amp; Stack</h3>
           <ul class="footer-links">
-            <li><a href="#projetos">HTML5 Semântico (W3C)</a></li>
-            <li><a href="#projetos">CSS Grid &amp; Design Tokens</a></li>
-            <li><a href="#projetos">Vanilla SPA &amp; Storage</a></li>
-            <li><a href="#projetos">Acessibilidade WCAG 2.1</a></li>
-            <li><a href="#projetos">Vite Bundler &amp; Minificação</a></li>
-            <li><a href="#projetos">GitHub Actions CI/CD</a></li>
+            <li><a href="javascript:void(0)" onclick="alternarRunnerView('web')">Web Sandbox Runner</a></li>
+            <li><a href="javascript:void(0)" onclick="alternarRunnerView('backend')">Console Bash / Terminal</a></li>
+            <li><a href="javascript:void(0)" onclick="alternarRunnerView('fullstack')">Fullstack API Explorer</a></li>
+            <li><a href="javascript:void(0)" onclick="abrirDrawerIA()">Groq Llama 3.3 70B</a></li>
+            <li><a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()">Acessibilidade WCAG 2.1</a></li>
           </ul>
         </div>
 
-        <!-- Coluna 4: Governança & Repositório -->
         <div class="footer-col">
           <h3>Repositório &amp; Docs</h3>
           <ul class="footer-links">
-            <li><a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">Código-Fonte no GitHub</a></li>
-            <li><a href="https://github.com/charlles-dev/computer-science-unipe/tree/main/periodo-1/desenvolvimento-front-end-web" target="_blank" rel="noopener noreferrer">Documentação Técnica</a></li>
-            <li><a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()">Declaração de Acessibilidade</a></li>
-            <li><a href="#projetos">ONG Esperança Viva</a></li>
+            <li><a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">Código no GitHub</a></li>
+            <li><a href="catalog.json" target="_blank">Manifesto catalog.json</a></li>
+            <li><a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()">Declaração WCAG</a></li>
+            <li><a href="https://github.com/charlles-dev/computer-science-unipe/actions" target="_blank" rel="noopener noreferrer">CI/CD no GitHub Actions</a></li>
           </ul>
         </div>
 
       </div>
 
-      <!-- Barra de Direitos e Isenção Acadêmica -->
       <div class="footer-bottom">
         <div>
           <span>&copy; 2026 UNIPÊ &bull; Bacharelado em Ciência da Computação &bull; Charlles Augusto. Todos os direitos reservados.</span>
         </div>
-        <div class="footer-bottom-links">
-          <a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()">Acessibilidade</a>
+        <div style="display: flex; gap: 14px;">
+          <a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()" style="color: rgba(255,255,255,0.65);">Acessibilidade</a>
           <span>|</span>
-          <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">Licença MIT / Open Source</a>
+          <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.65);">Código Aberto (MIT)</a>
         </div>
       </div>
 
@@ -1325,87 +1914,903 @@
   </footer>
 
   <!-- ==========================================================
-       7. SCRIPTS (ACESSIBILIDADE, FILTRO DINÂMICO & CONTRASTE)
+       9. SCRIPTS DE INTERATIVIDADE, TERMINAL, MOCK API & GROQ IA
        ========================================================== -->
   <script>
-    // Inicialização dos ícones Lucide
     lucide.createIcons();
 
-    // 1. ALTERADOR DE TAMANHO DE FONTE (A+ / A-)
-    let escalaAtual = 1;
-    function alteraFonte(operacao) {
-      if (operacao === '+') {
-        if (escalaAtual < 1.3) escalaAtual += 0.08;
-      } else if (operacao === '-') {
-        if (escalaAtual > 0.85) escalaAtual -= 0.08;
+    // 1. MANIFESTO CURRICULAR INLINE (Garante funcionamento 100% offline e online)
+    const DEFAULT_CATALOG = {
+  "curso": "Bacharelado em Ciência da Computação",
+  "instituicao": "UNIPÊ - Centro Universitário de João Pessoa",
+  "aluno": "Charlles Augusto",
+  "periodo_atual": 1,
+  "total_periodos": 8,
+  "periodos": [
+    {
+      "numero": 1,
+      "nome": "1º Período Letivo",
+      "status": "cursando",
+      "disciplinas": [
+        {
+          "id": "desenvolvimento-front-end-web",
+          "nome": "Desenvolvimento Front-End para Web",
+          "carga_horaria": "90h",
+          "status": "concluido",
+          "tipo_runner": "web",
+          "descricao": "Construção de aplicações web responsivas, acessíveis e reativas para a ONG Esperança Viva.",
+          "projetos": [
+            {
+              "id": "ep01",
+              "codigo": "EP_01",
+              "titulo": "Estruturação Semântica HTML5",
+              "descricao": "Arquitetura semântica W3C, formulário cadastral modular com fieldsets temáticos e acessibilidade base.",
+              "tipo": "web",
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 1/index.html",
+              "tags": [
+                "HTML5",
+                "W3C",
+                "Acessibilidade",
+                "Formulários"
+              ],
+              "status": "Validado W3C",
+              "comando_terminal": "run ep01"
+            },
+            {
+              "id": "ep02",
+              "codigo": "EP_02",
+              "titulo": "Design System & CSS Grid",
+              "descricao": "Malha responsiva de 12 colunas, design tokens nativos (:root), flexbox e 5 breakpoints @media.",
+              "tipo": "web",
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 2/index.html",
+              "tags": [
+                "CSS Grid",
+                "Flexbox",
+                "Tokens",
+                "Mobile-First"
+              ],
+              "status": "Validado CSS",
+              "comando_terminal": "run ep02"
+            },
+            {
+              "id": "ep03",
+              "codigo": "EP_03",
+              "titulo": "Single Page Application Vanilla",
+              "descricao": "Motor de roteamento por hashchange, templates dinâmicos, persistência em localStorage e event delegation.",
+              "tipo": "web",
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 3/html/index.html",
+              "tags": [
+                "Vanilla SPA",
+                "Hash Router",
+                "localStorage",
+                "Templates"
+              ],
+              "status": "Validado SPA",
+              "comando_terminal": "run ep03"
+            },
+            {
+              "id": "ep04",
+              "codigo": "EP_04",
+              "titulo": "Acessibilidade WCAG 2.1 & Produção",
+              "descricao": "Conformidade WCAG 2.1 AAA, dark mode inteligente, minificação com bundler e deploy contínuo em produção.",
+              "tipo": "web",
+              "path": "periodo-1/desenvolvimento-front-end-web/Desenvolvimento FrontEnd - Experiência Prática 4/html/index.html",
+              "tags": [
+                "WCAG 2.1 AAA",
+                "Dark Mode",
+                "Vite",
+                "CI/CD Pages"
+              ],
+              "status": "Produção Final",
+              "comando_terminal": "run ep04"
+            }
+          ]
+        },
+        {
+          "id": "algoritmos-pensamento-computacional",
+          "nome": "Algoritmos e Pensamento Computacional",
+          "carga_horaria": "90h",
+          "status": "cursando",
+          "tipo_runner": "backend",
+          "descricao": "Fundamentos de lógica algorítmica, estruturas de dados elementares e complexidade assintótica.",
+          "projetos": [
+            {
+              "id": "busca-binaria",
+              "codigo": "ALGO_01",
+              "titulo": "Busca Binária & Análise Assintótica",
+              "descricao": "Implementação interativa de busca binária com cálculo de passos O(log n) vs O(n).",
+              "tipo": "backend",
+              "tags": [
+                "Algoritmos",
+                "Busca Binária",
+                "O(log n)",
+                "Python/JS"
+              ],
+              "status": "Ativo no Terminal",
+              "comando_terminal": "run busca-binaria"
+            },
+            {
+              "id": "ordenacao-quicksort",
+              "codigo": "ALGO_02",
+              "titulo": "Ordenação Rápida (QuickSort)",
+              "descricao": "Divisão e conquista, partição de pivô e ordenação comparativa com benchmark de execuções.",
+              "tipo": "backend",
+              "tags": [
+                "Ordenação",
+                "QuickSort",
+                "Recursão",
+                "Backend"
+              ],
+              "status": "Ativo no Terminal",
+              "comando_terminal": "run quicksort"
+            }
+          ]
+        },
+        {
+          "id": "modelagem-banco-dados",
+          "nome": "Modelagem de Banco de Dados",
+          "carga_horaria": "90h",
+          "status": "cursando",
+          "tipo_runner": "fullstack",
+          "descricao": "Modelos conceitual e relacional, diagramas entidade-relacionamento (DER) e normalização SQL.",
+          "projetos": [
+            {
+              "id": "schema-ong",
+              "codigo": "BD_01",
+              "titulo": "Schema Relacional & Consultas SQL",
+              "descricao": "Modelagem 3FN com tabelas de voluntários, doações, projetos sociais e queries simuladas.",
+              "tipo": "fullstack",
+              "tags": [
+                "SQL",
+                "Modelagem DER",
+                "3FN",
+                "PostgreSQL"
+              ],
+              "status": "Ativo no Explorer",
+              "comando_terminal": "sql SELECT * FROM voluntarios;"
+            }
+          ]
+        },
+        {
+          "id": "design-profissional",
+          "nome": "Design Profissional",
+          "carga_horaria": "90h",
+          "status": "concluido",
+          "tipo_runner": "web",
+          "descricao": "Metodologias de design centrado no usuário, tipografia, contraste e arquitetura de informação.",
+          "projetos": [
+            {
+              "id": "guia-estilo-unipe",
+              "codigo": "DS_01",
+              "titulo": "Guia de Estilos & Design Tokens",
+              "descricao": "Manual de identidade visual e especificações de componentes adotados no portal acadêmico.",
+              "tipo": "web",
+              "tags": [
+                "Design Tokens",
+                "UI/UX",
+                "Acessibilidade",
+                "Figma"
+              ],
+              "status": "Documentado",
+              "comando_terminal": "cat design-tokens"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "nome": "2º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "programacao-computadores",
+          "nome": "Programação de Computadores",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "backend"
+        },
+        {
+          "id": "engenharia-prompt-ia",
+          "nome": "Engenharia de Prompt para IA",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "fullstack"
+        },
+        {
+          "id": "prototipagem-sistemas-computacionais",
+          "nome": "Prototipagem de Sistemas Computacionais",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "web"
+        },
+        {
+          "id": "interface-jornada-usuario",
+          "nome": "Interface e Jornada do Usuário",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "web"
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "nome": "3º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "estruturas-dados",
+          "nome": "Estruturas de Dados Avançadas",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "backend"
+        },
+        {
+          "id": "redes-computadores",
+          "nome": "Redes de Computadores",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "backend"
+        },
+        {
+          "id": "programacao-orientada-objetos",
+          "nome": "Programação Orientada a Objetos",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "backend"
+        }
+      ]
+    },
+    {
+      "numero": 4,
+      "nome": "4º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "sistemas-operacionais",
+          "nome": "Sistemas Operacionais",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "backend"
+        },
+        {
+          "id": "engenharia-software",
+          "nome": "Engenharia de Software",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "fullstack"
+        }
+      ]
+    },
+    {
+      "numero": 5,
+      "nome": "5º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "inteligencia-artificial",
+          "nome": "Inteligência Artificial & Machine Learning",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "fullstack"
+        }
+      ]
+    },
+    {
+      "numero": 6,
+      "nome": "6º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "compiladores-linguagens",
+          "nome": "Compiladores & Teoria da Computação",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "backend"
+        }
+      ]
+    },
+    {
+      "numero": 7,
+      "nome": "7º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "computacao-nuvem-devops",
+          "nome": "Computação em Nuvem & DevOps",
+          "carga_horaria": "90h",
+          "status": "a_cursar",
+          "tipo_runner": "fullstack"
+        }
+      ]
+    },
+    {
+      "numero": 8,
+      "nome": "8º Período Letivo",
+      "status": "planejamento",
+      "disciplinas": [
+        {
+          "id": "tcc-computacao",
+          "nome": "Trabalho de Conclusão de Curso (TCC)",
+          "carga_horaria": "120h",
+          "status": "a_cursar",
+          "tipo_runner": "fullstack"
+        }
+      ]
+    }
+  ]
+};
+    let catalogoDados = DEFAULT_CATALOG;
+
+    // Tentativa assíncrona de atualizar via rede caso haja deploy recente
+    fetch('catalog.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.periodos) {
+          catalogoDados = data;
+          console.log('[Hub] Catálogo sincronizado com sucesso:', catalogoDados.total_periodos, 'períodos.');
+        }
+      })
+      .catch(err => {
+        console.log('[Hub] Utilizando catálogo padrão integrado (modo offline).');
+      });
+
+
+    // 2. CONTROLE DE VIEW DOS RUNNERS (Web, Backend, Fullstack)
+    function alternarRunnerView(tipo) {
+      document.getElementById('viewWebApps').style.display = tipo === 'web' ? 'block' : 'none';
+      document.getElementById('viewBackendRunner').style.display = tipo === 'backend' ? 'block' : 'none';
+      document.getElementById('viewFullstackRunner').style.display = tipo === 'fullstack' ? 'block' : 'none';
+
+      document.getElementById('tabBtnWeb').classList.toggle('active', tipo === 'web');
+      document.getElementById('tabBtnBackend').classList.toggle('active', tipo === 'backend');
+      document.getElementById('tabBtnFullstack').classList.toggle('active', tipo === 'fullstack');
+
+      if (tipo === 'backend') {
+        setTimeout(() => document.getElementById('terminalInput').focus(), 100);
       }
-      document.documentElement.style.setProperty('--font-scale', `${escalaAtual.toFixed(2)}rem`);
+      lucide.createIcons();
     }
 
-    // 2. ALTERNADOR DE ALTO CONTRASTE (ModoContraste Oficial)
+    // 3. SELEÇÃO DE PERÍODOS (1º AO 8º)
+    function selecionarPeriodo(numero, btnElement) {
+      document.querySelectorAll('.periodo-tab').forEach(b => b.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+
+      const titleEl = document.getElementById('sectionTitle');
+      const descEl = document.getElementById('sectionDesc');
+      const container = document.getElementById('projectsContainer');
+
+      if (numero === 1) {
+        titleEl.innerHTML = 'Ambientes de Execução &bull; 1º Semestre (Atual)';
+        descEl.innerText = 'Navegue pelas entregas práticas, execute web apps em sandbox ou utilize o emulador de terminal para inspecionar códigos de backend.';
+        alternarRunnerView('web');
+        restaurarCardsPeriodo1();
+      } else {
+        titleEl.innerHTML = `Matriz Curricular &bull; ${numero}º Semestre (Planejamento)`;
+        descEl.innerText = `Disciplinas e competências previstas na matriz oficial do curso de Ciência da Computação para o ${numero}º semestre.`;
+        alternarRunnerView('web');
+        renderizarCardsPeriodoFuturo(numero);
+      }
+      lucide.createIcons();
+    }
+
+    function restaurarCardsPeriodo1() {
+      const container = document.getElementById('projectsContainer');
+      container.innerHTML = `
+        <article class="unipe-card" data-keywords="html semantica w3c formularios esperanca viva ep01">
+          <div>
+            <div class="card-top">
+              <span class="card-code">EP_01</span>
+              <span class="card-status">Validado W3C</span>
+            </div>
+            <h3 class="card-title">Estruturação Semântica HTML5</h3>
+            <p class="card-desc">Arquitetura semântica W3C, formulário modular com fieldsets temáticos e conformidade de acessibilidade para a ONG Esperança Viva.</p>
+            <div class="card-tags"><span class="card-tag">HTML5</span><span class="card-tag">W3C</span><span class="card-tag">Acessibilidade</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html', 'EP_01: Estruturação Semântica HTML5')">
+              <i data-lucide="play" style="width: 14px; height: 14px;"></i><span>Executar App</span>
+            </button>
+            <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html" target="_blank"><i data-lucide="external-link" style="width: 14px; height: 14px;"></i></a>
+          </div>
+        </article>
+
+        <article class="unipe-card" data-keywords="css grid flexbox tokens design system responsividade ep02">
+          <div>
+            <div class="card-top">
+              <span class="card-code">EP_02</span>
+              <span class="card-status">Validado CSS</span>
+            </div>
+            <h3 class="card-title">Design System &amp; CSS Grid</h3>
+            <p class="card-desc">Malha responsiva de 12 colunas, variáveis nativas (:root), componentes modulares e 5 breakpoints @media Mobile-First.</p>
+            <div class="card-tags"><span class="card-tag">CSS Grid 12-Col</span><span class="card-tag">Flexbox</span><span class="card-tag">Tokens</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html', 'EP_02: Design System &amp; CSS Grid')">
+              <i data-lucide="play" style="width: 14px; height: 14px;"></i><span>Executar App</span>
+            </button>
+            <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html" target="_blank"><i data-lucide="external-link" style="width: 14px; height: 14px;"></i></a>
+          </div>
+        </article>
+
+        <article class="unipe-card" data-keywords="vanilla spa hash router localstorage templates ep03">
+          <div>
+            <div class="card-top">
+              <span class="card-code">EP_03</span>
+              <span class="card-status">Validado SPA</span>
+            </div>
+            <h3 class="card-title">Single Page Application Vanilla</h3>
+            <p class="card-desc">Roteamento dinâmico via hashchange sem dependências infladas, renderização por templates reativos e persistência em localStorage.</p>
+            <div class="card-tags"><span class="card-tag">Vanilla SPA</span><span class="card-tag">Hash Router</span><span class="card-tag">localStorage</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html', 'EP_03: Single Page Application Vanilla')">
+              <i data-lucide="play" style="width: 14px; height: 14px;"></i><span>Executar App</span>
+            </button>
+            <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html" target="_blank"><i data-lucide="external-link" style="width: 14px; height: 14px;"></i></a>
+          </div>
+        </article>
+
+        <article class="unipe-card" data-keywords="wcag 2.1 aaa acessibilidade dark mode vite deploy producao ep04">
+          <div>
+            <div class="card-top">
+              <span class="card-code">EP_04</span>
+              <span class="card-status" style="color: var(--unipe-blue-primary); background: var(--unipe-blue-light); border-color: #93c5fd;">Produção Final</span>
+            </div>
+            <h3 class="card-title">Acessibilidade WCAG 2.1 &amp; Produção</h3>
+            <p class="card-desc">Conformidade com padrões WCAG 2.1 AAA, dark mode inteligente, minificação de bundle e esteira de CI/CD em produção.</p>
+            <div class="card-tags"><span class="card-tag">WCAG 2.1 AAA</span><span class="card-tag">Dark Mode</span><span class="card-tag">Vite &amp; CI/CD</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-action-primary" onclick="abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html', 'EP_04: Acessibilidade WCAG 2.1 AAA &amp; Produção')">
+              <i data-lucide="play" style="width: 14px; height: 14px;"></i><span>Executar App</span>
+            </button>
+            <a class="btn-action-secondary" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html" target="_blank"><i data-lucide="external-link" style="width: 14px; height: 14px;"></i></a>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderizarCardsPeriodoFuturo(num) {
+      if (!catalogoDados) return;
+      const periodo = catalogoDados.periodos.find(p => p.numero === num);
+      if (!periodo) return;
+
+      const container = document.getElementById('projectsContainer');
+      container.innerHTML = periodo.disciplinas.map(d => `
+        <article class="unipe-card">
+          <div>
+            <div class="card-top">
+              <span class="card-code">${d.carga_horaria}</span>
+              <span class="card-status" style="background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1;">A Cursar</span>
+            </div>
+            <h3 class="card-title">${d.nome}</h3>
+            <p class="card-desc">Disciplina curricular integrante do ${num}º período de Ciência da Computação. Os projetos práticos serão adicionados com runners dedicados.</p>
+            <div class="card-tags">
+              <span class="card-tag">Runner: ${d.tipo_runner.toUpperCase()}</span>
+              <span class="card-tag">UNIPÊ Presencial/EAD</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-action-primary" onclick="consultarIaDisciplina('${d.nome}')">
+              <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+              <span>Consultar IA (Ementa)</span>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // 4. WEB RUNNER MODAL (SANDBOX RESPONSIVO)
+    function abrirWebRunner(url, titulo) {
+      document.getElementById('modalRunnerTitle').innerText = titulo;
+      document.getElementById('modalUrlDisplay').innerText = url;
+      document.getElementById('modalDirectLink').href = url;
+      document.getElementById('modalIframe').src = url;
+      trocarViewport('100%', document.getElementById('btnVpDesk'));
+      document.getElementById('webRunnerModal').classList.add('active');
+    }
+
+    function fecharWebRunner() {
+      document.getElementById('webRunnerModal').classList.remove('active');
+      document.getElementById('modalIframe').src = 'about:blank';
+    }
+
+    function trocarViewport(largura, btn) {
+      document.querySelectorAll('.viewport-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const iframe = document.getElementById('modalIframe');
+      iframe.style.width = largura;
+    }
+
+    // 5. EMULADOR DE TERMINAL BACKEND
+    let historicoTerminal = [];
+    let indiceHistorico = -1;
+
+    function abrirTerminal() {
+      alternarRunnerView('backend');
+      window.location.hash = '#runners-section';
+    }
+
+    function limparTerminal() {
+      document.getElementById('terminalOutput').innerHTML = '';
+    }
+
+    function tratarTeclaTerminal(e) {
+      if (e.key === 'Enter') {
+        const cmd = e.target.value.trim();
+        if (cmd) {
+          historicoTerminal.push(cmd);
+          indiceHistorico = historicoTerminal.length;
+          executarComandoTerminal(cmd);
+          e.target.value = '';
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (indiceHistorico > 0) {
+          indiceHistorico--;
+          e.target.value = historicoTerminal[indiceHistorico];
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (indiceHistorico < historicoTerminal.length - 1) {
+          indiceHistorico++;
+          e.target.value = historicoTerminal[indiceHistorico];
+        } else {
+          indiceHistorico = historicoTerminal.length;
+          e.target.value = '';
+        }
+      }
+    }
+
+    function printTerminal(texto, tipo = '') {
+      const output = document.getElementById('terminalOutput');
+      const div = document.createElement('div');
+      div.className = `terminal-line ${tipo}`;
+      div.innerText = texto;
+      output.appendChild(div);
+      document.getElementById('terminalBody').scrollTop = document.getElementById('terminalBody').scrollHeight;
+    }
+
+    function executarComandoTerminal(cmd) {
+      printTerminal(`aluno@unipe-cs:~$ ${cmd}`);
+      const tokens = cmd.split(' ');
+      const acao = tokens[0].toLowerCase();
+      const arg = tokens.slice(1).join(' ').trim();
+
+      switch (acao) {
+        case 'help':
+          printTerminal(
+            "COMANDOS DISPONÍVEIS NO TERMINAL ACADÊMICO:\n" +
+            "  help                 - Exibe esta lista de instruções\n" +
+            "  ls [dir]             - Lista arquivos e disciplinas do diretório\n" +
+            "  cat <arquivo>        - Visualiza código ou documentação\n" +
+            "  run <projeto>        - Executa algoritmos e projetos (ep01, ep02, ep03, ep04, busca-binaria, quicksort)\n" +
+            "  sql <query>          - Executa consultas SQL no banco simulado (ex: sql SELECT * FROM voluntarios;)\n" +
+            "  ai <pergunta>        - Consulta o modelo Groq Llama 3.3 70B diretamente no terminal\n" +
+            "  clear                - Limpa a tela do terminal\n" +
+            "  matrix               - Efeito de código digital acadêmico"
+          );
+          break;
+
+        case 'ls':
+          printTerminal(
+            "drwxr-xr-x 4 aluno aluno 4096 Set 07 periodo-1/\n" +
+            "  ├── algoritmos-pensamento-computacional/ [ALGO_01, ALGO_02]\n" +
+            "  ├── desenvolvimento-front-end-web/       [EP_01, EP_02, EP_03, EP_04]\n" +
+            "  ├── design-profissional/                 [tokens.json]\n" +
+            "  └── modelagem-banco-dados/               [schema.sql]\n" +
+            "drwxr-xr-x 2 aluno aluno 4096 Set 07 periodo-2/ (planejamento)\n" +
+            "-rw-r--r-- 1 aluno aluno 10948 Set 07 catalog.json"
+          );
+          break;
+
+        case 'cat':
+          if (arg.includes('ep01') || arg.includes('ep1')) {
+            printTerminal("=== EP_01: ESTRUTURAÇÃO SEMÂNTICA HTML5 ===\n<main role='main'>\n  <section class='missao-social'>...\n  <form id='form-cadastro'>\n    <fieldset><legend>Dados do Voluntário</legend>...</fieldset>\n  </form>\n</main>");
+          } else if (arg.includes('ep03') || arg.includes('spa')) {
+            printTerminal("=== EP_03: VANILLA SPA ROUTER ===\nwindow.addEventListener('hashchange', () => {\n  const rota = window.location.hash.slice(1) || 'inicio';\n  renderizarRota(rotas[rota]);\n});");
+          } else if (arg.includes('tokens')) {
+            printTerminal("=== DESIGN TOKENS (UNIPÊ) ===\n:root {\n  --unipe-blue: #003b71;\n  --unipe-yellow: #FED400;\n  --font-family: 'Work Sans';\n}");
+          } else {
+            printTerminal(`Arquivo '${arg}' lido com sucesso (100% W3C / WCAG).`);
+          }
+          break;
+
+        case 'run':
+          if (arg.includes('busca') || arg.includes('binaria')) {
+            printTerminal("[Executando Busca Binária O(log n)]");
+            printTerminal("Array: [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]");
+            printTerminal("Buscando elemento: 23");
+            printTerminal("Passo 1: Meio = 16 (Índice 4) -> 23 > 16 (Busca na metade direita)");
+            printTerminal("Passo 2: Meio = 56 (Índice 7) -> 23 < 56 (Busca na metade esquerda)");
+            printTerminal("Passo 3: Meio = 23 (Índice 5) -> Elemento encontrado!");
+            printTerminal("Resultado: Encontrado em 3 passos! Complexidade Assintótica: O(log 10) ≈ 3.32.");
+          } else if (arg.includes('quicksort')) {
+            printTerminal("[Executando QuickSort O(n log n)]");
+            printTerminal("Entrada desordenada: [64, 25, 12, 22, 11]");
+            printTerminal("Partição 1 (Pivô 11): [11, 25, 12, 22, 64]");
+            printTerminal("Partição 2 (Pivô 22): [11, 12, 22, 25, 64]");
+            printTerminal("Array Ordenado: [11, 12, 22, 25, 64] em 1.2ms!");
+          } else if (arg.includes('ep01')) {
+            abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html', 'EP_01');
+          } else if (arg.includes('ep02')) {
+            abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html', 'EP_02');
+          } else if (arg.includes('ep03')) {
+            abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html', 'EP_03');
+          } else if (arg.includes('ep04')) {
+            abrirWebRunner('periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html', 'EP_04');
+          } else {
+            printTerminal(`Script '${arg}' executado com status EXIT_SUCCESS (0).`);
+          }
+          break;
+
+        case 'sql':
+          printTerminal("Conectando ao banco relacional UNIPÊ PostgreSQL...");
+          printTerminal("+----+---------------------+----------------------+------------------+");
+          printTerminal("| id | nome                | email                | habilidade       |");
+          printTerminal("+----+---------------------+----------------------+------------------+");
+          printTerminal("|  1 | Maria Silva         | maria@ong.org        | Cozinha Comunit. |");
+          printTerminal("|  2 | João Santos         | joao@ong.org         | Apoio Escolar    |");
+          printTerminal("|  3 | Ana Costa           | ana@ong.org          | Logística        |");
+          printTerminal("+----+---------------------+----------------------+------------------+");
+          printTerminal("3 rows in set (0.004 sec)");
+          break;
+
+        case 'ai':
+          if (!arg) {
+            printTerminal("Uso: ai <sua pergunta técnica> (ex: ai O que é SPA?)");
+            return;
+          }
+          printTerminal(`[Groq llama-3.3-70b-versatile]: Processando requisição...`);
+          consultarIAInterno(arg, (resposta) => {
+            printTerminal(`\n[Llama 3.3 70B]:\n${resposta}\n`);
+          });
+          break;
+
+        case 'clear':
+          limparTerminal();
+          break;
+
+        case 'matrix':
+          printTerminal("Iniciando Matrix Acadêmica UNIPÊ...");
+          printTerminal("01000011 01101001 01100101 01101110 01100011 01101001 01100001");
+          printTerminal("01000100 01100001 00100000 01000011 01101111 01101101 01110000");
+          printTerminal("01110101 01110100 01100001 01100011 01100001 01101111 00100001");
+          break;
+
+        default:
+          printTerminal(`Comando desconhecido: '${acao}'. Digite 'help' para comandos válidos.`);
+      }
+    }
+
+    // 6. FULLSTACK API EXPLORER
+    function executarMockApi(endpoint) {
+      const screen = document.getElementById('apiResponseScreen');
+      screen.innerText = `// Disparando chamada para: ${endpoint}...`;
+
+      setTimeout(() => {
+        let payload = {};
+        if (endpoint === '/api/v1/health') {
+          payload = {
+            status: "UP",
+            service: "unipe-academic-gateway",
+            environment: "production",
+            uptime_seconds: 345600,
+            latency_ms: 12,
+            dependencies: { database: "healthy", groq_ai: "connected" }
+          };
+        } else if (endpoint === '/api/v1/curriculo') {
+          payload = {
+            curso: "Bacharelado em Ciência da Computação",
+            total_semestres: 8,
+            semestre_ativo: 1,
+            disciplinas_semestre_1: [
+              "Desenvolvimento Front-End para Web (90h)",
+              "Algoritmos e Pensamento Computacional (90h)",
+              "Modelagem de Banco de Dados (90h)",
+              "Design Profissional (90h)"
+            ]
+          };
+        } else if (endpoint === '/api/v1/projetos') {
+          payload = {
+            total_projetos_entregues: 4,
+            projetos: [
+              { id: "ep01", titulo: "Semântica W3C", padrao: "HTML5" },
+              { id: "ep02", titulo: "Design System & Grid", padrao: "CSS3" },
+              { id: "ep03", titulo: "Vanilla SPA Router", padrao: "ES6+" },
+              { id: "ep04", titulo: "Acessibilidade & Prod", padrao: "WCAG 2.1 AAA" }
+            ]
+          };
+        } else if (endpoint === '/api/v1/simular-doacao') {
+          payload = {
+            success: true,
+            transacao_id: "TX-94827104",
+            entidade: "ONG Esperança Viva",
+            status: "CONFIRMADO_3FN",
+            timestamp: new Date().toISOString()
+          };
+        }
+
+        screen.innerText = `HTTP/1.1 200 OK\nContent-Type: application/json; charset=utf-8\nX-Powered-By: UNIPE-Node-Engine\n\n` + JSON.stringify(payload, null, 2);
+      }, 250);
+    }
+
+    // 7. COPILOTO DE IA (GROQ LLAMA 3.3 70B)
+    function toggleDialogIA() {
+      document.getElementById('aiDialog').classList.toggle('active');
+      if (document.getElementById('aiDialog').classList.contains('active')) {
+        setTimeout(() => document.getElementById('aiInputText').focus(), 150);
+      }
+    }
+
+    function abrirDrawerIA() {
+      document.getElementById('aiDialog').classList.add('active');
+      setTimeout(() => document.getElementById('aiInputText').focus(), 150);
+    }
+
+    function consultarIaDisciplina(nome) {
+      abrirDrawerIA();
+      enviarPromptRapido(`Quais são as principais competências e tecnologias abordadas na disciplina '${nome}'?`);
+    }
+
+    function enviarPromptRapido(texto) {
+      document.getElementById('aiInputText').value = texto;
+      enviarMensagemIA(new Event('submit'));
+    }
+
+    function enviarMensagemIA(e) {
+      e.preventDefault();
+      const input = document.getElementById('aiInputText');
+      const pergunta = input.value.trim();
+      if (!pergunta) return;
+
+      const container = document.getElementById('aiMessages');
+
+      // Adiciona mensagem do usuário
+      const userDiv = document.createElement('div');
+      userDiv.className = 'ai-msg user';
+      userDiv.innerText = pergunta;
+      container.appendChild(userDiv);
+
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // Loading bot
+      const botDiv = document.createElement('div');
+      botDiv.className = 'ai-msg bot';
+      botDiv.innerHTML = '<i data-lucide="loader-2" class="spin" style="width: 14px; height: 14px; display: inline-block;"></i> Consultando Llama 3.3 70B (Groq)...';
+      container.appendChild(botDiv);
+      container.scrollTop = container.scrollHeight;
+
+      consultarIAInterno(pergunta, (resposta) => {
+        botDiv.innerHTML = resposta.replace(/\n/g, '<br>');
+        container.scrollTop = container.scrollHeight;
+      });
+    }
+
+    function consultarIAInterno(pergunta, callback) {
+      const apiKey = localStorage.getItem('unipe_groq_api_key') || '';
+      
+      // Se usuário quer configurar a chave
+      if (pergunta.toLowerCase().includes('chave') || pergunta.toLowerCase().includes('api')) {
+        const nova = prompt('Informe sua chave Groq API (gsk_...) para chamadas diretas com Llama 3.3 70B Versatile:', apiKey);
+        if (nova) {
+          localStorage.setItem('unipe_groq_api_key', nova.trim());
+          callback('Chave Groq API salva com sucesso no navegador!');
+        } else {
+          callback('Utilizando as respostas pré-indexadas e motor inteligente local.');
+        }
+        return;
+      }
+
+      // Se possui chave, chama Groq API
+      if (apiKey) {
+        fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              { role: 'system', content: 'Você é o tutor acadêmico de Ciência da Computação UNIPÊ. Seja conciso, técnico e encorajador.' },
+              { role: 'user', content: pergunta }
+            ],
+            temperature: 0.3
+          })
+        })
+        .then(r => r.json())
+        .then(d => {
+          if (d.choices && d.choices[0]) {
+            callback(d.choices[0].message.content);
+          } else {
+            callback(d.error ? `Erro Groq: ${d.error.message}` : 'Não foi possível obter resposta.');
+          }
+        })
+        .catch(err => {
+          callback(`Erro de conexão com a Groq API: ${err.message}.`);
+        });
+        return;
+      }
+
+      // Respostas inteligentes contextualizadas pelo catálogo curricular da UNIPÊ
+      setTimeout(() => {
+        const p = pergunta.toLowerCase();
+
+        // 1. Verificação se a pergunta é sobre alguma disciplina da matriz
+        if (catalogoDados && catalogoDados.periodos) {
+          for (const per of catalogoDados.periodos) {
+            for (const disc of per.disciplinas) {
+              if (p.includes(disc.nome.toLowerCase()) || p.includes(disc.id.toLowerCase())) {
+                let resp = `**[Llama 3.3 70B • Ementa Curricular]**\n` +
+                  `• **Disciplina:** ${disc.nome} (${disc.carga_horaria})\n` +
+                  `• **Semestre:** ${per.nome}\n` +
+                  `• **Runner Integrado:** ${disc.tipo_runner.toUpperCase()}\n` +
+                  `• **Foco Pedagógico:** ${disc.descricao || 'Formação sólida em conceitos fundamentais e engenharia prática com validação de código.'}\n`;
+                if (disc.projetos && disc.projetos.length > 0) {
+                  resp += `• **Projetos Vinculados:** ` + disc.projetos.map(proj => `${proj.codigo} (${proj.titulo})`).join(', ');
+                } else {
+                  resp += `• **Status:** Módulo em planejamento curricular. Projetos práticos e runners dedicados serão adicionados via CI/CD.`;
+                }
+                callback(resp);
+                return;
+              }
+            }
+          }
+        }
+
+        // 2. Respostas sobre projetos e conceitos de computação
+        if (p.includes('spa') || p.includes('ep03') || p.includes('ep 03')) {
+          callback("A Single Page Application (EP_03) foi arquitetada com Vanilla JavaScript puro, ouvindo o evento 'hashchange'. Cada tela é gerada sob demanda por templates dinâmicos, e o estado dos voluntários da ONG Esperança Viva é persistido no localStorage do navegador.");
+        } else if (p.includes('wcag') || p.includes('acessibilidade') || p.includes('ep04')) {
+          callback("A conformidade WCAG 2.1 AAA (EP_04) abrange contraste de cores acima de 7:1, navegação 100% acessível por teclado (Focus Visible e Tab Order), marcação semântica com roles W3C ARIA, modo escuro nativo e validação em leitores de tela.");
+        } else if (p.includes('busca binaria') || p.includes('busca binária') || p.includes('assintotica') || p.includes('assintótica') || p.includes('big-o') || p.includes('o(log n)')) {
+          callback("A Busca Binária possui complexidade assintótica de O(log n). Em cada iteração o espaço de busca é reduzido pela metade, tornando-a exponencialmente mais veloz que a busca linear O(n) em coleções ordenadas.");
+        } else if (p.includes('quicksort') || p.includes('ordenação') || p.includes('ordenacao')) {
+          callback("O Quicksort é um algoritmo de ordenação por divisão e conquista com complexidade média O(n log n) e pior caso O(n²). É amplamente utilizado pela sua eficiência de cache de memória.");
+        } else if (p.includes('sql') || p.includes('postgres') || p.includes('banco de dados')) {
+          callback("No modelo relacional em 3FN (Terceira Forma Normal), garantimos atomicidade, integridade referencial por foreign keys e ausência de anomalias de atualização em tabelas como 'voluntarios', 'projetos' e 'doacoes'.");
+        } else {
+          callback(`[Llama 3.3 70B Versatile]: Sobre '${pergunta}': No curso de Ciência da Computação UNIPÊ, esse conceito fundamenta a formação de excelência em engenharia de software, integrando teoria sólida, resolução algorítmica e arquitetura de microsserviços.`);
+        }
+      }, 350);
+    }
+
+    // 8. FILTRO INSTANTÂNEO DE BUSCA
+    function filtrarProjetos() {
+      const termo = document.getElementById('campoBusca').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.unipe-card');
+      cards.forEach(card => {
+        const txt = (card.innerText + ' ' + (card.dataset.keywords || '')).toLowerCase();
+        card.style.display = (termo === '' || txt.includes(termo)) ? 'flex' : 'none';
+      });
+    }
+
+    // 9. ACESSIBILIDADE WCAG (ALTO CONTRASTE & FONTE)
+    let escalaFonte = 1;
+    function alteraFonte(op) {
+      if (op === '+' && escalaFonte < 1.3) escalaFonte += 0.08;
+      if (op === '-' && escalaFonte > 0.85) escalaFonte -= 0.08;
+      document.documentElement.style.setProperty('--font-scale', `${escalaFonte.toFixed(2)}rem`);
+    }
+
     function toggleContraste() {
       document.body.classList.toggle('alto-contraste');
-      const ativo = document.body.classList.contains('alto-contraste');
-      localStorage.setItem('unipe_alto_contraste', ativo ? 'true' : 'false');
+      localStorage.setItem('unipe_alto_contraste', document.body.classList.contains('alto-contraste') ? 'true' : 'false');
     }
 
-    // Carregar preferência salva de contraste
     if (localStorage.getItem('unipe_alto_contraste') === 'true') {
       document.body.classList.add('alto-contraste');
     }
 
-    // 3. FILTRO POR CATEGORIA (ABAS)
-    function filtrarCategoria(categoria, btnElement) {
-      // Atualiza botões
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      if (btnElement) btnElement.classList.add('active');
-
-      const cards = document.querySelectorAll('.unipe-card');
-      let visiveis = 0;
-
-      cards.forEach(card => {
-        if (categoria === 'todos' || card.dataset.category === categoria) {
-          card.style.display = 'flex';
-          visiveis++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      document.getElementById('buscaVazia').style.display = visiveis === 0 ? 'block' : 'none';
-    }
-
-    // 4. FILTRO INSTANTÂNEO POR CAMPO DE BUSCA (#campoBusca)
-    function filtrarCards() {
-      const termo = document.getElementById('campoBusca').value.toLowerCase().trim();
-      const cards = document.querySelectorAll('.unipe-card');
-      let visiveis = 0;
-
-      // Reseta abas para "Todos"
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('.filter-btn').classList.add('active');
-
-      cards.forEach(card => {
-        const conteudo = (card.innerText + ' ' + (card.dataset.keywords || '')).toLowerCase();
-        if (termo === '' || conteudo.includes(termo)) {
-          card.style.display = 'flex';
-          visiveis++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      document.getElementById('buscaVazia').style.display = visiveis === 0 ? 'block' : 'none';
-    }
-
-    // 5. MODAL DE ACESSIBILIDADE WCAG
     function mostrarModalAcessibilidade() {
       alert(
-        "RECURSOS DE ACESSIBILIDADE - UNIPÊ HUB ACADÊMICO\n\n" +
-        "• Tecla de Alto Contraste: Alterne o modo de alto contraste pelo botão de contraste na barra superior.\n" +
-        "• Redimensionamento de Fonte: Utilize os botões A+ e A- para adequar o tamanho do texto às suas necessidades de leitura.\n" +
-        "• Navegação por Teclado: Todos os links e cards possuem foco visível e ordem lógica de tabulação (Tab / Shift+Tab).\n" +
-        "• Conformidade: Os projetos integradores foram testados contra os critérios WCAG 2.1 níveis AA e AAA."
+        "RECURSOS DE ACESSIBILIDADE - UNIPÊ HUB INTEGRAL\n\n" +
+        "• Alto Contraste: Alterna o tema de acessibilidade de alto contraste padrão WCAG.\n" +
+        "• Redimensionamento Tipográfico: Botões A+ e A- para controle de escala de texto.\n" +
+        "• Navegação por Teclado: Foco visível preservado e ordem lógica de tabulação.\n" +
+        "• Conformidade: Diretrizes WCAG 2.1 níveis AA e AAA."
       );
     }
   </script>

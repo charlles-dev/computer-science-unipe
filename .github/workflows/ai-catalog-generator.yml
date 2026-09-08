@@ -1,0 +1,39 @@
+name: "AI Curricular Catalog Generator (Groq Llama 3.3 70B)"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "periodo-*/**"
+      - "projetos-destaque/**"
+      - "scripts/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run AI Catalog Indexer
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          python scripts/generate_catalog_ai.py
+
+      - name: Commit and push updated catalog
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action AI Indexer"
+          git add catalog.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(ai): atualizar catalog.json via llama-3.3-70b-versatile [skip ci]" && git push)
