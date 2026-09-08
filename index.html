@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub de Engenharia &mdash; Ciência da Computação</title>
+  <title>UNIPÊ | Ciência da Computação &mdash; Hub Acadêmico</title>
+
+  <!-- Google Font Oficial da UNIPÊ: Work Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- HTMX para reatividade declarativa sem boilerplate -->
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
@@ -11,585 +16,1398 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Tipografia de Engenharia de Software: Inter + JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
   <style>
+    /* ==========================================================
+       SISTEMA DE DESIGN OFICIAL UNIPÊ (unipe.edu.br)
+       ========================================================== */
     :root {
-      /* Paleta Refinada Inspirada no Azul Institucional */
-      --brand-900: #001e3d;
-      --brand-800: #002d62;
-      --brand-700: #00408a;
-      --brand-gold: #f5a800;
+      --unipe-blue-darkest: #001f44;
+      --unipe-blue-darker: #002d62;
+      --unipe-blue-primary: #003b71;
+      --unipe-blue-medium: #00569c;
+      --unipe-blue-light: #e6f0fa;
+      --unipe-yellow: #FED400;
+      --unipe-yellow-hover: #e5be00;
       
-      /* Superfícies Neutras de Alto Padrão */
-      --bg-canvas: #f4f6f9;
-      --surface-card: #ffffff;
-      --surface-subtle: #f8fafc;
-      --border-light: #e2e8f0;
-      --border-medium: #cbd5e1;
+      --unipe-text-dark: #222222;
+      --unipe-text-muted: #555555;
+      --unipe-text-light: #777777;
+      --unipe-border: #e2e8f0;
+      --unipe-border-subtle: #edf2f7;
+      --unipe-bg-gray: #f7f7f7;
+      --unipe-bg-white: #ffffff;
       
-      /* Tipografia */
-      --text-100: #0f172a;
-      --text-muted: #475569;
-      --text-dim: #64748b;
-      
-      --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-code: 'JetBrains Mono', monospace;
+      --font-unipe: "Work Sans", Arial, Helvetica, sans-serif;
+      --font-scale: 1rem;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* MODO ALTO CONTRASTE (Ativado pelo botão de acessibilidade) */
+    body.alto-contraste {
+      --unipe-blue-darkest: #000000;
+      --unipe-blue-darker: #111111;
+      --unipe-blue-primary: #000000;
+      --unipe-blue-medium: #222222;
+      --unipe-blue-light: #222222;
+      --unipe-yellow: #FFFF00;
+      --unipe-yellow-hover: #e6e600;
+      --unipe-text-dark: #FFFFFF;
+      --unipe-text-muted: #EEEEEE;
+      --unipe-text-light: #DDDDDD;
+      --unipe-border: #FFFF00;
+      --unipe-border-subtle: #444444;
+      --unipe-bg-gray: #121212;
+      --unipe-bg-white: #000000;
+    }
+
+    body.alto-contraste * {
+      border-color: var(--unipe-border) !important;
+    }
+
+    body.alto-contraste .unipe-card {
+      background: #000000 !important;
+      border: 2px solid #FFFF00 !important;
+    }
+
+    body.alto-contraste .unipe-card h3,
+    body.alto-contraste .unipe-card p {
+      color: #FFFFFF !important;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      background-color: var(--bg-canvas);
-      color: var(--text-100);
-      font-family: var(--font-ui);
-      font-size: 14px;
-      line-height: 1.55;
+      font-family: var(--font-unipe);
+      font-size: var(--font-scale);
+      color: var(--unipe-text-dark);
+      background-color: var(--unipe-bg-white);
+      line-height: 1.5;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.2s, color 0.2s;
     }
 
-    /* Linha superior discreta de assinatura visual */
-    .brand-top-accent {
-      height: 4px;
-      background: linear-gradient(90deg, var(--brand-800) 0%, var(--brand-700) 80%, var(--brand-gold) 80%, var(--brand-gold) 100%);
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    .app-shell {
-      max-width: 1060px;
+    .container {
+      max-width: 1220px;
       width: 100%;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      padding: 0 20px;
     }
 
-    /* 1. Header do Aluno / Engenharia */
-    header.dev-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border-light);
-      margin-bottom: 2rem;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .dev-profile {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .dev-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--brand-800);
+    /* ==========================================================
+       1. TOPBAR DE ACESSIBILIDADE & LINKS ÚTEIS (unipe.edu.br)
+       ========================================================== */
+    #menu-links-uteis {
+      background-color: var(--unipe-blue-primary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      height: 48px;
+      font-size: 14px;
       color: #ffffff;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 16px;
-      box-shadow: 0 2px 4px rgba(0, 45, 98, 0.15);
-      border: 2px solid #ffffff;
     }
 
-    .dev-name-title h1 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-100);
-      letter-spacing: -0.01em;
-    }
-
-    .dev-name-title p {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      font-family: var(--font-code);
-    }
-
-    .header-links {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .live-status {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-code);
-      font-size: 0.75rem;
-      color: #065f46;
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
-    }
-
-    .link-chip {
-      text-decoration: none;
-      font-family: var(--font-ui);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      background: #ffffff;
-      border: 1px solid var(--border-medium);
-      padding: 0.4rem 0.85rem;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-    }
-
-    .link-chip:hover {
-      color: var(--brand-800);
-      border-color: var(--brand-800);
-      background: var(--surface-subtle);
-    }
-
-    /* 2. Banner de Contexto da Trilha */
-    .track-banner {
-      background: #ffffff;
-      border: 1px solid var(--border-light);
-      border-left: 4px solid var(--brand-800);
-      border-radius: 8px;
-      padding: 1.5rem 1.75rem;
-      margin-bottom: 2rem;
+    .topbar-wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      width: 100%;
     }
 
-    .track-info h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--brand-800);
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .topbar-acessibilidade {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .track-info p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-
-    .track-metrics {
-      display: flex;
-      gap: 8px;
-    }
-
-    .metric-pill {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-light);
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
+    .btn-acess-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 6px;
-      color: var(--text-muted);
+      cursor: pointer;
+      opacity: 0.95;
     }
 
-    /* 3. Navegação por Abas com HTMX */
-    .tabs-controller {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-medium);
-      padding-bottom: 2px;
+    .btn-acess-text:hover {
+      opacity: 1;
+      text-decoration: underline;
     }
 
-    .tab-trigger {
-      background: transparent;
+    .btn-contraste {
+      background: none;
       border: none;
-      border-bottom: 2px solid transparent;
-      color: var(--text-dim);
-      font-family: var(--font-ui);
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 0.6rem 1rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-      margin-bottom: -1px;
-    }
-
-    .tab-trigger:hover {
-      color: var(--brand-800);
-    }
-
-    .tab-trigger.active {
-      color: var(--brand-800);
-      border-bottom-color: var(--brand-800);
-      font-weight: 700;
-    }
-
-    /* 4. Grade de Projetos */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .project-card {
-      background: #ffffff;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-
-    .project-card:hover {
-      border-color: #93c5fd;
-      box-shadow: 0 8px 20px -4px rgba(0, 45, 98, 0.08);
-      transform: translateY(-2px);
-    }
-
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.85rem;
-    }
-
-    .tag-index {
-      font-family: var(--font-code);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--brand-800);
-      background: #eff6ff;
-      border: 1px solid #dbeafe;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .tag-state {
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .tag-state.done {
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-    }
-
-    .tag-state.prod {
-      background: #eff6ff;
-      color: var(--brand-800);
-      border: 1px solid #bfdbfe;
-    }
-
-    .project-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-100);
-      margin-bottom: 0.5rem;
-      line-height: 1.35;
-    }
-
-    .project-card p {
-      font-size: 0.825rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .stack-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 1rem;
-    }
-
-    .badge-code {
-      font-family: var(--font-code);
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-light);
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-    }
-
-    .card-action {
-      margin-top: 1.25rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid #f1f5f9;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.825rem;
-      font-weight: 600;
-      color: var(--brand-800);
-      transition: color 0.15s;
-    }
-
-    .card-action i {
-      color: var(--brand-gold);
+      padding: 4px;
+      border-radius: 50%;
       transition: transform 0.15s ease;
     }
 
-    .project-card:hover .card-action i {
-      transform: translateX(3px);
+    .btn-contraste:hover {
+      transform: scale(1.1);
     }
 
-    /* 5. Footer Técnico Minimalista */
-    footer.dev-footer {
-      margin-top: 4rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-light);
+    .btn-contraste svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-font-resize {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      font-family: var(--font-unipe);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      cursor: pointer;
+      line-height: 1.2;
+      transition: all 0.15s ease;
+    }
+
+    .btn-font-resize:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+    }
+
+    .topbar-nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      flex-wrap: wrap;
-      gap: 1rem;
+      gap: 20px;
+      list-style: none;
     }
 
-    footer a {
-      color: var(--brand-800);
-      text-decoration: none;
+    .topbar-nav a {
+      color: #ffffff;
+      font-size: 13.5px;
       font-weight: 500;
       transition: color 0.15s;
     }
 
-    footer a:hover {
+    .topbar-nav a:hover {
+      color: var(--unipe-yellow);
+    }
+
+    .destaque-amarelo {
+      color: var(--unipe-yellow) !important;
+      font-weight: 700 !important;
+    }
+
+    /* Formulário de Busca estilo UNIPÊ (#topoPesquisa) */
+    .form-topo-buscar {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .inputPesquisa {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-family: var(--font-unipe);
+      font-size: 13px;
+      height: 34px;
+      width: 220px;
+      padding: 6px 36px 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 3px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .inputPesquisa::placeholder {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .inputPesquisa:focus {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: var(--unipe-yellow);
+      width: 250px;
+    }
+
+    .btn-topo-buscar {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.85;
+      transition: opacity 0.15s;
+    }
+
+    .btn-topo-buscar:hover {
+      opacity: 1;
+      color: var(--unipe-yellow);
+    }
+
+    /* ==========================================================
+       2. HEADER PRINCIPAL INSTITUCIONAL (unipe.edu.br)
+       ========================================================= */
+    header.unipe-header {
+      background-color: var(--unipe-blue-primary);
+      padding: 16px 0 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-main-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* Logo Oficial UNIPÊ com símbolo estelar em amarelo */
+    .unipe-marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .unipe-marca svg.logo-svg {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-subtext {
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      padding-left: 12px;
+      color: #ffffff;
+    }
+
+    .brand-subtext .course-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--unipe-yellow);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .brand-subtext .course-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    /* Menu de Navegação */
+    .unipe-menu-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .unipe-menu-nav li a {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .unipe-menu-nav li a:hover,
+    .unipe-menu-nav li a.active {
+      background-color: var(--unipe-blue-darker);
+      color: var(--unipe-yellow);
+    }
+
+    /* Botão Destaque Oficial UNIPÊ */
+    .btn-aluno-portal {
+      background-color: var(--unipe-yellow);
+      color: var(--unipe-blue-darkest) !important;
+      font-size: 13.5px !important;
+      font-weight: 700 !important;
+      padding: 9px 18px !important;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease !important;
+      white-space: nowrap;
+    }
+
+    .btn-aluno-portal:hover {
+      background-color: var(--unipe-yellow-hover) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ==========================================================
+       3. HERO / BANNER DE APRESENTAÇÃO INSTITUCIONAL
+       ========================================================== */
+    .unipe-hero {
+      background: linear-gradient(135deg, var(--unipe-blue-darker) 0%, var(--unipe-blue-primary) 100%);
+      color: #ffffff;
+      padding: 44px 0 54px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--unipe-yellow);
+    }
+
+    .unipe-hero::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      bottom: -60px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(254, 212, 0, 0.08) 0%, rgba(254, 212, 0, 0) 70%);
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb span.sep {
+      opacity: 0.4;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--unipe-yellow);
       text-decoration: underline;
+    }
+
+    .breadcrumb .current {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .hero-content {
+      max-width: 860px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background-color: rgba(254, 212, 0, 0.15);
+      border: 1px solid var(--unipe-yellow);
+      color: var(--unipe-yellow);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+
+    .unipe-hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .unipe-hero p.hero-lead {
+      font-size: 17px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-pill i {
+      color: var(--unipe-yellow);
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ==========================================================
+       4. SEÇÃO PRINCIPAL DE PROJETOS ("O QUE VOCÊ PRECISA ESTÁ AQUI")
+       ========================================================== */
+    .unipe-section {
+      padding: 60px 0 70px;
+    }
+
+    .bg-gray {
+      background-color: var(--unipe-bg-gray);
+    }
+
+    .section-header {
+      margin-bottom: 34px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--unipe-blue-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .unipe-divider {
+      width: 64px;
+      height: 4px;
+      background-color: var(--unipe-yellow);
+      border: none;
+      margin: 12px 0 16px;
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      font-size: 15px;
+      color: var(--unipe-text-muted);
+      max-width: 700px;
+    }
+
+    /* Barra de Filtro / Tabs (Estilo UNIPÊ) */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--unipe-border-subtle);
+      padding-bottom: 12px;
+    }
+
+    .filter-btn {
+      background: #ffffff;
+      border: 1px solid var(--unipe-border);
+      color: var(--unipe-text-muted);
+      font-family: var(--font-unipe);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--unipe-blue-primary);
+      color: var(--unipe-blue-primary);
+    }
+
+    .filter-btn.active {
+      background-color: var(--unipe-blue-primary);
+      color: #ffffff;
+      border-color: var(--unipe-blue-primary);
+    }
+
+    /* Grid de Cards Institucionais UNIPÊ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .unipe-card {
+      background: #ffffff;
+      border: 1px solid var(--unipe-border);
+      border-top: 4px solid var(--unipe-blue-primary);
+      border-radius: 4px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-top-color 0.2s ease;
+    }
+
+    .unipe-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0, 59, 113, 0.12);
+      border-top-color: var(--unipe-yellow);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .card-code {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--unipe-blue-primary);
+      background: var(--unipe-blue-light);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .card-status {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #047857;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 2px 8px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--unipe-blue-primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--unipe-text-muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--unipe-text-muted);
+      background: var(--unipe-bg-gray);
+      border: 1px solid var(--unipe-border);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .card-btn {
+      background-color: var(--unipe-blue-primary);
+      color: #ffffff;
+      font-family: var(--font-unipe);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+
+    .card-btn i {
+      transition: transform 0.15s ease;
+    }
+
+    .unipe-card:hover .card-btn {
+      background-color: var(--unipe-yellow);
+      color: var(--unipe-blue-darkest);
+    }
+
+    .unipe-card:hover .card-btn i {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================================
+       5. SEÇÃO DE DIFERENCIAIS ("POR QUE O UNIPÊ É A ESCOLHA CERTA?")
+       ========================================================== */
+    .diferenciais-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .diferencial-box {
+      background: #ffffff;
+      border: 1px solid var(--unipe-border);
+      border-radius: 4px;
+      padding: 26px 22px;
+      transition: all 0.2s ease;
+    }
+
+    .diferencial-box:hover {
+      border-color: var(--unipe-blue-primary);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .diferencial-icon {
+      width: 44px;
+      height: 44px;
+      background-color: var(--unipe-blue-light);
+      color: var(--unipe-blue-primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .diferencial-box h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--unipe-blue-primary);
+      margin-bottom: 8px;
+    }
+
+    .diferencial-box p {
+      font-size: 13.5px;
+      color: var(--unipe-text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================
+       6. FOOTER INSTITUCIONAL OFICIAL (unipe.edu.br)
+       ========================================================== */
+    footer.unipe-footer {
+      background-color: var(--unipe-blue-primary);
+      color: #ffffff;
+      padding: 60px 0 24px;
+      margin-top: auto;
+      border-top: 4px solid var(--unipe-yellow);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .footer-brand-col svg {
+      height: 42px;
+      width: auto;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand-col p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .footer-col h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.75);
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--unipe-yellow);
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-bottom-links a {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--unipe-yellow);
+    }
+
+    /* ==========================================================
+       RESPONSIVIDADE (MOBILE & TABLET)
+       ========================================================== */
+    @media (max-width: 900px) {
+      .topbar-nav {
+        display: none;
+      }
+      .unipe-menu-nav {
+        display: none;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .unipe-hero h1 {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .topbar-left {
+        gap: 10px;
+      }
+      .inputPesquisa {
+        width: 140px;
+      }
+      .inputPesquisa:focus {
+        width: 160px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .unipe-hero h1 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
-  
-  <div class="brand-top-accent"></div>
 
-  <div class="app-shell">
-    
-    <!-- 1. Header do Desenvolvedor -->
-    <header class="dev-header">
-      <div class="dev-profile">
-        <div class="dev-avatar">CA</div>
-        <div class="dev-name-title">
-          <h1>Charlles Augusto</h1>
-          <p>Bacharelado em Ciência da Computação &bull; Repositório Acadêmico</p>
+  <!-- ==========================================================
+       1. TOPBAR DE ACESSIBILIDADE & LINKS ÚTEIS (#menu-links-uteis)
+       ========================================================== -->
+  <section id="menu-links-uteis">
+    <div class="container topbar-wrapper">
+      
+      <!-- Acessibilidade e Ferramentas -->
+      <div class="topbar-left">
+        <div class="topbar-acessibilidade">
+          <span class="btn-acess-text" onclick="mostrarModalAcessibilidade()" title="Recursos de Acessibilidade">
+            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+            <span>Acessibilidade</span>
+          </span>
+
+          <!-- Botão Oficial de Alto Contraste com SVG original da UNIPÊ -->
+          <button class="btn-contraste modoContraste" onclick="toggleContraste()" aria-label="Alternar Alto Contraste" title="Alto Contraste">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.24 35.27" width="18" height="18">
+              <path fill="#ffffff" d="M16.94,35.27C7.38,35.25,0,27.51,0,17.6,0,8.25,7.82.08,16.76,0c10.1-.09,18.42,7.87,18.48,17.66C35.29,27.61,27.3,35.3,16.94,35.27Zm1.17-3.38c9.12-.7,14.74-7.32,13.79-15.78C31.07,8.66,25.09,3.43,18.11,4.26Z"/>
+            </svg>
+          </button>
+
+          <!-- Redimensionador de Fonte A+ / A- -->
+          <button class="btn-font-resize" onclick="alteraFonte('+')" title="Aumentar Fonte">A+</button>
+          <button class="btn-font-resize" onclick="alteraFonte('-')" title="Diminuir Fonte">A-</button>
+        </div>
+
+        <!-- Links Institucionais no Topbar -->
+        <ul class="topbar-nav">
+          <li><a href="#projetos" class="destaque-amarelo">Ciência da Computação</a></li>
+          <li><a href="#projetos">1º Período</a></li>
+          <li><a href="#projetos">Front-End Web</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+        </ul>
+      </div>
+
+      <!-- Barra de Busca Interativa estilo UNIPÊ (#topoPesquisa) -->
+      <div class="topbar-right">
+        <div class="form-topo-buscar" id="topoPesquisa">
+          <input type="text"
+                 class="inputPesquisa"
+                 id="campoBusca"
+                 placeholder="O que você procura?"
+                 aria-label="Pesquisar no repositório"
+                 onkeyup="filtrarCards()">
+          <button class="btn-topo-buscar" type="button" aria-label="Buscar">
+            <i data-lucide="search" style="width: 15px; height: 15px;"></i>
+          </button>
         </div>
       </div>
 
-      <div class="header-links">
-        <div class="live-status">
-          <span class="pulse-dot"></span>
-          <span>online / github-pages</span>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       2. HEADER PRINCIPAL INSTITUCIONAL UNIPÊ
+       ========================================================== -->
+  <header class="unipe-header">
+    <div class="container header-main-flex">
+      
+      <!-- Marca Oficial Vetorial UNIPÊ -->
+      <div class="unipe-marca" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg class="logo-svg" viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logomarca UNIPÊ Centro Universitário de João Pessoa">
+          <path fill="#FED400" d="M102.1,110.7c-1.9-5.1-4.2-11.5-6.2-18c-3.7-12.3-6.8-24.2-6.8-24.2c2.4-1.6,23.8-16.1,39.2-24.9c0.2-0.1,4.8-2.7,5.2-5.9c0.1-0.9,0-1.7-0.3-2.6c-0.8-2.3-2.7-4.4-8.2-4.7c-4.3-0.3-11.8-0.8-20.2-0.3c-8.1,0.3-16.8,1.2-23.3,2.3c0,0-2.6-15.9-3.5-22.5c-0.1-0.4-0.5-2.9-1.2-3.9c-0.7-1.1-1.8-2.1-3.6-2.4c-1.9-0.3-3.3,0.2-4.3,0.9c-1,0.7-2.4,2.7-2.7,3.2c-4.2,5.8-15.8,23-21.6,32.9c0,0-18.1,5.6-29.2,10.2c-3.3,1.4-3.6,3-3.7,3.9c-0.1,0.6,0,2.3,2.5,4.5C17.5,61.6,27.6,70,27.6,70c-3.6,5.7-17.3,33.7-18.6,41.5c-0.4,2.2-0.4,4.6,1.3,6.7c1,1.3,2.9,2.3,4.8,2.3c2.3,0,5.5-2.4,6.9-3.4c10.9-7.8,32.3-24.2,32.3-24.2c8,7.2,25,22.8,34,31.2c1,1,4.4,4.1,7.6,4.1c6.2,0.2,8.2-5.1,8.4-6.9C104.8,117,102.7,112.3,102.1,110.7z M18.6,55.7c-0.2-0.2-1.1-0.8-1-1.6c0-0.4,0.2-0.8,0.7-1.1c0.2-0.1,0.9-0.4,1-0.5c1.9-0.7,10.4-3.8,21.9-6.5c-3,5.2-5,8.5-6.4,10.9c-3.2,5.6-3.2,5.8-4.5,8.2C30.3,65.1,20.9,57.6,18.6,55.7z M23.8,100.8c-0.3,0.2-1.4,0.9-1.7,1.1c-2.4,1.2-2.9-0.3-3.1-0.9c-0.3-1.2,0.7-3.3,0.8-3.5c2.3-5,11.5-24.5,11.5-24.5s11.4,9.8,14.2,12.2C45.6,85.3,29,97.2,23.8,100.8z M82.9,93.7c1.9,6.5,4.1,13.3,5.2,16.7c0.3,0.9,0.3,1.7,0,2.2c-0.3,0.5-0.9,0.7-1.6,0.3c-0.3-0.2-1.2-0.9-1.3-1c-4.2-3.7-25.8-22.6-25.8-22.6L78,76.1C78,76.1,80.4,85.3,82.9,93.7z M50.4,81.7c0,0-15.6-13-16.5-13.7c0,0,9.9-18.6,13-23.3c1.9-0.5,16.4-3.2,23.3-4c0,0,2,11.3,5.1,24.2C75.3,64.9,55.2,78.3,50.4,81.7z M94,38.5c6.7-0.3,13.8-0.4,14.4-0.4c1.7,0,3.1,0.2,3.4,0.9c0.3,1-0.4,2.1-1.6,3c-0.3,0.2-4.3,2.8-8.6,5.8c-6.6,4.5-14.9,9.9-14.9,9.9c0.1,0.2-3.2-14.4-3.8-18.3C82.8,39.3,88.3,38.7,94,38.5z M63.5,19.4c0.1-0.2,1.2-1.6,2-1.6s1.1,1,1.2,1.5c0.2,1.2,0.4,3,0.9,5.9c0.7,4.2,1.5,9.1,1.5,9.1c-4.5,0.9-15.2,3.4-18.7,4.4C54.2,32.7,61.2,22.4,63.5,19.4z"/>
+          <g fill="#FFFFFF">
+            <path d="M146.1,69.5c-1.2-2.3-1.9-5.2-1.9-8.7V34.7h8.7v25.6c0,2.2,0.4,4.1,1.2,5.5c1.5,2.7,4.3,4.2,8.2,4.2s6.6-1.5,8.1-4.2c0.8-1.5,1.2-3.4,1.2-5.6V34.7h8.7v26.1c0,3.4-0.6,6.4-1.9,8.7c-2.7,5.3-8.5,7.8-16.2,7.8S148.8,74.9,146.1,69.5z"/>
+            <path d="M217.7,76.7l-17.6-23c-1.5-2-2.9-4-4.3-5.8h-0.1c0.2,1.5,0.2,4.1,0.2,6.2v22.6h-8.7v-42h8.7l16.9,22.1c1.7,2.1,3,4,4.3,5.8h0.1c-0.1-2.2-0.1-5-0.1-7V34.7h8.7v42H217.7z"/>
+            <path d="M232.8,34.7h8.7v42h-8.7V34.7z"/>
+            <path d="M248.6,34.7h11c3.8,0,7,0.5,9.5,1.8c4.6,2.2,7.1,6.3,7.1,12.1c0,4.9-2.1,10.1-8.4,12.5c-2.4,0.9-5.3,1.5-9,1.5h-1.5v14.1h-8.7L248.6,34.7z M259.3,55.6c1.9,0,3.4-0.2,4.5-0.8c2.2-1,3.2-3.2,3.2-6.1c0-2.4-1-4.6-3.1-5.9c-1.2-0.7-2.7-1-4.8-1h-1.9v13.8H259.3z"/>
+            <path d="M281.6,34.7h24.3l-2.3,7.4h-13.2v9.7h13.3v7.3h-13.3v10.2h15.5v7.4h-24.2V34.7z M289.9,23h6.8l6.4,9.4h-6.7l-3.2-4.5l-3.1,4.5h-6.6L289.9,23z"/>
+          </g>
+          <g fill="#FFFFFF">
+            <path d="M160.3,106.4c-2.1,1.1-4.1,1.5-6,1.5c-6.3,0-10-4.3-10-10.3s4.2-10.7,10.4-10.7c2.2,0,4.1,0.5,5.2,1.1v2.6c-1.5-0.8-3.1-1.3-5.1-1.3c-4.7,0-7.5,3.7-7.5,8.2c0,4.8,2.8,8.1,7.4,8.1c1.9,0,3.5-0.6,4.9-1.3L160.3,106.4z"/>
+            <path d="M164.8,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H164.8z M171.5,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H171.5z"/>
+            <path d="M177.3,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7L177.3,92.8z"/>
+            <path d="M194.4,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C195.8,107.9,194.4,106.6,194.4,104.2z"/>
+            <path d="M204.3,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7V92.8z"/>
+            <path d="M213.4,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S213.4,104.5,213.4,100.2z M224.5,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S224.5,103.3,224.5,100.2z"/>
+            <path d="M238.2,103.6c-0.4-1-0.6-2.2-0.6-3.5V87h2.8v12.9c0,1.1,0.1,2,0.5,2.8c0.7,1.8,2.3,2.8,4.7,2.8s4-1,4.7-2.8c0.3-0.8,0.4-1.8,0.4-2.9V87h2.8v13.1c0,1.4-0.2,2.6-0.6,3.6c-1.1,2.7-3.6,4.2-7.3,4.2S239.3,106.4,238.2,103.6z"/>
+            <path d="M257.7,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7V92.8z"/>
+            <path d="M273.5,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S273.5,89,273.5,88z M273.9,92.8h2.7v14.7h-2.7V92.8z"/>
+            <path d="M278.9,92.8h2.9l4.1,11.2h0.1l4-11.2h2.8l-5.8,14.8h-2.2L278.9,92.8z"/>
+            <path d="M296.6,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H296.6z M303.3,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H303.3z"/>
+            <path d="M309.1,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L309.1,92.8z"/>
+            <path d="M318.6,104.5c0.9,0.6,2.2,1.1,3.8,1.1s3-0.6,3-2.1c0-3-6.9-2-6.9-6.9c0-2.3,1.8-4.2,5.2-4.2c1.5,0,2.8,0.3,3.9,0.7v2.4c-1.1-0.5-2.3-0.8-3.7-0.8c-1.4,0-2.6,0.4-2.6,1.8c0,3,6.9,1.9,6.9,7c0,3-2.6,4.4-5.6,4.4c-2.1,0-3.7-0.7-4.8-1.3L318.6,104.5z"/>
+            <path d="M330.8,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S330.8,89,330.8,88z M331.2,92.8h2.7v14.7h-2.7V92.8z"/>
+            <path d="M339.2,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C340.5,107.9,339.1,106.6,339.2,104.2z"/>
+            <path d="M357.3,106c-1.1,1.1-2.6,1.9-4.4,1.9c-2.7,0-4.7-1.8-4.7-4.6c0-2,1-3.3,2.5-4c1-0.5,2.2-0.7,3.7-0.8l2.7-0.1v-0.8c0-2.1-1.3-3-3-3c-1.7,0-3,0.5-4,1.2l-1-1.9c1.7-1,3.6-1.5,5.3-1.5c3.3,0,5.5,1.6,5.5,5.1v5.4c0,2.5,0.1,3.9,0.3,4.6h-2.4L357.3,106z M354.7,100.5c-1.2,0-2,0.2-2.6,0.5c-0.8,0.4-1.1,1.2-1.1,2.1c0,1.5,1,2.5,2.6,2.5c1.7,0,2.9-1,3.6-1.7v-3.6L354.7,100.5z M354.7,86.4h3L355,91h-2.1L354.7,86.4z"/>
+            <path d="M363.5,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L363.5,92.8z"/>
+            <path d="M373.6,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S373.6,89,373.6,88z M374,92.8h2.7v14.7H374V92.8z"/>
+            <path d="M380,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S380,104.5,380,100.2z M391.2,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S391.2,103.3,391.2,100.2z"/>
+          </g>
+        </svg>
+
+        <div class="brand-subtext">
+          <span class="course-badge">Ciência da Computação</span>
+          <span class="course-title">Portal Acadêmico de Engenharia</span>
         </div>
-
-        <a class="link-chip" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">
-          <i data-lucide="github" style="width: 14px; height: 14px;"></i>
-          <span>Repositório</span>
-        </a>
-      </div>
-    </header>
-
-    <!-- 2. Banner de Contexto da Trilha -->
-    <section class="track-banner">
-      <div class="track-info">
-        <h2>
-          <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--brand-800);"></i>
-          <span>Desenvolvimento Front-End Web</span>
-        </h2>
-        <p>Projeto Integrador: Plataforma institucional desenvolvida para a <strong>ONG Esperança Viva</strong></p>
       </div>
 
-      <div class="track-metrics">
-        <div class="metric-pill">
-          <i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: #10b981;"></i>
-          <span>Status: <strong>4 Entregas Concluídas</strong></span>
+      <!-- Menu Principal UNIPÊ -->
+      <nav aria-label="Menu principal">
+        <ul class="unipe-menu-nav">
+          <li><a href="#projetos" class="active">Projetos</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#sobre">Sobre o Curso</a></li>
+          <li>
+            <a class="btn-aluno-portal" href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+              <span>Repositório GitHub</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================
+       3. HERO BANNER INSTITUCIONAL
+       ========================================================== -->
+  <section class="unipe-hero">
+    <div class="container">
+      
+      <!-- Breadcrumb Acadêmico -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#">UNIPÊ</a>
+        <span class="sep">/</span>
+        <a href="#">Graduação</a>
+        <span class="sep">/</span>
+        <a href="#">Ciência da Computação</a>
+        <span class="sep">/</span>
+        <a href="#">1º Período</a>
+        <span class="sep">/</span>
+        <span class="current">Desenvolvimento Front-End Web</span>
+      </nav>
+
+      <div class="hero-content">
+        <span class="hero-tag">Trilha Prática Curricular</span>
+        <h1>Desenvolvimento Front-End Web</h1>
+        <p class="hero-lead">
+          Ambiente institucional de entrega dos projetos integradores concebidos e implementados para a <strong>ONG Esperança Viva</strong>, contemplando desde a estruturação semântica até produção com acessibilidade WCAG 2.1 e otimização contínua.
+        </p>
+
+        <div class="hero-pills">
+          <div class="hero-pill">
+            <i data-lucide="check-circle-2"></i>
+            <span>4 Experiências Práticas Concluídas</span>
+          </div>
+          <div class="hero-pill">
+            <i data-lucide="shield-check"></i>
+            <span>Conformidade WCAG 2.1 (AA / AAA)</span>
+          </div>
+          <div class="hero-pill">
+            <i data-lucide="layout"></i>
+            <span>Single Page Application Vanilla</span>
+          </div>
+          <div class="hero-pill">
+            <i data-lucide="globe"></i>
+            <span>Produção &amp; CI/CD Ativos</span>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- 3. Abas de Controle via HTMX -->
-    <nav class="tabs-controller" role="tablist">
-      <button class="tab-trigger active"
-              onclick="document.querySelectorAll('.tab-trigger').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-get="#painel-modulo"
-              hx-target="#viewport-dinamico"
-              hx-swap="innerHTML">
-        <i data-lucide="layout-grid" style="width: 14px; height: 14px;"></i>
-        <span>Módulos Curriculares</span>
-      </button>
+    </div>
+  </section>
 
-      <button class="tab-trigger"
-              onclick="document.querySelectorAll('.tab-trigger').forEach(b=>b.classList.remove('active')); this.classList.add('active');"
-              hx-on:click="document.getElementById('viewport-dinamico').innerHTML = `
-                <div style='background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 48px 20px; text-align: center;'>
-                  <h3 style='color: var(--brand-800); font-size: 16px; margin-bottom: 6px;'>Próximas Disciplinas</h3>
-                  <p style='color: var(--text-dim); font-size: 13px; max-width: 500px; margin: 0 auto;'>
-                    Projetos de Backend, Estruturas de Dados e Bancos de Dados serão incorporados neste espaço conforme evolução no curso.
-                  </p>
-                </div>
-              `; lucide.createIcons();">
-        <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
-        <span>Planejamento de Períodos</span>
-      </button>
-    </nav>
+  <!-- ==========================================================
+       4. GRADE DE PROJETOS ("O QUE VOCÊ PRECISA ESTÁ AQUI")
+       ========================================================== -->
+  <section class="unipe-section" id="projetos">
+    <div class="container">
+      
+      <div class="section-header">
+        <h2>O que você precisa está aqui</h2>
+        <hr class="unipe-divider">
+        <p>
+          Selecione uma das experiências práticas curriculares abaixo para inspecionar e executar a aplicação correspondente diretamente em seu ambiente de produção.
+        </p>
+      </div>
 
-    <!-- 4. Viewport Dinâmica de Projetos -->
-    <main id="viewport-dinamico">
-      <div class="project-grid" id="painel-modulo">
+      <!-- Abas de Filtro via HTMX / JS -->
+      <div class="filter-tabs" role="tablist">
+        <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">
+          <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
+          <span>Todas as Entregas (4)</span>
+        </button>
+        <button class="filter-btn" onclick="filtrarCategoria('html', this)">
+          <i data-lucide="code-2" style="width: 14px; height: 14px;"></i>
+          <span>EP 01 &bull; Semântica</span>
+        </button>
+        <button class="filter-btn" onclick="filtrarCategoria('css', this)">
+          <i data-lucide="palette" style="width: 14px; height: 14px;"></i>
+          <span>EP 02 &bull; Design System</span>
+        </button>
+        <button class="filter-btn" onclick="filtrarCategoria('spa', this)">
+          <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+          <span>EP 03 &bull; Vanilla SPA</span>
+        </button>
+        <button class="filter-btn" onclick="filtrarCategoria('a11y', this)">
+          <i data-lucide="award" style="width: 14px; height: 14px;"></i>
+          <span>EP 04 &bull; Acessibilidade WCAG</span>
+        </button>
+      </div>
+
+      <!-- Grid de Cards de Projetos -->
+      <div class="cards-grid" id="cardsContainer">
         
-        <!-- Prática 1 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+        <!-- CARD 1 -->
+        <article class="unipe-card" data-category="html" data-keywords="html semantica w3c formularios fieldset esperanca viva ep01">
           <div>
-            <div class="card-head">
-              <span class="tag-index">EP_01</span>
-              <span class="tag-state done">
-                <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                Validado
+            <div class="card-top">
+              <span class="card-code">EP_01</span>
+              <span class="card-status">
+                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
+                Validado W3C
               </span>
             </div>
-            <h3>Estruturação Semântica HTML5</h3>
-            <p>Construção da arquitetura semântica W3C, formulário modular com fieldsets temáticos e acessibilidade inicial.</p>
-            <div class="stack-badges">
-              <span class="badge-code">HTML5</span>
-              <span class="badge-code">W3C</span>
-              <span class="badge-code">A11y Base</span>
+            <h3 class="card-title">Estruturação Semântica HTML5</h3>
+            <p class="card-desc">
+              Construção dos alicerces semânticos W3C, formulário cadastral modular com fieldsets temáticos e estrutura voltada à acessibilidade da ONG Esperança Viva.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">HTML5 Semântico</span>
+              <span class="card-tag">W3C Standard</span>
+              <span class="card-tag">Acessibilidade Base</span>
             </div>
           </div>
-          <div class="card-action">
-            <span>Executar Projeto</span>
-            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
-          </div>
-        </a>
+          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">
+            <span>Acessar Aplicação</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </article>
 
-        <!-- Prática 2 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+        <!-- CARD 2 -->
+        <article class="unipe-card" data-category="css" data-keywords="css grid flexbox design system tokens responsividade mobile ep02">
           <div>
-            <div class="card-head">
-              <span class="tag-index">EP_02</span>
-              <span class="tag-state done">
-                <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                Validado
+            <div class="card-top">
+              <span class="card-code">EP_02</span>
+              <span class="card-status">
+                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
+                Validado CSS
               </span>
             </div>
-            <h3>Design System &amp; CSS Grid</h3>
-            <p>Tokens nativos (:root), malha responsiva de 12 colunas, 5 breakpoints @media e componentes de feedback.</p>
-            <div class="stack-badges">
-              <span class="badge-code">CSS Grid</span>
-              <span class="badge-code">Flexbox</span>
-              <span class="badge-code">Tokens</span>
+            <h3 class="card-title">Design System &amp; CSS Grid</h3>
+            <p class="card-desc">
+              Implementação de tokens nativos (:root), malha fluida responsiva em CSS Grid de 12 colunas, 5 breakpoints @media e cartões interativos de feedback.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">CSS Grid 12-Col</span>
+              <span class="card-tag">Flexbox</span>
+              <span class="card-tag">Design Tokens</span>
+              <span class="card-tag">Mobile-First</span>
             </div>
           </div>
-          <div class="card-action">
-            <span>Executar Projeto</span>
-            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
-          </div>
-        </a>
+          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">
+            <span>Acessar Aplicação</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </article>
 
-        <!-- Prática 3 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+        <!-- CARD 3 -->
+        <article class="unipe-card" data-category="spa" data-keywords="javascript spa vanilla localstorage router dinamico templates ep03">
           <div>
-            <div class="card-head">
-              <span class="tag-index">EP_03</span>
-              <span class="tag-state done">
-                <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                Validado
+            <div class="card-top">
+              <span class="card-code">EP_03</span>
+              <span class="card-status">
+                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
+                Validado SPA
               </span>
             </div>
-            <h3>Single Page Application &amp; Storage</h3>
-            <p>Motor de roteamento por hashchange, templates dinâmicos, persistência em localStorage e Event Delegation.</p>
-            <div class="stack-badges">
-              <span class="badge-code">Vanilla SPA</span>
-              <span class="badge-code">Storage</span>
-              <span class="badge-code">Templates</span>
+            <h3 class="card-title">Single Page Application &amp; Storage</h3>
+            <p class="card-desc">
+              Arquitetura SPA nativa sem dependências, motor de roteamento via hashchange, renderização orientada a templates e persistência local com localStorage.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">Vanilla SPA</span>
+              <span class="card-tag">Hash Routing</span>
+              <span class="card-tag">localStorage</span>
+              <span class="card-tag">Event Delegation</span>
             </div>
           </div>
-          <div class="card-action">
-            <span>Executar Projeto</span>
-            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
-          </div>
-        </a>
+          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">
+            <span>Acessar Aplicação</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </article>
 
-        <!-- Prática 4 -->
-        <a class="project-card" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+        <!-- CARD 4 -->
+        <article class="unipe-card" data-category="a11y" data-keywords="acessibilidade wcag 2.1 aaa dark mode bundler vite producao deploy ep04">
           <div>
-            <div class="card-head">
-              <span class="tag-index">EP_04</span>
-              <span class="tag-state prod">
-                <i data-lucide="shield-check" style="width: 10px; height: 10px;"></i>
-                Produção
+            <div class="card-top">
+              <span class="card-code">EP_04</span>
+              <span class="card-status" style="color: var(--unipe-blue-primary); background: var(--unipe-blue-light); border-color: #93c5fd;">
+                <i data-lucide="shield-check" style="width: 12px; height: 12px;"></i>
+                Produção Final
               </span>
             </div>
-            <h3>Acessibilidade WCAG &amp; Produção</h3>
-            <p>Conformidade WCAG 2.1 (AA/AAA), dark mode nativo, minificação com bundler e deploy contínuo em produção.</p>
-            <div class="stack-badges">
-              <span class="badge-code">WCAG 2.1</span>
-              <span class="badge-code">Vite</span>
-              <span class="badge-code">GitHub Pages</span>
+            <h3 class="card-title">Acessibilidade WCAG &amp; Produção</h3>
+            <p class="card-desc">
+              Conformidade rigorosa WCAG 2.1 (AA e AAA), dark mode inteligente, minificação de assets, pipeline de CI/CD e entrega contínua em produção.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">WCAG 2.1 AAA</span>
+              <span class="card-tag">Dark Mode</span>
+              <span class="card-tag">Vite Bundler</span>
+              <span class="card-tag">GitHub Pages CI/CD</span>
             </div>
           </div>
-          <div class="card-action">
-            <span>Executar Projeto</span>
-            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
-          </div>
-        </a>
+          <a class="card-btn" href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">
+            <span>Acessar Aplicação</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </article>
 
       </div>
-    </main>
 
-    <!-- 5. Footer Técnico Minimalista -->
-    <footer class="dev-footer">
-      <div>
-        <span>Charlles Augusto &bull; Portfólio de Ciência da Computação</span>
+      <!-- Estado Vazio para Busca -->
+      <div id="buscaVazia" style="display: none; text-align: center; padding: 48px 20px; background: #ffffff; border: 1px solid var(--unipe-border); border-radius: 4px; margin-top: 20px;">
+        <i data-lucide="search-x" style="width: 42px; height: 42px; color: var(--unipe-text-muted); margin-bottom: 12px;"></i>
+        <h3 style="color: var(--unipe-blue-primary); font-size: 18px; margin-bottom: 6px;">Nenhum projeto encontrado</h3>
+        <p style="color: var(--unipe-text-muted); font-size: 14px;">Tente pesquisar por termos como "HTML", "CSS", "SPA", "WCAG" ou "Acessibilidade".</p>
       </div>
-      <div>
-        <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank">
-          Código-fonte no GitHub &rarr;
-        </a>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       5. DIFERENCIAIS ("POR QUE O UNIPÊ É A ESCOLHA CERTA?")
+       ========================================================== -->
+  <section class="unipe-section bg-gray" id="diferenciais">
+    <div class="container">
+      
+      <div class="section-header">
+        <h2>Diferenciais Técnicos da Formação</h2>
+        <hr class="unipe-divider">
+        <p>
+          Competências consolidadas no primeiro período do Bacharelado em Ciência da Computação, estruturadas sobre boas práticas de engenharia de software e padrões internacionais.
+        </p>
       </div>
-    </footer>
 
-  </div>
+      <div class="diferenciais-grid">
+        
+        <div class="diferencial-box">
+          <div class="diferencial-icon">
+            <i data-lucide="code-2" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h3>Padrões Web &amp; W3C</h3>
+          <p>
+            Construção de código semântico, limpo e validado desde o primeiro dia, garantindo interoperabilidade entre motores de renderização e leitores de tela.
+          </p>
+        </div>
 
+        <div class="diferencial-box">
+          <div class="diferencial-icon">
+            <i data-lucide="layout-grid" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h3>Design System &amp; CSS Moderno</h3>
+          <p>
+            Arquitetura escalável com variáveis nativas, malha CSS Grid de 12 colunas e responsividade Mobile-First sem sobrecarga de frameworks externos.
+          </p>
+        </div>
+
+        <div class="diferencial-box">
+          <div class="diferencial-icon">
+            <i data-lucide="cpu" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h3>Arquitetura SPA Vanilla</h3>
+          <p>
+            Domínio dos princípios essenciais de roteamento, controle de estado, renderização reativa declarativa e ciclo de vida de aplicações web dinâmicas.
+          </p>
+        </div>
+
+        <div class="diferencial-box">
+          <div class="diferencial-icon">
+            <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h3>Acessibilidade &amp; CI/CD</h3>
+          <p>
+            Compromisso ético com inclusão digital via conformidade WCAG 2.1 (AA/AAA), aliado a pipelines de build, automação e deploy em nuvem.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       6. FOOTER INSTITUCIONAL OFICIAL (unipe.edu.br)
+       ========================================================== -->
+  <footer class="unipe-footer" id="sobre">
+    <div class="container">
+      
+      <div class="footer-grid">
+        
+        <!-- Coluna 1: Marca & Descrição -->
+        <div class="footer-brand-col">
+          <svg viewBox="0 0 401 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UNIPÊ">
+            <path fill="#FED400" d="M102.1,110.7c-1.9-5.1-4.2-11.5-6.2-18c-3.7-12.3-6.8-24.2-6.8-24.2c2.4-1.6,23.8-16.1,39.2-24.9c0.2-0.1,4.8-2.7,5.2-5.9c0.1-0.9,0-1.7-0.3-2.6c-0.8-2.3-2.7-4.4-8.2-4.7c-4.3-0.3-11.8-0.8-20.2-0.3c-8.1,0.3-16.8,1.2-23.3,2.3c0,0-2.6-15.9-3.5-22.5c-0.1-0.4-0.5-2.9-1.2-3.9c-0.7-1.1-1.8-2.1-3.6-2.4c-1.9-0.3-3.3,0.2-4.3,0.9c-1,0.7-2.4,2.7-2.7,3.2c-4.2,5.8-15.8,23-21.6,32.9c0,0-18.1,5.6-29.2,10.2c-3.3,1.4-3.6,3-3.7,3.9c-0.1,0.6,0,2.3,2.5,4.5C17.5,61.6,27.6,70,27.6,70c-3.6,5.7-17.3,33.7-18.6,41.5c-0.4,2.2-0.4,4.6,1.3,6.7c1,1.3,2.9,2.3,4.8,2.3c2.3,0,5.5-2.4,6.9-3.4c10.9-7.8,32.3-24.2,32.3-24.2c8,7.2,25,22.8,34,31.2c1,1,4.4,4.1,7.6,4.1c6.2,0.2,8.2-5.1,8.4-6.9C104.8,117,102.7,112.3,102.1,110.7z M18.6,55.7c-0.2-0.2-1.1-0.8-1-1.6c0-0.4,0.2-0.8,0.7-1.1c0.2-0.1,0.9-0.4,1-0.5c1.9-0.7,10.4-3.8,21.9-6.5c-3,5.2-5,8.5-6.4,10.9c-3.2,5.6-3.2,5.8-4.5,8.2C30.3,65.1,20.9,57.6,18.6,55.7z M23.8,100.8c-0.3,0.2-1.4,0.9-1.7,1.1c-2.4,1.2-2.9-0.3-3.1-0.9c-0.3-1.2,0.7-3.3,0.8-3.5c2.3-5,11.5-24.5,11.5-24.5s11.4,9.8,14.2,12.2C45.6,85.3,29,97.2,23.8,100.8z M82.9,93.7c1.9,6.5,4.1,13.3,5.2,16.7c0.3,0.9,0.3,1.7,0,2.2c-0.3,0.5-0.9,0.7-1.6,0.3c-0.3-0.2-1.2-0.9-1.3-1c-4.2-3.7-25.8-22.6-25.8-22.6L78,76.1C78,76.1,80.4,85.3,82.9,93.7z M50.4,81.7c0,0-15.6-13-16.5-13.7c0,0,9.9-18.6,13-23.3c1.9-0.5,16.4-3.2,23.3-4c0,0,2,11.3,5.1,24.2C75.3,64.9,55.2,78.3,50.4,81.7z M94,38.5c6.7-0.3,13.8-0.4,14.4-0.4c1.7,0,3.1,0.2,3.4,0.9c0.3,1-0.4,2.1-1.6,3c-0.3,0.2-4.3,2.8-8.6,5.8c-6.6,4.5-14.9,9.9-14.9,9.9c0.1,0.2-3.2-14.4-3.8-18.3C82.8,39.3,88.3,38.7,94,38.5z M63.5,19.4c0.1-0.2,1.2-1.6,2-1.6s1.1,1,1.2,1.5c0.2,1.2,0.4,3,0.9,5.9c0.7,4.2,1.5,9.1,1.5,9.1c-4.5,0.9-15.2,3.4-18.7,4.4C54.2,32.7,61.2,22.4,63.5,19.4z"/>
+            <g fill="#FFFFFF">
+              <path d="M146.1,69.5c-1.2-2.3-1.9-5.2-1.9-8.7V34.7h8.7v25.6c0,2.2,0.4,4.1,1.2,5.5c1.5,2.7,4.3,4.2,8.2,4.2s6.6-1.5,8.1-4.2c0.8-1.5,1.2-3.4,1.2-5.6V34.7h8.7v26.1c0,3.4-0.6,6.4-1.9,8.7c-2.7,5.3-8.5,7.8-16.2,7.8S148.8,74.9,146.1,69.5z"/>
+              <path d="M217.7,76.7l-17.6-23c-1.5-2-2.9-4-4.3-5.8h-0.1c0.2,1.5,0.2,4.1,0.2,6.2v22.6h-8.7v-42h8.7l16.9,22.1c1.7,2.1,3,4,4.3,5.8h0.1c-0.1-2.2-0.1-5-0.1-7V34.7h8.7v42H217.7z"/>
+              <path d="M232.8,34.7h8.7v42h-8.7V34.7z"/>
+              <path d="M248.6,34.7h11c3.8,0,7,0.5,9.5,1.8c4.6,2.2,7.1,6.3,7.1,12.1c0,4.9-2.1,10.1-8.4,12.5c-2.4,0.9-5.3,1.5-9,1.5h-1.5v14.1h-8.7L248.6,34.7z M259.3,55.6c1.9,0,3.4-0.2,4.5-0.8c2.2-1,3.2-3.2,3.2-6.1c0-2.4-1-4.6-3.1-5.9c-1.2-0.7-2.7-1-4.8-1h-1.9v13.8H259.3z"/>
+              <path d="M281.6,34.7h24.3l-2.3,7.4h-13.2v9.7h13.3v7.3h-13.3v10.2h15.5v7.4h-24.2V34.7z M289.9,23h6.8l6.4,9.4h-6.7l-3.2-4.5l-3.1,4.5h-6.6L289.9,23z"/>
+            </g>
+            <g fill="#FFFFFF">
+              <path d="M160.3,106.4c-2.1,1.1-4.1,1.5-6,1.5c-6.3,0-10-4.3-10-10.3s4.2-10.7,10.4-10.7c2.2,0,4.1,0.5,5.2,1.1v2.6c-1.5-0.8-3.1-1.3-5.1-1.3c-4.7,0-7.5,3.7-7.5,8.2c0,4.8,2.8,8.1,7.4,8.1c1.9,0,3.5-0.6,4.9-1.3L160.3,106.4z"/>
+              <path d="M164.8,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H164.8z M171.5,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H171.5z"/>
+              <path d="M177.3,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7L177.3,92.8z"/>
+              <path d="M194.4,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C195.8,107.9,194.4,106.6,194.4,104.2z"/>
+              <path d="M204.3,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7V92.8z"/>
+              <path d="M213.4,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S213.4,104.5,213.4,100.2z M224.5,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S224.5,103.3,224.5,100.2z"/>
+              <path d="M238.2,103.6c-0.4-1-0.6-2.2-0.6-3.5V87h2.8v12.9c0,1.1,0.1,2,0.5,2.8c0.7,1.8,2.3,2.8,4.7,2.8s4-1,4.7-2.8c0.3-0.8,0.4-1.8,0.4-2.9V87h2.8v13.1c0,1.4-0.2,2.6-0.6,3.6c-1.1,2.7-3.6,4.2-7.3,4.2S239.3,106.4,238.2,103.6z"/>
+              <path d="M257.7,92.8h2.3l0.3,1.8c1.6-1.3,3.2-2.2,5.1-2.2c2.3,0,4.5,1.4,4.5,5.2v9.9h-2.7v-9c0-2.1-0.5-3.7-2.5-3.7c-1.5,0-2.9,0.9-4.2,2v10.7h-2.7V92.8z"/>
+              <path d="M273.5,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S273.5,89,273.5,88z M273.9,92.8h2.7v14.7h-2.7V92.8z"/>
+              <path d="M278.9,92.8h2.9l4.1,11.2h0.1l4-11.2h2.8l-5.8,14.8h-2.2L278.9,92.8z"/>
+              <path d="M296.6,100.8c0,2.8,1.8,4.8,4.6,4.8c1.4,0,2.6-0.4,3.7-1l0.8,1.9c-1.4,0.9-3.1,1.3-4.8,1.3c-4.9,0-7.1-3.6-7.1-7.8c0-4.5,2.5-7.6,6.2-7.6s6.1,3,6.1,7.7v0.7H296.6z M303.3,98.7c0-2.1-1-4.1-3.2-4.1s-3.4,1.9-3.4,4.1H303.3z"/>
+              <path d="M309.1,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L309.1,92.8z"/>
+              <path d="M318.6,104.5c0.9,0.6,2.2,1.1,3.8,1.1s3-0.6,3-2.1c0-3-6.9-2-6.9-6.9c0-2.3,1.8-4.2,5.2-4.2c1.5,0,2.8,0.3,3.9,0.7v2.4c-1.1-0.5-2.3-0.8-3.7-0.8c-1.4,0-2.6,0.4-2.6,1.8c0,3,6.9,1.9,6.9,7c0,3-2.6,4.4-5.6,4.4c-2.1,0-3.7-0.7-4.8-1.3L318.6,104.5z"/>
+              <path d="M330.8,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S330.8,89,330.8,88z M331.2,92.8h2.7v14.7h-2.7V92.8z"/>
+              <path d="M339.2,104.2V95h-2.5v-2.2h2.5v-3.4l2.7-0.9v4.2h4.4l-0.8,2.2h-3.7v8.7c0,1.3,0.5,1.9,1.5,1.9s1.8-0.4,2.4-0.8l0.9,1.9c-1,0.7-2.4,1.2-3.9,1.2C340.5,107.9,339.1,106.6,339.2,104.2z"/>
+              <path d="M357.3,106c-1.1,1.1-2.6,1.9-4.4,1.9c-2.7,0-4.7-1.8-4.7-4.6c0-2,1-3.3,2.5-4c1-0.5,2.2-0.7,3.7-0.8l2.7-0.1v-0.8c0-2.1-1.3-3-3-3c-1.7,0-3,0.5-4,1.2l-1-1.9c1.7-1,3.6-1.5,5.3-1.5c3.3,0,5.5,1.6,5.5,5.1v5.4c0,2.5,0.1,3.9,0.3,4.6h-2.4L357.3,106z M354.7,100.5c-1.2,0-2,0.2-2.6,0.5c-0.8,0.4-1.1,1.2-1.1,2.1c0,1.5,1,2.5,2.6,2.5c1.7,0,2.9-1,3.6-1.7v-3.6L354.7,100.5z M354.7,86.4h3L355,91h-2.1L354.7,86.4z"/>
+              <path d="M363.5,92.8h2.3l0.3,1.8c1.6-1.7,2.8-2.2,4.1-2.2c0.6,0,1.3,0.2,1.8,0.4l-1,2.4c-0.5-0.2-0.9-0.4-1.4-0.4c-1,0-2,0.6-3.4,1.9v10.7h-2.7L363.5,92.8z"/>
+              <path d="M373.6,88c0-1,0.7-1.8,1.8-1.8s1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8S373.6,89,373.6,88z M374,92.8h2.7v14.7H374V92.8z"/>
+              <path d="M380,100.2c0-4.4,2.8-7.7,7-7.7s7,3.4,7,7.7s-2.8,7.7-7,7.7S380,104.5,380,100.2z M391.2,100.2c0-3.2-1.6-5.4-4.1-5.4s-4.2,2.3-4.2,5.4s1.6,5.4,4.1,5.4S391.2,103.3,391.2,100.2z"/>
+            </g>
+          </svg>
+          <p>
+            Portal Acadêmico e Repositório de Engenharia de Software desenvolvido para a disciplina de Desenvolvimento Front-End Web do Bacharelado em Ciência da Computação.
+          </p>
+          <p style="color: var(--unipe-yellow); font-weight: 600; font-size: 13px;">
+            Desenvolvedor: Charlles Augusto
+          </p>
+        </div>
+
+        <!-- Coluna 2: Trilha Curricular -->
+        <div class="footer-col">
+          <h3>Trilha Curricular</h3>
+          <ul class="footer-links">
+            <li><a href="#projetos">1º Período Letivo</a></li>
+            <li><a href="#projetos">Front-End Web</a></li>
+            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%201/index.html">Experiência Prática 1</a></li>
+            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%202/index.html">Experiência Prática 2</a></li>
+            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%203/html/index.html">Experiência Prática 3</a></li>
+            <li><a href="periodo-1/desenvolvimento-front-end-web/Desenvolvimento%20FrontEnd%20-%20Experi%C3%AAncia%20Pr%C3%A1tica%204/html/index.html">Experiência Prática 4</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Stack de Tecnologias -->
+        <div class="footer-col">
+          <h3>Stack Tecnológica</h3>
+          <ul class="footer-links">
+            <li><a href="#projetos">HTML5 Semântico (W3C)</a></li>
+            <li><a href="#projetos">CSS Grid &amp; Design Tokens</a></li>
+            <li><a href="#projetos">Vanilla SPA &amp; Storage</a></li>
+            <li><a href="#projetos">Acessibilidade WCAG 2.1</a></li>
+            <li><a href="#projetos">Vite Bundler &amp; Minificação</a></li>
+            <li><a href="#projetos">GitHub Actions CI/CD</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 4: Governança & Repositório -->
+        <div class="footer-col">
+          <h3>Repositório &amp; Docs</h3>
+          <ul class="footer-links">
+            <li><a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">Código-Fonte no GitHub</a></li>
+            <li><a href="https://github.com/charlles-dev/computer-science-unipe/tree/main/periodo-1/desenvolvimento-front-end-web" target="_blank" rel="noopener noreferrer">Documentação Técnica</a></li>
+            <li><a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()">Declaração de Acessibilidade</a></li>
+            <li><a href="#projetos">ONG Esperança Viva</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Barra de Direitos e Isenção Acadêmica -->
+      <div class="footer-bottom">
+        <div>
+          <span>&copy; 2026 UNIPÊ &bull; Bacharelado em Ciência da Computação &bull; Charlles Augusto. Todos os direitos reservados.</span>
+        </div>
+        <div class="footer-bottom-links">
+          <a href="javascript:void(0)" onclick="mostrarModalAcessibilidade()">Acessibilidade</a>
+          <span>|</span>
+          <a href="https://github.com/charlles-dev/computer-science-unipe" target="_blank" rel="noopener noreferrer">Licença MIT / Open Source</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================
+       7. SCRIPTS (ACESSIBILIDADE, FILTRO DINÂMICO & CONTRASTE)
+       ========================================================== -->
   <script>
+    // Inicialização dos ícones Lucide
     lucide.createIcons();
-    document.body.addEventListener('htmx:afterSwap', function() {
-      lucide.createIcons();
-    });
+
+    // 1. ALTERADOR DE TAMANHO DE FONTE (A+ / A-)
+    let escalaAtual = 1;
+    function alteraFonte(operacao) {
+      if (operacao === '+') {
+        if (escalaAtual < 1.3) escalaAtual += 0.08;
+      } else if (operacao === '-') {
+        if (escalaAtual > 0.85) escalaAtual -= 0.08;
+      }
+      document.documentElement.style.setProperty('--font-scale', `${escalaAtual.toFixed(2)}rem`);
+    }
+
+    // 2. ALTERNADOR DE ALTO CONTRASTE (ModoContraste Oficial)
+    function toggleContraste() {
+      document.body.classList.toggle('alto-contraste');
+      const ativo = document.body.classList.contains('alto-contraste');
+      localStorage.setItem('unipe_alto_contraste', ativo ? 'true' : 'false');
+    }
+
+    // Carregar preferência salva de contraste
+    if (localStorage.getItem('unipe_alto_contraste') === 'true') {
+      document.body.classList.add('alto-contraste');
+    }
+
+    // 3. FILTRO POR CATEGORIA (ABAS)
+    function filtrarCategoria(categoria, btnElement) {
+      // Atualiza botões
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+
+      const cards = document.querySelectorAll('.unipe-card');
+      let visiveis = 0;
+
+      cards.forEach(card => {
+        if (categoria === 'todos' || card.dataset.category === categoria) {
+          card.style.display = 'flex';
+          visiveis++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('buscaVazia').style.display = visiveis === 0 ? 'block' : 'none';
+    }
+
+    // 4. FILTRO INSTANTÂNEO POR CAMPO DE BUSCA (#campoBusca)
+    function filtrarCards() {
+      const termo = document.getElementById('campoBusca').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.unipe-card');
+      let visiveis = 0;
+
+      // Reseta abas para "Todos"
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter-btn').classList.add('active');
+
+      cards.forEach(card => {
+        const conteudo = (card.innerText + ' ' + (card.dataset.keywords || '')).toLowerCase();
+        if (termo === '' || conteudo.includes(termo)) {
+          card.style.display = 'flex';
+          visiveis++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('buscaVazia').style.display = visiveis === 0 ? 'block' : 'none';
+    }
+
+    // 5. MODAL DE ACESSIBILIDADE WCAG
+    function mostrarModalAcessibilidade() {
+      alert(
+        "RECURSOS DE ACESSIBILIDADE - UNIPÊ HUB ACADÊMICO\n\n" +
+        "• Tecla de Alto Contraste: Alterne o modo de alto contraste pelo botão de contraste na barra superior.\n" +
+        "• Redimensionamento de Fonte: Utilize os botões A+ e A- para adequar o tamanho do texto às suas necessidades de leitura.\n" +
+        "• Navegação por Teclado: Todos os links e cards possuem foco visível e ordem lógica de tabulação (Tab / Shift+Tab).\n" +
+        "• Conformidade: Os projetos integradores foram testados contra os critérios WCAG 2.1 níveis AA e AAA."
+      );
+    }
   </script>
 </body>
 </html>
